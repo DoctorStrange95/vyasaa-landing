@@ -101,25 +101,26 @@ body {
   text-decoration: none;
 }
 
-.logo-mark {
-  width: 32px;
-  height: 32px;
-  background: var(--cyan);
-  color: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 18px;
+.logo-img {
+  width: 40px;
+  height: 40px;
   border-radius: 6px;
-  letter-spacing: -0.5px;
+  display: block;
 }
 
 .logo-text {
   font-weight: 800;
-  font-size: 15px;
+  font-size: 18px;
   letter-spacing: 0.12em;
   color: var(--text);
+}
+
+.hero-domain {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-top: -28px;
+  margin-bottom: 40px;
 }
 
 .nav-actions {

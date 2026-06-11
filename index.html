@@ -450,6 +450,46 @@
         </div>`).join('');
     }
 
+    /* Static India geography so dropdowns are always populated */
+    const IN_STATES = {
+      'Andhra Pradesh': ['Visakhapatnam','Vijayawada','Guntur','Tirupati','Nellore'],
+      'Arunachal Pradesh': ['Itanagar'],
+      'Assam': ['Guwahati','Silchar','Dibrugarh','Jorhat'],
+      'Bihar': ['Patna','Gaya','Muzaffarpur','Bhagalpur','Darbhanga'],
+      'Chhattisgarh': ['Raipur','Bhilai','Bilaspur','Korba'],
+      'Goa': ['Panaji','Margao','Vasco da Gama'],
+      'Gujarat': ['Ahmedabad','Surat','Vadodara','Rajkot','Gandhinagar'],
+      'Haryana': ['Gurugram','Faridabad','Panipat','Ambala','Hisar'],
+      'Himachal Pradesh': ['Shimla','Dharamshala','Mandi','Solan'],
+      'Jharkhand': ['Ranchi','Jamshedpur','Dhanbad','Bokaro'],
+      'Karnataka': ['Bengaluru','Mysuru','Mangaluru','Hubballi','Belagavi'],
+      'Kerala': ['Thiruvananthapuram','Kochi','Kozhikode','Thrissur','Kollam'],
+      'Madhya Pradesh': ['Bhopal','Indore','Jabalpur','Gwalior','Ujjain'],
+      'Maharashtra': ['Mumbai','Pune','Nagpur','Nashik','Aurangabad','Thane'],
+      'Manipur': ['Imphal'],
+      'Meghalaya': ['Shillong'],
+      'Mizoram': ['Aizawl'],
+      'Nagaland': ['Kohima','Dimapur'],
+      'Odisha': ['Bhubaneswar','Cuttack','Rourkela','Sambalpur'],
+      'Punjab': ['Ludhiana','Amritsar','Jalandhar','Patiala','Mohali'],
+      'Rajasthan': ['Jaipur','Jodhpur','Udaipur','Kota','Ajmer','Bikaner'],
+      'Sikkim': ['Gangtok'],
+      'Tamil Nadu': ['Chennai','Coimbatore','Madurai','Tiruchirappalli','Salem','Vellore'],
+      'Telangana': ['Hyderabad','Warangal','Nizamabad','Karimnagar'],
+      'Tripura': ['Agartala'],
+      'Uttar Pradesh': ['Lucknow','Kanpur','Varanasi','Agra','Prayagraj','Noida','Ghaziabad','Meerut','Gorakhpur'],
+      'Uttarakhand': ['Dehradun','Haridwar','Rishikesh','Haldwani'],
+      'West Bengal': ['Kolkata','Howrah','Durgapur','Siliguri','Asansol','Bardhaman'],
+      'Andaman & Nicobar Islands': ['Port Blair'],
+      'Chandigarh': ['Chandigarh'],
+      'Dadra & Nagar Haveli and Daman & Diu': ['Daman','Silvassa'],
+      'Delhi': ['New Delhi','Dwarka','Rohini','Saket','Karol Bagh'],
+      'Jammu & Kashmir': ['Srinagar','Jammu'],
+      'Ladakh': ['Leh','Kargil'],
+      'Lakshadweep': ['Kavaratti'],
+      'Puducherry': ['Puducherry'],
+    };
+
     async function load() {
       const grid = document.getElementById('dir-grid');
       grid.innerHTML = buildSkeleton();
@@ -476,9 +516,15 @@
           el.innerHTML = `<option value="">${label}</option>` +
             values.map(v => `<option value="${v}"${v === current ? ' selected' : ''}>${v}</option>`).join('');
         }
-        repopulate('dir-state', data.filters.states, state, 'All States');
-        repopulate('dir-city',  data.filters.cities, city,  'All Cities');
-        repopulate('dir-specialty', data.filters.specialties, spec, 'All Specialties');
+        /* States: full static list merged with any states doctors registered with */
+        const allStates = [...new Set([...Object.keys(IN_STATES), ...data.filters.states])].sort();
+        /* Cities: depend on selected state — static cities of that state + API cities */
+        const staticCities = state ? (IN_STATES[state] ?? []) : Object.values(IN_STATES).flat();
+        const allCities = [...new Set([...staticCities, ...data.filters.cities])].sort();
+        const allSpecs = [...new Set(['Cardiologist','Dermatologist','Pediatrician','Orthopedic','Gynecologist','General Medicine','Family Medicine','ENT','Ophthalmologist','Psychiatrist','Neurologist','Dentist', ...data.filters.specialties])].sort();
+        repopulate('dir-state', allStates, state, 'All States');
+        repopulate('dir-city',  allCities, city,  'All Cities');
+        repopulate('dir-specialty', allSpecs, spec, 'All Specialties');
 
         document.getElementById('dir-count').textContent =
           `${data.total} doctor${data.total !== 1 ? 's' : ''} on platform`;
@@ -539,7 +585,11 @@
       load();
 
       document.getElementById('dir-search').addEventListener('input', debounceLoad);
-      ['dir-state', 'dir-city', 'dir-specialty'].forEach(id =>
+      document.getElementById('dir-state').addEventListener('change', function() {
+        document.getElementById('dir-city').value = '';
+        load();
+      });
+      ['dir-city', 'dir-specialty'].forEach(id =>
         document.getElementById(id).addEventListener('change', load)
       );
       document.getElementById('dir-clear').addEventListener('click', function() {

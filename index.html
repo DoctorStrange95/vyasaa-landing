@@ -83,6 +83,8 @@
       </a>
       <div class="nav-actions">
         <a href="https://research.vyasaa.com" class="btn btn-ghost">Research</a>
+        <a href="#sec-doctors" class="btn btn-ghost">Find a Doctor</a>
+        <a href="https://vyasa-health-os.pages.dev/register" target="_blank" class="btn btn-teal">👨‍⚕️ For Doctors</a>
         <a href="https://health.vyasaa.com" class="btn btn-primary">Open Health Platform</a>
       </div>
     </div>
@@ -130,6 +132,76 @@
       </div>
     </div>
     <div class="hero-glow"></div>
+  </section>
+
+  <!-- DOCTOR DIRECTORY -->
+  <section class="doctors-section" id="sec-doctors">
+    <div class="container">
+      <div class="doctors-header">
+        <div>
+          <p class="section-label">Book a Doctor</p>
+          <h2 class="section-title" style="margin-bottom:8px">Find &amp; Book a Doctor<br /><em style="font-style:italic;color:var(--cyan)">Anywhere in India</em></h2>
+          <p class="doctors-subtitle">Verified doctors with real-time availability. No middlemen, no commission.</p>
+        </div>
+        <a href="https://vyasa-health-os.pages.dev/register" target="_blank" class="btn btn-teal btn-lg">
+          Are you a doctor? Join free →
+        </a>
+      </div>
+
+      <!-- Filters -->
+      <div class="dir-filters">
+        <div class="dir-search-wrap">
+          <span class="dir-search-icon">🔍</span>
+          <input id="dir-search" type="text" placeholder="Search by name, specialty, city…" class="dir-search" />
+        </div>
+        <select id="dir-state" class="dir-select">
+          <option value="">All States</option>
+        </select>
+        <select id="dir-city" class="dir-select">
+          <option value="">All Cities</option>
+        </select>
+        <select id="dir-specialty" class="dir-select">
+          <option value="">All Specialties</option>
+        </select>
+        <button id="dir-clear" class="dir-clear" style="display:none">✕ Clear</button>
+        <span id="dir-count" class="dir-count"></span>
+      </div>
+
+      <!-- Grid -->
+      <div id="dir-grid" class="dir-grid"></div>
+    </div>
+  </section>
+
+  <!-- FOR DOCTORS PORTAL -->
+  <section class="portal-section" id="sec-doctor-portal">
+    <div class="container">
+      <div class="portal-card">
+        <div class="portal-card-glow"></div>
+        <div class="portal-content">
+          <div>
+            <p class="section-label">For Doctors</p>
+            <h2 class="portal-headline">Your clinic. Your booking link.<br /><span style="color:var(--cyan)">Zero commission.</span></h2>
+            <p class="portal-body">Set your schedule, get a shareable booking page, accept patients directly — all from a single dashboard. Works for solo practitioners and multi-clinic setups.</p>
+            <div class="portal-chips">
+              <span class="portal-chip">📋 Digital prescriptions</span>
+              <span class="portal-chip">📅 Slot-based booking</span>
+              <span class="portal-chip">📱 QR code for clinic</span>
+              <span class="portal-chip">🏥 Multi-clinic support</span>
+              <span class="portal-chip">₹0 commission</span>
+            </div>
+          </div>
+          <div class="portal-ctas">
+            <a href="https://vyasa-health-os.pages.dev/register" target="_blank" class="btn btn-teal btn-lg" style="width:100%;justify-content:center">
+              Register your practice →
+            </a>
+            <a href="https://vyasa-health-os.pages.dev/login" target="_blank" class="btn btn-outline btn-lg" style="width:100%;justify-content:center">
+              Already a member? Sign in
+            </a>
+            <p class="portal-note">Free to join · Takes 2 minutes · No credit card</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- PRODUCTS -->
@@ -262,6 +334,138 @@
       </div>
     </div>
   </footer>
+
+  <!-- Doctor Directory Script -->
+  <script>
+  (function() {
+    const API = 'https://vyasa-os-backend.onrender.com';
+    const PORTAL = 'https://vyasa-health-os.pages.dev';
+    let allData = null, debounce = null;
+    const colors = ['#06b6d4','#1B4F8A','#7C3AED','#D97706','#059669'];
+
+    function initials(name) {
+      return name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    }
+    function avatarColor(name) {
+      return colors[name.charCodeAt(0) % colors.length];
+    }
+
+    function buildCard(doc) {
+      const slug = doc.profileSlug;
+      const c = avatarColor(doc.name);
+      const avatar = doc.profilePhotoUrl
+        ? `<img src="${doc.profilePhotoUrl}" alt="${doc.name}" class="dir-avatar-img" />`
+        : `<div class="dir-avatar-initials" style="background:${c}22;border-color:${c}44;color:${c}">${initials(doc.name)}</div>`;
+      return `
+        <a class="dir-card" href="${PORTAL}/dr/${slug}" target="_blank" rel="noopener">
+          <div class="dir-card-top">
+            ${avatar}
+            <div class="dir-card-info">
+              <div class="dir-card-name-row">
+                <span class="dir-card-name">Dr. ${doc.name}</span>
+                ${doc.acceptingPatients ? '<span class="dir-badge-open">Booking open</span>' : ''}
+              </div>
+              <div class="dir-card-spec">${doc.specialty||'Medical Professional'}${doc.qualification ? `<span class="dir-card-qual"> · ${doc.qualification}</span>` : ''}</div>
+            </div>
+          </div>
+          ${doc.clinicName ? `<div class="dir-card-row"><span>🏥</span>${doc.clinicName}</div>` : ''}
+          ${(doc.city||doc.state) ? `<div class="dir-card-row"><span>📍</span>${[doc.city,doc.state].filter(Boolean).join(', ')}</div>` : ''}
+          ${doc.timings ? `<div class="dir-card-row"><span>⏰</span>${doc.timings}</div>` : ''}
+          <div class="dir-card-footer">
+            <div class="dir-card-meta">
+              ${doc.yearsExperience > 0 ? `<span>⏳ ${doc.yearsExperience}+ yrs</span>` : ''}
+              ${doc.consultationFee ? `<span>₹${doc.consultationFee}</span>` : ''}
+            </div>
+            <span class="dir-card-cta">${doc.acceptingPatients ? 'Book →' : 'View →'}</span>
+          </div>
+        </a>`;
+    }
+
+    function buildSkeleton() {
+      return Array.from({length:6}).map(()=>`
+        <div class="dir-card dir-skeleton">
+          <div class="dir-card-top">
+            <div class="skel-avatar"></div>
+            <div style="flex:1"><div class="skel-line" style="width:70%;margin-bottom:8px"></div><div class="skel-line" style="width:50%"></div></div>
+          </div>
+        </div>`).join('');
+    }
+
+    async function load() {
+      const grid = document.getElementById('dir-grid');
+      grid.innerHTML = buildSkeleton();
+
+      const state = document.getElementById('dir-state').value;
+      const city  = document.getElementById('dir-city').value;
+      const spec  = document.getElementById('dir-specialty').value;
+      const q     = document.getElementById('dir-search').value.trim();
+      const params = new URLSearchParams({limit:'24'});
+      if (state) params.set('state', state);
+      if (city)  params.set('city', city);
+      if (spec)  params.set('specialty', spec);
+      if (q)     params.set('search', q);
+
+      try {
+        const res = await fetch(`${API}/public/doctors?${params}`);
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        allData = data;
+
+        // Update selects
+        const stateEl = document.getElementById('dir-state');
+        const cityEl  = document.getElementById('dir-city');
+        const specEl  = document.getElementById('dir-specialty');
+
+        function repopulate(el, values, cur, label) {
+          const prev = el.value || cur;
+          el.innerHTML = `<option value="">${label}</option>` +
+            values.map(v => `<option value="${v}"${v===prev?' selected':''}>${v}</option>`).join('');
+        }
+        repopulate(stateEl, data.filters.states, state, 'All States');
+        repopulate(cityEl,  data.filters.cities, city,  'All Cities');
+        repopulate(specEl,  data.filters.specialties, spec, 'All Specialties');
+
+        const count = document.getElementById('dir-count');
+        count.textContent = `${data.total} doctor${data.total!==1?'s':''} on platform`;
+
+        const clearBtn = document.getElementById('dir-clear');
+        clearBtn.style.display = (state||city||spec||q) ? 'inline-flex' : 'none';
+
+        if (!data.doctors.length) {
+          grid.innerHTML = `<div class="dir-empty">
+            <div style="font-size:2.5rem;margin-bottom:12px">🩺</div>
+            <p style="font-size:1rem;font-weight:600;color:#94a3b8;margin-bottom:6px">No doctors found</p>
+            <p style="font-size:.85rem;color:#64748b">Try clearing filters or broadening your search.</p>
+            <a href="${PORTAL}/register" target="_blank" class="btn btn-teal" style="margin-top:16px">Are you a doctor? Join free →</a>
+          </div>`;
+        } else {
+          grid.innerHTML = data.doctors.map(buildCard).join('');
+        }
+      } catch {
+        grid.innerHTML = `<div class="dir-empty"><p style="color:#64748b">Could not load doctors. Please try again later.</p></div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      load();
+
+      document.getElementById('dir-search').addEventListener('input', function() {
+        clearTimeout(debounce);
+        debounce = setTimeout(load, 350);
+      });
+      ['dir-state','dir-city','dir-specialty'].forEach(id => {
+        document.getElementById(id).addEventListener('change', load);
+      });
+      document.getElementById('dir-clear').addEventListener('click', function() {
+        document.getElementById('dir-search').value = '';
+        document.getElementById('dir-state').value = '';
+        document.getElementById('dir-city').value = '';
+        document.getElementById('dir-specialty').value = '';
+        load();
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>

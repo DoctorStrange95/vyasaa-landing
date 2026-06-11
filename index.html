@@ -35,7 +35,7 @@
   <!-- Theme -->
   <meta name="theme-color" content="#060d1a" />
 
-  <!-- Structured Data: Organization -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,33 +43,16 @@
     "name": "Vyasa",
     "url": "https://vyasaa.com",
     "logo": "https://vyasaa.com/logo.svg",
-    "description": "India's public health intelligence platform — district-level health data, disease surveillance, and community research tools for frontline health workers.",
+    "description": "India's public health intelligence platform — district-level health data, disease surveillance, and community research tools.",
     "foundingDate": "2026",
-    "areaServed": "IN",
-    "sameAs": []
+    "areaServed": "IN"
   }
   </script>
 
-  <!-- Structured Data: WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Vyasa",
-    "url": "https://vyasaa.com",
-    "description": "India's public health intelligence platform",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://health.vyasaa.com/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
-  <!-- Fonts -->
+  <!-- Fonts: Figtree (headings) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -77,23 +60,30 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/" class="logo">
-        <img src="logo.svg" alt="Vyasaa" class="logo-img" />
+      <a href="/" class="logo" aria-label="Vyasa home">
+        <img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" />
         <span class="logo-text">VYASA</span>
       </a>
       <div class="nav-actions">
         <a href="https://research.vyasaa.com" class="btn btn-ghost">Research</a>
-        <a href="#sec-doctors" class="btn btn-ghost">Find a Doctor</a>
-        <a href="https://vyasa-health-os.pages.dev/register" target="_blank" class="btn btn-teal">👨‍⚕️ For Doctors</a>
-        <a href="https://health.vyasaa.com" class="btn btn-primary">Open Health Platform</a>
+        <a href="#sec-doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a>
+        <a href="https://vyasa-health-os.pages.dev/register" target="_blank" rel="noopener noreferrer" class="btn btn-teal nav-hide-sm" aria-label="Register as a doctor on Vyasa Health OS">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          For Doctors
+        </a>
+        <a href="https://health.vyasaa.com" class="btn btn-primary">Open Platform</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-badge">India Health Intelligence · Est. 2026</div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container hero-container">
+      <div class="hero-badge">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        India Health Intelligence · Est. 2026
+      </div>
       <h1 class="hero-headline">
         India's Health<br />
         <em>Transparency</em><br />
@@ -103,101 +93,156 @@
         Two platforms. One mission — making health data open, actionable,
         and useful for everyone from policymakers to frontline workers.
       </p>
-      <p class="hero-domain">vyasaa.com</p>
       <div class="hero-ctas">
         <a href="https://health.vyasaa.com" class="btn btn-primary btn-lg">
           Explore Health Data
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href="https://research.vyasaa.com" class="btn btn-outline btn-lg">
-          Research Tools
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        <a href="#sec-doctors" class="btn btn-outline btn-lg">
+          Find a Doctor
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-value">36</span>
+      <div class="hero-stats" role="list">
+        <div class="stat" role="listitem">
+          <span class="stat-value" data-count="36">36</span>
           <span class="stat-label">States &amp; UTs tracked</span>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-value">13</span>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat" role="listitem">
+          <span class="stat-value" data-count="13">13</span>
           <span class="stat-label">Live data sources</span>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-value">700+</span>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat" role="listitem">
+          <span class="stat-value" data-count="700" data-suffix="+">700+</span>
           <span class="stat-label">Districts covered</span>
         </div>
       </div>
     </div>
-    <div class="hero-glow"></div>
   </section>
 
   <!-- DOCTOR DIRECTORY -->
-  <section class="doctors-section" id="sec-doctors">
+  <section class="doctors-section" id="sec-doctors" aria-labelledby="doctors-heading">
     <div class="container">
       <div class="doctors-header">
-        <div>
+        <div class="doctors-header-text">
           <p class="section-label">Book a Doctor</p>
-          <h2 class="section-title" style="margin-bottom:8px">Find &amp; Book a Doctor<br /><em style="font-style:italic;color:var(--cyan)">Anywhere in India</em></h2>
-          <p class="doctors-subtitle">Verified doctors with real-time availability. No middlemen, no commission.</p>
+          <h2 class="section-title" id="doctors-heading">
+            Find &amp; Book a Doctor<br />
+            <em class="headline-em">Anywhere in India</em>
+          </h2>
+          <p class="doctors-subtitle">Verified doctors with real-time slot availability. No middlemen, zero commission.</p>
         </div>
-        <a href="https://vyasa-health-os.pages.dev/register" target="_blank" class="btn btn-teal btn-lg">
-          Are you a doctor? Join free →
+        <a href="https://vyasa-health-os.pages.dev/register" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg doctors-join-btn">
+          Are you a doctor? Join free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
 
-      <!-- Filters -->
-      <div class="dir-filters">
+      <!-- Search Bar (prominent, marketplace pattern) -->
+      <div class="dir-search-hero">
+        <label for="dir-search" class="sr-only">Search doctors by name, specialty or city</label>
         <div class="dir-search-wrap">
-          <span class="dir-search-icon">🔍</span>
-          <input id="dir-search" type="text" placeholder="Search by name, specialty, city…" class="dir-search" />
+          <svg class="dir-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="dir-search" type="search" placeholder="Search by name, specialty, city…" class="dir-search" autocomplete="off" />
         </div>
-        <select id="dir-state" class="dir-select">
-          <option value="">All States</option>
-        </select>
-        <select id="dir-city" class="dir-select">
-          <option value="">All Cities</option>
-        </select>
-        <select id="dir-specialty" class="dir-select">
-          <option value="">All Specialties</option>
-        </select>
-        <button id="dir-clear" class="dir-clear" style="display:none">✕ Clear</button>
-        <span id="dir-count" class="dir-count"></span>
+        <!-- Quick filters -->
+        <div class="dir-quick-filters">
+          <button class="dir-quick-chip" data-specialty="Cardiologist" type="button">Cardiologist</button>
+          <button class="dir-quick-chip" data-specialty="Dermatologist" type="button">Dermatologist</button>
+          <button class="dir-quick-chip" data-specialty="Pediatrician" type="button">Pediatrician</button>
+          <button class="dir-quick-chip" data-specialty="Orthopedic" type="button">Orthopedic</button>
+          <button class="dir-quick-chip" data-specialty="Gynecologist" type="button">Gynecologist</button>
+        </div>
       </div>
 
-      <!-- Grid -->
-      <div id="dir-grid" class="dir-grid"></div>
+      <!-- Dropdown filters row -->
+      <div class="dir-filters" role="search" aria-label="Doctor filters">
+        <select id="dir-state" class="dir-select" aria-label="Filter by state">
+          <option value="">All States</option>
+        </select>
+        <select id="dir-city" class="dir-select" aria-label="Filter by city">
+          <option value="">All Cities</option>
+        </select>
+        <select id="dir-specialty" class="dir-select" aria-label="Filter by specialty">
+          <option value="">All Specialties</option>
+        </select>
+        <button id="dir-clear" class="dir-clear" type="button" style="display:none" aria-label="Clear all filters">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          Clear filters
+        </button>
+        <span id="dir-count" class="dir-count" aria-live="polite"></span>
+      </div>
+
+      <!-- Doctor grid -->
+      <div id="dir-grid" class="dir-grid" role="list" aria-label="Doctors list" aria-live="polite"></div>
     </div>
   </section>
 
   <!-- FOR DOCTORS PORTAL -->
-  <section class="portal-section" id="sec-doctor-portal">
+  <section class="portal-section" id="sec-doctor-portal" aria-labelledby="portal-heading">
     <div class="container">
       <div class="portal-card">
-        <div class="portal-card-glow"></div>
+        <div class="portal-glow" aria-hidden="true"></div>
         <div class="portal-content">
-          <div>
+          <div class="portal-left">
             <p class="section-label">For Doctors</p>
-            <h2 class="portal-headline">Your clinic. Your booking link.<br /><span style="color:var(--cyan)">Zero commission.</span></h2>
-            <p class="portal-body">Set your schedule, get a shareable booking page, accept patients directly — all from a single dashboard. Works for solo practitioners and multi-clinic setups.</p>
-            <div class="portal-chips">
-              <span class="portal-chip">📋 Digital prescriptions</span>
-              <span class="portal-chip">📅 Slot-based booking</span>
-              <span class="portal-chip">📱 QR code for clinic</span>
-              <span class="portal-chip">🏥 Multi-clinic support</span>
-              <span class="portal-chip">₹0 commission</span>
+            <h2 class="portal-headline" id="portal-heading">
+              Your clinic. Your booking link.<br />
+              <span class="headline-em">Zero commission.</span>
+            </h2>
+            <p class="portal-body">
+              Set your schedule, get a shareable booking page, accept patients directly — all from one dashboard. Works for solo practitioners and multi-clinic setups.
+            </p>
+            <div class="portal-chips" role="list">
+              <span class="portal-chip" role="listitem">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                Digital prescriptions
+              </span>
+              <span class="portal-chip" role="listitem">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Slot-based booking
+              </span>
+              <span class="portal-chip" role="listitem">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                QR code for clinic
+              </span>
+              <span class="portal-chip" role="listitem">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                Multi-clinic support
+              </span>
+              <span class="portal-chip portal-chip-green" role="listitem">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Zero commission
+              </span>
             </div>
           </div>
-          <div class="portal-ctas">
-            <a href="https://vyasa-health-os.pages.dev/register" target="_blank" class="btn btn-teal btn-lg" style="width:100%;justify-content:center">
-              Register your practice →
-            </a>
-            <a href="https://vyasa-health-os.pages.dev/login" target="_blank" class="btn btn-outline btn-lg" style="width:100%;justify-content:center">
-              Already a member? Sign in
-            </a>
-            <p class="portal-note">Free to join · Takes 2 minutes · No credit card</p>
+          <div class="portal-right">
+            <div class="portal-cta-card">
+              <p class="portal-cta-label">Start in 2 minutes</p>
+              <a href="https://vyasa-health-os.pages.dev/register" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg portal-btn-full">
+                Register your practice
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <a href="https://vyasa-health-os.pages.dev/login" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-lg portal-btn-full">
+                Already a member? Sign in
+              </a>
+              <div class="portal-trust">
+                <div class="portal-trust-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  Free to join
+                </div>
+                <div class="portal-trust-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  No credit card required
+                </div>
+                <div class="portal-trust-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                  HIPAA-compliant
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -205,21 +250,21 @@
   </section>
 
   <!-- PRODUCTS -->
-  <section class="products" id="products">
+  <section class="products" id="products" aria-labelledby="products-heading">
     <div class="container">
       <p class="section-label">Two platforms</p>
-      <h2 class="section-title">Choose your tool</h2>
+      <h2 class="section-title" id="products-heading">Choose your tool</h2>
       <div class="product-grid">
 
         <!-- Vyasaa Health -->
-        <a href="https://health.vyasaa.com" class="product-card product-health">
+        <a href="https://health.vyasaa.com" class="product-card product-health" aria-label="Vyasaa Health platform">
           <div class="product-card-header">
-            <div class="product-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+            <div class="product-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
             </div>
             <span class="product-tag">Free · Public</span>
           </div>
-          <div class="product-number">01</div>
+          <div class="product-number" aria-hidden="true">01</div>
           <h3 class="product-name">Vyasaa Health</h3>
           <p class="product-desc">
             India's public health transparency platform. District-level infant mortality,
@@ -232,21 +277,21 @@
             <li>Real-time feed from 13 official sources</li>
             <li>Nearby hospital &amp; facility finder</li>
           </ul>
-          <div class="product-cta">
+          <div class="product-cta" aria-hidden="true">
             Explore the platform
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </div>
         </a>
 
         <!-- Vyasaa Research -->
-        <a href="https://research.vyasaa.com" class="product-card product-research">
+        <a href="https://research.vyasaa.com" class="product-card product-research" aria-label="Vyasaa Research platform">
           <div class="product-card-header">
-            <div class="product-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <div class="product-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
             </div>
             <span class="product-tag research-tag">For health workers</span>
           </div>
-          <div class="product-number">02</div>
+          <div class="product-number" aria-hidden="true">02</div>
           <h3 class="product-name">Vyasaa Research</h3>
           <p class="product-desc">
             Offline-first community health records and form builder for frontline
@@ -259,7 +304,7 @@
             <li>Works fully offline — syncs when online</li>
             <li>Analytics dashboard &amp; data export</li>
           </ul>
-          <div class="product-cta">
+          <div class="product-cta" aria-hidden="true">
             Open research tools
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </div>
@@ -270,12 +315,12 @@
   </section>
 
   <!-- MISSION STRIP -->
-  <section class="mission">
+  <section class="mission" aria-labelledby="mission-heading">
     <div class="container">
       <div class="mission-inner">
         <div class="mission-text">
           <p class="section-label">Our mission</p>
-          <h2 class="mission-headline">
+          <h2 class="mission-headline" id="mission-heading">
             Open health data saves lives.
           </h2>
           <p class="mission-body">
@@ -284,12 +329,12 @@
             makes it searchable, and puts it in the hands of people who can act on it.
           </p>
         </div>
-        <div class="mission-numbers">
-          <div class="mission-stat">
+        <div class="mission-numbers" role="list">
+          <div class="mission-stat" role="listitem">
             <span class="mission-stat-value">1.4B</span>
             <span class="mission-stat-label">People whose health data we track</span>
           </div>
-          <div class="mission-stat">
+          <div class="mission-stat" role="listitem">
             <span class="mission-stat-value">Open</span>
             <span class="mission-stat-label">All public health data is free to access</span>
           </div>
@@ -303,8 +348,8 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
-          <a href="/" class="logo">
-            <img src="logo.svg" alt="Vyasaa" class="logo-img" />
+          <a href="/" class="logo" aria-label="Vyasa home">
+            <img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" />
             <span class="logo-text">VYASA</span>
           </a>
           <p class="footer-tagline">India Health Intelligence</p>
@@ -314,6 +359,7 @@
             <span class="footer-col-title">Platforms</span>
             <a href="https://health.vyasaa.com">Vyasaa Health</a>
             <a href="https://research.vyasaa.com">Vyasaa Research</a>
+            <a href="https://vyasa-health-os.pages.dev">Doctor Portal</a>
           </div>
           <div class="footer-col">
             <span class="footer-col-title">Company</span>
@@ -340,24 +386,28 @@
   (function() {
     const API = 'https://vyasa-os-backend.onrender.com';
     const PORTAL = 'https://vyasa-health-os.pages.dev';
-    let allData = null, debounce = null;
-    const colors = ['#06b6d4','#1B4F8A','#7C3AED','#D97706','#059669'];
+    const COLORS = ['#06b6d4','#1B4F8A','#7C3AED','#D97706','#059669'];
+    let debounceTimer = null;
 
     function initials(name) {
-      return name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+      return name.split(' ').filter(Boolean).map(w => w[0]).join('').slice(0,2).toUpperCase();
     }
     function avatarColor(name) {
-      return colors[name.charCodeAt(0) % colors.length];
+      return COLORS[name.charCodeAt(0) % COLORS.length];
     }
 
+    /* SVG icons */
+    const ICON_HOSPITAL = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>`;
+    const ICON_PIN = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+    const ICON_CLOCK = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>`;
+
     function buildCard(doc) {
-      const slug = doc.profileSlug;
       const c = avatarColor(doc.name);
       const avatar = doc.profilePhotoUrl
-        ? `<img src="${doc.profilePhotoUrl}" alt="${doc.name}" class="dir-avatar-img" />`
-        : `<div class="dir-avatar-initials" style="background:${c}22;border-color:${c}44;color:${c}">${initials(doc.name)}</div>`;
+        ? `<img src="${doc.profilePhotoUrl}" alt="Dr. ${doc.name}" class="dir-avatar-img" loading="lazy" />`
+        : `<div class="dir-avatar-initials" style="background:${c}1a;border-color:${c}33;color:${c}" aria-hidden="true">${initials(doc.name)}</div>`;
       return `
-        <a class="dir-card" href="${PORTAL}/dr/${slug}" target="_blank" rel="noopener">
+        <a class="dir-card" href="${PORTAL}/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Dr. ${doc.name}, ${doc.specialty||'Doctor'}, ${doc.acceptingPatients?'Booking open':'View profile'}">
           <div class="dir-card-top">
             ${avatar}
             <div class="dir-card-info">
@@ -365,28 +415,35 @@
                 <span class="dir-card-name">Dr. ${doc.name}</span>
                 ${doc.acceptingPatients ? '<span class="dir-badge-open">Booking open</span>' : ''}
               </div>
-              <div class="dir-card-spec">${doc.specialty||'Medical Professional'}${doc.qualification ? `<span class="dir-card-qual"> · ${doc.qualification}</span>` : ''}</div>
+              <div class="dir-card-spec">${doc.specialty || 'Medical Professional'}${doc.qualification ? `<span class="dir-card-qual"> · ${doc.qualification}</span>` : ''}</div>
             </div>
           </div>
-          ${doc.clinicName ? `<div class="dir-card-row"><span>🏥</span>${doc.clinicName}</div>` : ''}
-          ${(doc.city||doc.state) ? `<div class="dir-card-row"><span>📍</span>${[doc.city,doc.state].filter(Boolean).join(', ')}</div>` : ''}
-          ${doc.timings ? `<div class="dir-card-row"><span>⏰</span>${doc.timings}</div>` : ''}
+          ${doc.clinicName ? `<div class="dir-card-row">${ICON_HOSPITAL}<span>${doc.clinicName}</span></div>` : ''}
+          ${(doc.city||doc.state) ? `<div class="dir-card-row">${ICON_PIN}<span>${[doc.city,doc.state].filter(Boolean).join(', ')}</span></div>` : ''}
+          ${doc.timings ? `<div class="dir-card-row">${ICON_CLOCK}<span>${doc.timings}</span></div>` : ''}
           <div class="dir-card-footer">
             <div class="dir-card-meta">
-              ${doc.yearsExperience > 0 ? `<span>⏳ ${doc.yearsExperience}+ yrs</span>` : ''}
+              ${doc.yearsExperience > 0 ? `<span>${doc.yearsExperience}+ yrs</span>` : ''}
               ${doc.consultationFee ? `<span>₹${doc.consultationFee}</span>` : ''}
             </div>
-            <span class="dir-card-cta">${doc.acceptingPatients ? 'Book →' : 'View →'}</span>
+            <span class="dir-card-cta">${doc.acceptingPatients ? 'Book appointment' : 'View profile'} →</span>
           </div>
         </a>`;
     }
 
     function buildSkeleton() {
-      return Array.from({length:6}).map(()=>`
-        <div class="dir-card dir-skeleton">
+      return Array.from({length: 6}, () => `
+        <div class="dir-card dir-skeleton" aria-hidden="true" role="presentation">
           <div class="dir-card-top">
-            <div class="skel-avatar"></div>
-            <div style="flex:1"><div class="skel-line" style="width:70%;margin-bottom:8px"></div><div class="skel-line" style="width:50%"></div></div>
+            <div class="skel skel-avatar"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+              <div class="skel skel-line" style="width:65%"></div>
+              <div class="skel skel-line" style="width:45%"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px">
+            <div class="skel skel-line" style="width:80%"></div>
+            <div class="skel skel-line" style="width:55%"></div>
           </div>
         </div>`).join('');
     }
@@ -399,6 +456,7 @@
       const city  = document.getElementById('dir-city').value;
       const spec  = document.getElementById('dir-specialty').value;
       const q     = document.getElementById('dir-search').value.trim();
+
       const params = new URLSearchParams({limit:'24'});
       if (state) params.set('state', state);
       if (city)  params.set('city', city);
@@ -407,61 +465,77 @@
 
       try {
         const res = await fetch(`${API}/public/doctors?${params}`);
-        if (!res.ok) throw new Error();
+        if (!res.ok) throw new Error('Network error');
         const data = await res.json();
-        allData = data;
 
-        // Update selects
-        const stateEl = document.getElementById('dir-state');
-        const cityEl  = document.getElementById('dir-city');
-        const specEl  = document.getElementById('dir-specialty');
-
-        function repopulate(el, values, cur, label) {
-          const prev = el.value || cur;
+        /* Repopulate filter dropdowns */
+        function repopulate(id, values, current, label) {
+          const el = document.getElementById(id);
           el.innerHTML = `<option value="">${label}</option>` +
-            values.map(v => `<option value="${v}"${v===prev?' selected':''}>${v}</option>`).join('');
+            values.map(v => `<option value="${v}"${v === current ? ' selected' : ''}>${v}</option>`).join('');
         }
-        repopulate(stateEl, data.filters.states, state, 'All States');
-        repopulate(cityEl,  data.filters.cities, city,  'All Cities');
-        repopulate(specEl,  data.filters.specialties, spec, 'All Specialties');
+        repopulate('dir-state', data.filters.states, state, 'All States');
+        repopulate('dir-city',  data.filters.cities, city,  'All Cities');
+        repopulate('dir-specialty', data.filters.specialties, spec, 'All Specialties');
 
-        const count = document.getElementById('dir-count');
-        count.textContent = `${data.total} doctor${data.total!==1?'s':''} on platform`;
+        document.getElementById('dir-count').textContent =
+          `${data.total} doctor${data.total !== 1 ? 's' : ''} on platform`;
 
         const clearBtn = document.getElementById('dir-clear');
-        clearBtn.style.display = (state||city||spec||q) ? 'inline-flex' : 'none';
+        clearBtn.style.display = (state || city || spec || q) ? 'inline-flex' : 'none';
 
         if (!data.doctors.length) {
-          grid.innerHTML = `<div class="dir-empty">
-            <div style="font-size:2.5rem;margin-bottom:12px">🩺</div>
-            <p style="font-size:1rem;font-weight:600;color:#94a3b8;margin-bottom:6px">No doctors found</p>
-            <p style="font-size:.85rem;color:#64748b">Try clearing filters or broadening your search.</p>
-            <a href="${PORTAL}/register" target="_blank" class="btn btn-teal" style="margin-top:16px">Are you a doctor? Join free →</a>
-          </div>`;
+          grid.innerHTML = `
+            <div class="dir-empty" role="status">
+              <div class="dir-empty-icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <p class="dir-empty-title">No doctors found</p>
+              <p class="dir-empty-sub">Try clearing filters or broadening your search.</p>
+              <a href="${PORTAL}/register" target="_blank" rel="noopener noreferrer" class="btn btn-teal" style="margin-top:20px">
+                Are you a doctor? Join free →
+              </a>
+            </div>`;
         } else {
           grid.innerHTML = data.doctors.map(buildCard).join('');
         }
       } catch {
-        grid.innerHTML = `<div class="dir-empty"><p style="color:#64748b">Could not load doctors. Please try again later.</p></div>`;
+        grid.innerHTML = `
+          <div class="dir-empty" role="alert">
+            <p class="dir-empty-sub">Could not load doctors. Please try again later.</p>
+          </div>`;
       }
+    }
+
+    function debounceLoad() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(load, 350);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       load();
 
-      document.getElementById('dir-search').addEventListener('input', function() {
-        clearTimeout(debounce);
-        debounce = setTimeout(load, 350);
-      });
-      ['dir-state','dir-city','dir-specialty'].forEach(id => {
-        document.getElementById(id).addEventListener('change', load);
-      });
+      document.getElementById('dir-search').addEventListener('input', debounceLoad);
+      ['dir-state', 'dir-city', 'dir-specialty'].forEach(id =>
+        document.getElementById(id).addEventListener('change', load)
+      );
       document.getElementById('dir-clear').addEventListener('click', function() {
         document.getElementById('dir-search').value = '';
         document.getElementById('dir-state').value = '';
         document.getElementById('dir-city').value = '';
         document.getElementById('dir-specialty').value = '';
         load();
+      });
+
+      /* Quick specialty chips */
+      document.querySelectorAll('.dir-quick-chip').forEach(chip => {
+        chip.addEventListener('click', function() {
+          const spec = this.dataset.specialty;
+          document.getElementById('dir-specialty').value = spec;
+          document.querySelectorAll('.dir-quick-chip').forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          load();
+        });
       });
     });
   })();

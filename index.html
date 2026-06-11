@@ -106,64 +106,6 @@
     </div>
   </section>
 
-  <!-- DOCTOR DIRECTORY -->
-  <section class="doctors-section" id="sec-doctors" aria-labelledby="doctors-heading">
-    <div class="container">
-      <div class="doctors-header">
-        <div class="doctors-header-text">
-          <p class="section-label">Book a Doctor</p>
-          <h2 class="section-title" id="doctors-heading">
-            Find &amp; Book a Doctor<br />
-            <em class="headline-em">Anywhere in India</em>
-          </h2>
-          <p class="doctors-subtitle">Verified doctors with real-time slot availability. No middlemen, zero commission.</p>
-        </div>
-        <a href="https://vyasa-health-os.pages.dev/login" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg doctors-join-btn">
-          Are you a doctor? Join free
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-      </div>
-
-      <!-- Search Bar (prominent, marketplace pattern) -->
-      <div class="dir-search-hero">
-        <label for="dir-search" class="sr-only">Search doctors by name, specialty or city</label>
-        <div class="dir-search-wrap">
-          <svg class="dir-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input id="dir-search" type="search" placeholder="Search by name, specialty, city…" class="dir-search" autocomplete="off" />
-        </div>
-        <!-- Quick filters -->
-        <div class="dir-quick-filters">
-          <button class="dir-quick-chip" data-specialty="Cardiologist" type="button">Cardiologist</button>
-          <button class="dir-quick-chip" data-specialty="Dermatologist" type="button">Dermatologist</button>
-          <button class="dir-quick-chip" data-specialty="Pediatrician" type="button">Pediatrician</button>
-          <button class="dir-quick-chip" data-specialty="Orthopedic" type="button">Orthopedic</button>
-          <button class="dir-quick-chip" data-specialty="Gynecologist" type="button">Gynecologist</button>
-        </div>
-      </div>
-
-      <!-- Dropdown filters row -->
-      <div class="dir-filters" role="search" aria-label="Doctor filters">
-        <select id="dir-state" class="dir-select" aria-label="Filter by state">
-          <option value="">All States</option>
-        </select>
-        <select id="dir-city" class="dir-select" aria-label="Filter by city">
-          <option value="">All Cities</option>
-        </select>
-        <select id="dir-specialty" class="dir-select" aria-label="Filter by specialty">
-          <option value="">All Specialties</option>
-        </select>
-        <button id="dir-clear" class="dir-clear" type="button" style="display:none" aria-label="Clear all filters">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          Clear filters
-        </button>
-        <span id="dir-count" class="dir-count" aria-live="polite"></span>
-      </div>
-
-      <!-- Doctor grid -->
-      <div id="dir-grid" class="dir-grid" role="list" aria-label="Doctors list" aria-live="polite"></div>
-    </div>
-  </section>
-
   <!-- FOR DOCTORS PORTAL -->
   <section class="portal-section" id="sec-doctor-portal" aria-labelledby="portal-heading">
     <div class="container">
@@ -230,6 +172,64 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- DOCTOR DIRECTORY -->
+  <section class="doctors-section" id="sec-doctors" aria-labelledby="doctors-heading">
+    <div class="container">
+      <div class="doctors-header">
+        <div class="doctors-header-text">
+          <p class="section-label">Book a Doctor</p>
+          <h2 class="section-title" id="doctors-heading">
+            Find &amp; Book a Doctor<br />
+            <em class="headline-em">Anywhere in India</em>
+          </h2>
+          <p class="doctors-subtitle">Verified doctors with real-time slot availability. No middlemen, zero commission.</p>
+        </div>
+        <a href="https://vyasa-health-os.pages.dev/login" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg doctors-join-btn">
+          Are you a doctor? Join free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Search Bar (prominent, marketplace pattern) -->
+      <div class="dir-search-hero">
+        <label for="dir-search" class="sr-only">Search doctors by name, specialty or city</label>
+        <div class="dir-search-wrap">
+          <svg class="dir-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="dir-search" type="search" placeholder="Search by name, specialty, city…" class="dir-search" autocomplete="off" />
+        </div>
+        <!-- Quick filters -->
+        <div class="dir-quick-filters">
+          <button class="dir-quick-chip" data-specialty="Cardiologist" type="button">Cardiologist</button>
+          <button class="dir-quick-chip" data-specialty="Dermatologist" type="button">Dermatologist</button>
+          <button class="dir-quick-chip" data-specialty="Pediatrician" type="button">Pediatrician</button>
+          <button class="dir-quick-chip" data-specialty="Orthopedic" type="button">Orthopedic</button>
+          <button class="dir-quick-chip" data-specialty="Gynecologist" type="button">Gynecologist</button>
+        </div>
+      </div>
+
+      <!-- Dropdown filters row -->
+      <div class="dir-filters" role="search" aria-label="Doctor filters">
+        <select id="dir-state" class="dir-select" aria-label="Filter by state">
+          <option value="">All States</option>
+        </select>
+        <select id="dir-city" class="dir-select" aria-label="Filter by city">
+          <option value="">All Cities</option>
+        </select>
+        <select id="dir-specialty" class="dir-select" aria-label="Filter by specialty">
+          <option value="">All Specialties</option>
+        </select>
+        <button id="dir-clear" class="dir-clear" type="button" style="display:none" aria-label="Clear all filters">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          Clear filters
+        </button>
+        <span id="dir-count" class="dir-count" aria-live="polite"></span>
+      </div>
+
+      <!-- Doctor grid -->
+      <div id="dir-grid" class="dir-grid" role="list" aria-label="Doctors list" aria-live="polite"></div>
     </div>
   </section>
 

@@ -67,7 +67,7 @@
       <div class="nav-actions">
         <a href="https://research.vyasaa.com" class="btn btn-ghost">Research</a>
         <a href="#sec-doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a>
-        <a href="https://vyasa-health-os.pages.dev/register" target="_blank" rel="noopener noreferrer" class="btn btn-teal nav-hide-sm" aria-label="Register as a doctor on Vyasa Health OS">
+        <a href="https://vyasa-health-os.pages.dev/login" target="_blank" rel="noopener noreferrer" class="btn btn-teal nav-hide-sm" aria-label="Register as a doctor on Vyasa Health OS">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           For Doctors
         </a>
@@ -134,7 +134,7 @@
           </h2>
           <p class="doctors-subtitle">Verified doctors with real-time slot availability. No middlemen, zero commission.</p>
         </div>
-        <a href="https://vyasa-health-os.pages.dev/register" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg doctors-join-btn">
+        <a href="https://vyasa-health-os.pages.dev/login" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg doctors-join-btn">
           Are you a doctor? Join free
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
@@ -221,7 +221,7 @@
           <div class="portal-right">
             <div class="portal-cta-card">
               <p class="portal-cta-label">Start in 2 minutes</p>
-              <a href="https://vyasa-health-os.pages.dev/register" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg portal-btn-full">
+              <a href="https://vyasa-health-os.pages.dev/login" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg portal-btn-full">
                 Register your practice
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </a>
@@ -388,6 +388,8 @@
     const PORTAL = 'https://vyasa-health-os.pages.dev';
     const COLORS = ['#06b6d4','#1B4F8A','#7C3AED','#D97706','#059669'];
     let debounceTimer = null;
+    /* Wake Render free-tier server early so directory loads fast */
+    fetch(`${API}/health`).catch(() => {});
 
     function initials(name) {
       return name.split(' ').filter(Boolean).map(w => w[0]).join('').slice(0,2).toUpperCase();
@@ -485,14 +487,31 @@
         clearBtn.style.display = (state || city || spec || q) ? 'inline-flex' : 'none';
 
         if (!data.doctors.length) {
-          grid.innerHTML = `
+          const hasLocation = city || state;
+          const locationLabel = city || state || 'your area';
+          grid.innerHTML = hasLocation ? `
             <div class="dir-empty" role="status">
               <div class="dir-empty-icon" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <p class="dir-empty-title">Coming soon to ${locationLabel}!</p>
+              <p class="dir-empty-sub">We're expanding rapidly. Be the first doctor in <strong>${locationLabel}</strong> on Vyasa — patients are already searching here.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px">
+                <a href="${PORTAL}/login" target="_blank" rel="noopener noreferrer" class="btn btn-teal">
+                  Join as a Doctor — Free →
+                </a>
+                <button onclick="document.getElementById('dir-state').value='';document.getElementById('dir-city').value='';document.getElementById('dir-clear').style.display='none'; load();" class="btn" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7)">
+                  Browse All Cities
+                </button>
+              </div>
+            </div>` : `
+            <div class="dir-empty" role="status">
+              <div class="dir-empty-icon" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </div>
               <p class="dir-empty-title">No doctors found</p>
               <p class="dir-empty-sub">Try clearing filters or broadening your search.</p>
-              <a href="${PORTAL}/register" target="_blank" rel="noopener noreferrer" class="btn btn-teal" style="margin-top:20px">
+              <a href="${PORTAL}/login" target="_blank" rel="noopener noreferrer" class="btn btn-teal" style="margin-top:20px">
                 Are you a doctor? Join free →
               </a>
             </div>`;
@@ -502,7 +521,11 @@
       } catch {
         grid.innerHTML = `
           <div class="dir-empty" role="alert">
-            <p class="dir-empty-sub">Could not load doctors. Please try again later.</p>
+            <div class="dir-empty-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <p class="dir-empty-sub" style="margin-bottom:14px">Could not connect to the server. Please try again.</p>
+            <button onclick="load()" class="btn btn-teal">Retry</button>
           </div>`;
       }
     }

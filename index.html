@@ -393,7 +393,7 @@
         ? `<img src="${doc.profilePhotoUrl}" alt="Dr. ${doc.name}" class="dir-avatar-img" loading="lazy" />`
         : `<div class="dir-avatar-initials" style="background:${c}1a;border-color:${c}33;color:${c}" aria-hidden="true">${initials(doc.name)}</div>`;
       return `
-        <a class="dir-card" href="${PORTAL}/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Dr. ${doc.name}, ${doc.specialty||'Doctor'}, ${doc.acceptingPatients?'Booking open':'View profile'}">
+        <a class="dir-card" href="/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Dr. ${doc.name}, ${doc.specialty||'Doctor'}, ${doc.acceptingPatients?'Booking open':'View profile'}">
           <div class="dir-card-top">
             ${avatar}
             <div class="dir-card-info">

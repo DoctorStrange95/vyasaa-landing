@@ -1,4 +1,8 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/dr/:slug*", "destination": "https://vyasa-health-os.pages.dev/dr/:slug*" },
+    { "source": "/assets/:path*", "destination": "https://vyasa-health-os.pages.dev/assets/:path*" }
+  ]
 }

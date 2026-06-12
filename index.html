@@ -393,13 +393,13 @@
         ? `<img src="${doc.profilePhotoUrl}" alt="Dr. ${doc.name}" class="dir-avatar-img" loading="lazy" />`
         : `<div class="dir-avatar-initials" style="background:${c}1a;border-color:${c}33;color:${c}" aria-hidden="true">${initials(doc.name)}</div>`;
       return `
-        <a class="dir-card" href="/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Dr. ${doc.name}, ${doc.specialty||'Doctor'}, ${doc.acceptingPatients?'Booking open':'View profile'}">
+        <a class="dir-card" href="/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" role="listitem" aria-label="Dr. ${doc.name}, ${doc.specialty||'Doctor'}, ${(doc.bookingOpen??doc.acceptingPatients)?'Booking open':'View profile'}">
           <div class="dir-card-top">
             ${avatar}
             <div class="dir-card-info">
               <div class="dir-card-name-row">
                 <span class="dir-card-name">Dr. ${doc.name}</span>
-                ${doc.acceptingPatients ? '<span class="dir-badge-open">Booking open</span>' : ''}
+                ${(doc.bookingOpen??doc.acceptingPatients) ? '<span class="dir-badge-open">Booking open</span>' : ''}
               </div>
               <div class="dir-card-spec">${doc.specialty || 'Medical Professional'}${doc.qualification ? `<span class="dir-card-qual"> · ${doc.qualification}</span>` : ''}</div>
             </div>
@@ -412,7 +412,7 @@
               ${doc.yearsExperience > 0 ? `<span>${doc.yearsExperience}+ yrs</span>` : ''}
               ${doc.consultationFee ? `<span>₹${doc.consultationFee}</span>` : ''}
             </div>
-            <span class="dir-card-cta">${doc.acceptingPatients ? 'Book appointment' : 'View profile'} →</span>
+            <span class="dir-card-cta">${(doc.bookingOpen??doc.acceptingPatients) ? 'Book appointment' : 'View profile'} →</span>
           </div>
         </a>`;
     }

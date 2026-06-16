@@ -656,6 +656,7 @@
                 <div class="featured-doctor-name">Dr. ${doc.name}</div>
                 <div class="featured-doctor-specialty">${doc.specialty || 'Medical Professional'}</div>
                 ${doc.city ? `<div class="featured-doctor-location">📍 ${[doc.city, doc.state].filter(Boolean).join(', ')}</div>` : ''}
+                ${doc.clinicPhone ? `<div class="featured-doctor-contact">📱 ${doc.clinicPhone}</div>` : ''}
                 <div class="featured-doctor-meta">
                   ${doc.yearsExperience ? `<span class="featured-doctor-years">${doc.yearsExperience}+ yrs</span>` : ''}
                   ${bookingBadge}

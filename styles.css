@@ -1016,6 +1016,14 @@ body {
   .dir-filters .dir-select { flex: 1 1 30%; min-width: 0; width: auto; }
   .dir-count { margin-left: 0; width: 100%; order: 10; padding-top: 4px; }
   .doctors-join-btn { width: 100%; justify-content: center; }
+
+.view-all-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border);
+}
   .portal-glow { display: none; }
 }
 

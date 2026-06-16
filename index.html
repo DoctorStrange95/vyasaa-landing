@@ -196,50 +196,45 @@
         </a>
       </div>
 
-      <!-- Search Bar (prominent, marketplace pattern) -->
-      <div class="dir-search-hero">
-        <label for="dir-search" class="sr-only">Search doctors by name, specialty or city</label>
-        <div class="dir-search-wrap">
-          <svg class="dir-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input id="dir-search" type="search" placeholder="Search by name, specialty, city…" class="dir-search" autocomplete="off" />
+      <!-- Featured Doctors Carousel -->
+      <div class="featured-doctors-section">
+        <div class="featured-header">
+          <h3 class="featured-title">Featured Doctors</h3>
+          <p class="featured-subtitle">Top-rated doctors accepting patients now</p>
         </div>
-        <!-- Quick filters -->
-        <div class="dir-quick-filters">
-          <button class="dir-quick-chip" data-specialty="Cardiologist" type="button">Cardiologist</button>
-          <button class="dir-quick-chip" data-specialty="Dermatologist" type="button">Dermatologist</button>
-          <button class="dir-quick-chip" data-specialty="Pediatrician" type="button">Pediatrician</button>
-          <button class="dir-quick-chip" data-specialty="Orthopedic" type="button">Orthopedic</button>
-          <button class="dir-quick-chip" data-specialty="Gynecologist" type="button">Gynecologist</button>
+        <div class="carousel-container">
+          <div id="featured-carousel" class="featured-carousel" role="list" aria-label="Featured doctors carousel"></div>
+          <button class="carousel-nav carousel-prev" id="carousel-prev" aria-label="Previous doctors" type="button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="carousel-nav carousel-next" id="carousel-next" aria-label="Next doctors" type="button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19l7-7-7-7"/></svg>
+          </button>
         </div>
       </div>
 
-      <!-- Dropdown filters row -->
-      <div class="dir-filters" role="search" aria-label="Doctor filters">
-        <select id="dir-state" class="dir-select" aria-label="Filter by state">
-          <option value="">All States</option>
-        </select>
-        <select id="dir-city" class="dir-select" aria-label="Filter by city">
-          <option value="">All Cities</option>
-        </select>
-        <select id="dir-specialty" class="dir-select" aria-label="Filter by specialty">
-          <option value="">All Specialties</option>
-        </select>
-        <button id="dir-clear" class="dir-clear" type="button" style="display:none" aria-label="Clear all filters">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-          Clear filters
-        </button>
-        <span id="dir-count" class="dir-count" aria-live="polite"></span>
-      </div>
-
-      <!-- Doctor grid -->
-      <div id="dir-grid" class="dir-grid" role="list" aria-label="Doctors list" aria-live="polite"></div>
-
-      <!-- View All Doctors CTA -->
-      <div class="view-all-cta">
-        <a href="https://app.vyasaa.com/doctors" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-lg">
-          View All Doctors
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
+      <!-- Quick Search/Filter Preview -->
+      <div class="search-preview-section">
+        <div class="search-preview-title">Can't find your doctor?</div>
+        <div class="search-preview-row">
+          <div class="dir-search-hero-compact">
+            <label for="dir-search-compact" class="sr-only">Search doctors</label>
+            <div class="dir-search-wrap-compact">
+              <svg class="dir-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input id="dir-search-compact" type="search" placeholder="Search by name, specialty, city…" class="dir-search-compact" autocomplete="off" />
+            </div>
+          </div>
+          <a href="https://app.vyasaa.com/doctors" target="_blank" rel="noopener noreferrer" class="btn btn-teal browse-btn">
+            Browse All
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="specialty-quick-filters">
+          <button class="specialty-chip" data-specialty="Cardiologist" type="button">❤️ Cardiologist</button>
+          <button class="specialty-chip" data-specialty="Dermatologist" type="button">💊 Dermatologist</button>
+          <button class="specialty-chip" data-specialty="Pediatrician" type="button">👶 Pediatrician</button>
+          <button class="specialty-chip" data-specialty="Orthopedic" type="button">🦴 Orthopedic</button>
+        </div>
       </div>
     </div>
   </section>
@@ -615,7 +610,95 @@
           load();
         });
       });
+
+      /* Featured carousel specialty chips */
+      document.querySelectorAll('.specialty-chip').forEach(chip => {
+        chip.addEventListener('click', function(e) {
+          e.preventDefault();
+          const spec = this.dataset.specialty;
+          window.location.href = `https://app.vyasaa.com/doctors?specialty=${encodeURIComponent(spec)}`;
+        });
+      });
     });
+
+    /* Featured doctors carousel */
+    (async function() {
+      const API_BASE = 'https://vyasa-os-backend.onrender.com';
+      const carousel = document.getElementById('featured-carousel');
+      const prevBtn = document.getElementById('carousel-prev');
+      const nextBtn = document.getElementById('carousel-next');
+
+      async function loadFeaturedDoctors() {
+        try {
+          const res = await fetch(`${API_BASE}/public/doctors?limit=5`);
+          if (!res.ok) throw new Error('Failed to load doctors');
+          const data = await res.json();
+          const doctors = (data.doctors || []).slice(0, 5);
+
+          carousel.innerHTML = '';
+          doctors.forEach(doc => {
+            const card = document.createElement('li');
+            card.className = 'featured-doctor-card';
+
+            const avatar = doc.profilePhotoUrl
+              ? `<img src="${doc.profilePhotoUrl}" alt="Dr. ${doc.name}" />`
+              : `<div class="featured-doctor-initials">${doc.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}</div>`;
+
+            const bookingBadge = (doc.bookingOpen ?? doc.acceptingPatients)
+              ? '<span class="featured-doctor-badge">● Booking open</span>'
+              : '';
+
+            card.innerHTML = `
+              <div class="featured-doctor-avatar">
+                ${avatar}
+              </div>
+              <div class="featured-doctor-info">
+                <div class="featured-doctor-name">Dr. ${doc.name}</div>
+                <div class="featured-doctor-specialty">${doc.specialty || 'Medical Professional'}</div>
+                ${doc.city ? `<div class="featured-doctor-location">📍 ${[doc.city, doc.state].filter(Boolean).join(', ')}</div>` : ''}
+                <div class="featured-doctor-meta">
+                  ${doc.yearsExperience ? `<span class="featured-doctor-years">${doc.yearsExperience}+ yrs</span>` : ''}
+                  ${bookingBadge}
+                </div>
+              </div>
+              <a href="https://app.vyasaa.com/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" class="featured-doctor-link">
+                View Profile
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            `;
+            carousel.appendChild(card);
+          });
+        } catch (err) {
+          console.error('Error loading featured doctors:', err);
+          carousel.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #94a3b8;">Unable to load doctors. <a href="https://app.vyasaa.com/doctors" style="color: #0d9488; text-decoration: none; font-weight: 700;">Browse all →</a></div>';
+        }
+      }
+
+      loadFeaturedDoctors();
+
+      // Carousel navigation
+      function scroll(direction) {
+        const scrollAmount = 300;
+        carousel.scrollBy({
+          left: direction === 'next' ? scrollAmount : -scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+
+      prevBtn.addEventListener('click', () => scroll('prev'));
+      nextBtn.addEventListener('click', () => scroll('next'));
+
+      // Hide/show nav buttons based on scroll position
+      function updateNavButtons() {
+        const { scrollLeft, scrollWidth, clientWidth } = carousel;
+        prevBtn.style.opacity = scrollLeft > 0 ? '1' : '0.4';
+        nextBtn.style.opacity = scrollLeft < scrollWidth - clientWidth - 10 ? '1' : '0.4';
+      }
+
+      carousel.addEventListener('scroll', updateNavButtons);
+      window.addEventListener('resize', updateNavButtons);
+      updateNavButtons();
+    })();
   })();
   </script>
 

@@ -317,45 +317,29 @@
         </div>
       </div>
 
-      <!-- Quick Search/Filter Preview -->
+      <!-- Quick Search/Filter Preview — pure HTML form, no JS needed -->
       <div class="search-preview-section">
         <div class="search-preview-title">Find your doctor</div>
-        <div class="search-preview-row">
-          <div class="dir-search-hero-compact">
-            <label for="dir-search-compact" class="sr-only">Search doctors</label>
-            <div class="dir-search-wrap-compact">
-              <svg class="dir-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              <input id="dir-search-compact" type="search" placeholder="Search by name, specialty…" class="dir-search-compact" autocomplete="off" />
+        <form action="https://app.vyasaa.com/doctors" method="get" target="_blank">
+          <div class="search-preview-row">
+            <div class="dir-search-hero-compact">
+              <label for="dir-search-compact" class="sr-only">Search doctors</label>
+              <div class="dir-search-wrap-compact">
+                <svg class="dir-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input id="dir-search-compact" name="search" type="search" placeholder="Search by name, specialty, city…" class="dir-search-compact" autocomplete="off" />
+              </div>
             </div>
+            <button type="submit" class="btn btn-teal browse-btn">
+              Search
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
           </div>
-          <button id="compact-browse-btn" type="button" class="btn btn-teal browse-btn">
-            Search
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-        </div>
-        <div class="compact-location-row">
-          <div class="compact-select-wrap">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            <select id="compact-state" class="compact-filter-select">
-              <option value="">All States</option>
-            </select>
-          </div>
-          <div class="compact-select-wrap">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-            <select id="compact-city" class="compact-filter-select">
-              <option value="">All Cities</option>
-            </select>
-          </div>
-          <button id="compact-gps-btn" type="button" class="compact-gps-btn" title="Detect my location">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-            <span>Detect location</span>
-          </button>
-        </div>
+        </form>
         <div class="specialty-quick-filters">
-          <button class="specialty-chip" data-specialty="Cardiologist" type="button">❤️ Cardiologist</button>
-          <button class="specialty-chip" data-specialty="Dermatologist" type="button">💊 Dermatologist</button>
-          <button class="specialty-chip" data-specialty="Pediatrician" type="button">👶 Pediatrician</button>
-          <button class="specialty-chip" data-specialty="Orthopedic" type="button">🦴 Orthopedic</button>
+          <a href="https://app.vyasaa.com/doctors?specialty=Cardiologist" target="_blank" rel="noopener noreferrer" class="specialty-chip">❤️ Cardiologist</a>
+          <a href="https://app.vyasaa.com/doctors?specialty=Dermatologist" target="_blank" rel="noopener noreferrer" class="specialty-chip">💊 Dermatologist</a>
+          <a href="https://app.vyasaa.com/doctors?specialty=Pediatrician" target="_blank" rel="noopener noreferrer" class="specialty-chip">👶 Pediatrician</a>
+          <a href="https://app.vyasaa.com/doctors?specialty=Orthopedic" target="_blank" rel="noopener noreferrer" class="specialty-chip">🦴 Orthopedic</a>
         </div>
       </div>
     </div>
@@ -722,88 +706,6 @@
         load();
       });
 
-      /* ── Compact search: name/specialty + state/city + GPS ── */
-      (function() {
-        const compactInput = document.getElementById('dir-search-compact');
-        const browseBtn    = document.getElementById('compact-browse-btn');
-        const stateEl      = document.getElementById('compact-state');
-        const cityEl       = document.getElementById('compact-city');
-        const gpsBtn       = document.getElementById('compact-gps-btn');
-        if (!compactInput) return;
-
-        /* Populate state dropdown from IN_STATES (defined above) */
-        Object.keys(IN_STATES).sort().forEach(s => {
-          const o = document.createElement('option'); o.value = s; o.textContent = s;
-          stateEl.appendChild(o);
-        });
-
-        function fillCities(state) {
-          cityEl.innerHTML = '<option value="">All Cities</option>';
-          (IN_STATES[state] || []).forEach(c => {
-            const o = document.createElement('option'); o.value = c; o.textContent = c;
-            cityEl.appendChild(o);
-          });
-        }
-
-        function buildUrl() {
-          const q     = compactInput.value.trim();
-          const state = stateEl.value;
-          const city  = cityEl.value;
-          const p = new URLSearchParams();
-          if (q)     p.set('search', q);
-          if (state) p.set('state', state);
-          if (city)  p.set('city', city);
-          return `https://app.vyasaa.com/doctors${p.toString() ? '?' + p.toString() : ''}`;
-        }
-
-        function goSearch() {
-          window.open(buildUrl(), '_blank');
-        }
-
-        stateEl.addEventListener('change', function() {
-          fillCities(this.value);
-        });
-
-        compactInput.addEventListener('input', function() {});
-        compactInput.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter') { e.preventDefault(); goSearch(); }
-        });
-
-        if (browseBtn) browseBtn.addEventListener('click', goSearch);
-
-        /* GPS detect */
-        if (gpsBtn && navigator.geolocation) {
-          gpsBtn.addEventListener('click', function() {
-            const span = this.querySelector('span');
-            span.textContent = 'Detecting…';
-            this.disabled = true;
-            navigator.geolocation.getCurrentPosition(async pos => {
-              try {
-                const { latitude: lat, longitude: lng } = pos.coords;
-                const r   = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=en`);
-                const geo = await r.json();
-                const detectedState = geo.address?.state || '';
-                const detectedCity  = geo.address?.city || geo.address?.town || geo.address?.village || '';
-                if (detectedState) {
-                  stateEl.value = detectedState;
-                  fillCities(detectedState);
-                }
-                if (detectedCity) cityEl.value = detectedCity;
-                span.textContent = detectedCity ? `📍 ${detectedCity}` : (detectedState ? `📍 ${detectedState}` : 'Detect location');
-              } catch {
-                span.textContent = 'Detect location';
-              }
-              gpsBtn.disabled = false;
-            }, () => {
-              span.textContent = 'Detect location';
-              gpsBtn.disabled = false;
-            }, { timeout: 8000 });
-          });
-        } else if (gpsBtn) {
-          gpsBtn.style.display = 'none'; /* hide if GPS not supported */
-        }
-      })();
-
       /* Quick specialty chips */
       document.querySelectorAll('.dir-quick-chip').forEach(chip => {
         chip.addEventListener('click', function() {
@@ -834,13 +736,14 @@
 
       async function loadFeaturedDoctors() {
         try {
-          // Try quality-ranked endpoint first; fall back to general list if not deployed yet
+          // Try quality-ranked endpoint; fall back to general list on any failure
           let res = await fetch(`${API_BASE}/public/doctors/featured`);
-          if (res.status === 404) res = await fetch(`${API_BASE}/public/doctors?limit=5`);
+          if (!res.ok) res = await fetch(`${API_BASE}/public/doctors?limit=5`);
           if (!res.ok) throw new Error('Failed to load doctors');
           const data = await res.json();
-          const doctors = (data.doctors || []).slice(0, 5);
+          const doctors = (data.doctors || data || []).slice(0, 5);
 
+          if (!doctors.length) throw new Error('No doctors available');
           carousel.innerHTML = '';
           doctors.forEach(doc => {
             const card = document.createElement('li');

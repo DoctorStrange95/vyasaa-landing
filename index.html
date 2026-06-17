@@ -59,7 +59,7 @@
   <link rel="icon" href="/logo.svg" type="image/svg+xml" />
   <link rel="icon" href="/logo.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/logo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260617d" />
+  <link rel="stylesheet" href="styles.css?v=20260617e" />
 </head>
 <body>
 
@@ -727,9 +727,16 @@
 
       function renderCarousel(doctors) {
         carousel.innerHTML = '';
-        doctors.forEach(doc => {
-          const card = document.createElement('li');
-          card.className = 'featured-doctor-card';
+        doctors.forEach((doc, i) => {
+          /* Entire card is a link — wrap in <a> so clicking anywhere opens profile */
+          const card = document.createElement('a');
+          card.href = `https://app.vyasaa.com/dr/${doc.profileSlug}`;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+          card.setAttribute('role', 'listitem');
+          card.className = 'featured-doctor-card' + (doc.isFeatured ? ' is-featured-card' : '');
+          /* Stagger each card's animation by 80 ms */
+          card.style.animationDelay = `${i * 80}ms`;
 
           const avatar = doc.profilePhotoUrl
             ? `<img src="${doc.profilePhotoUrl}" alt="Dr. ${doc.name}" />`
@@ -760,10 +767,10 @@
                 ${bookingBadge}
               </div>
             </div>
-            <a href="https://app.vyasaa.com/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" class="featured-doctor-link">
+            <div class="featured-doctor-link">
               View Profile
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
+            </div>
           `;
           carousel.appendChild(card);
         });

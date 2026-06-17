@@ -734,59 +734,94 @@
       const prevBtn = document.getElementById('carousel-prev');
       const nextBtn = document.getElementById('carousel-next');
 
-      async function loadFeaturedDoctors() {
+      const CAROUSEL_CACHE_KEY = 'vyasa_featured_v1';
+      const CAROUSEL_TTL       = 60 * 60 * 1000; // 1 hour
+
+      function getCachedDoctors() {
         try {
-          // Try quality-ranked endpoint; fall back to general list on any failure
-          let res = await fetch(`${API_BASE}/public/doctors/featured`);
-          if (!res.ok) res = await fetch(`${API_BASE}/public/doctors?limit=5`);
-          if (!res.ok) throw new Error('Failed to load doctors');
-          const data = await res.json();
-          const doctors = (data.doctors || data || []).slice(0, 5);
+          const raw = localStorage.getItem(CAROUSEL_CACHE_KEY);
+          if (!raw) return null;
+          const { data, ts } = JSON.parse(raw);
+          return Date.now() - ts < CAROUSEL_TTL ? data : null;
+        } catch { return null; }
+      }
 
-          if (!doctors.length) throw new Error('No doctors available');
-          carousel.innerHTML = '';
-          doctors.forEach(doc => {
-            const card = document.createElement('li');
-            card.className = 'featured-doctor-card';
+      function saveCachedDoctors(doctors) {
+        try { localStorage.setItem(CAROUSEL_CACHE_KEY, JSON.stringify({ data: doctors, ts: Date.now() })); } catch {}
+      }
 
-            const avatar = doc.profilePhotoUrl
-              ? `<img src="${doc.profilePhotoUrl}" alt="Dr. ${doc.name}" />`
-              : `<div class="featured-doctor-initials">${doc.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}</div>`;
+      function renderCarousel(doctors) {
+        carousel.innerHTML = '';
+        doctors.forEach(doc => {
+          const card = document.createElement('li');
+          card.className = 'featured-doctor-card';
 
-            const bookingBadge = doc.bookingOpen
-              ? '<span class="featured-doctor-badge">● Booking open</span>'
-              : '';
+          const avatar = doc.profilePhotoUrl
+            ? `<img src="${doc.profilePhotoUrl}" alt="Dr. ${doc.name}" />`
+            : `<div class="featured-doctor-initials">${doc.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}</div>`;
 
-            const featuredPin = doc.isFeatured
-              ? '<span class="featured-doctor-pin">★ Featured</span>'
-              : '';
+          const bookingBadge = doc.bookingOpen
+            ? '<span class="featured-doctor-badge">● Booking open</span>'
+            : '';
 
-            card.innerHTML = `
-              <div class="featured-doctor-avatar">
-                ${avatar}
+          const featuredPin = doc.isFeatured
+            ? '<span class="featured-doctor-pin">★ Featured</span>'
+            : '';
+
+          card.innerHTML = `
+            <div class="featured-doctor-avatar">
+              ${avatar}
+            </div>
+            <div class="featured-doctor-info">
+              <div class="featured-doctor-name-row">
+                <div class="featured-doctor-name">Dr. ${doc.name}</div>
+                ${featuredPin}
               </div>
-              <div class="featured-doctor-info">
-                <div class="featured-doctor-name-row">
-                  <div class="featured-doctor-name">Dr. ${doc.name}</div>
-                  ${featuredPin}
-                </div>
-                <div class="featured-doctor-specialty">${doc.specialty || 'Medical Professional'}</div>
-                ${doc.clinicName ? `<div class="featured-doctor-clinic">🏥 ${doc.clinicName}</div>` : ''}
-                ${doc.city ? `<div class="featured-doctor-location">📍 ${[doc.city, doc.state].filter(Boolean).join(', ')}</div>` : ''}
-                <div class="featured-doctor-meta">
-                  ${doc.yearsExperience ? `<span class="featured-doctor-years">${doc.yearsExperience}+ yrs</span>` : ''}
-                  ${bookingBadge}
-                </div>
+              <div class="featured-doctor-specialty">${doc.specialty || 'Medical Professional'}</div>
+              ${doc.clinicName ? `<div class="featured-doctor-clinic">🏥 ${doc.clinicName}</div>` : ''}
+              ${doc.city ? `<div class="featured-doctor-location">📍 ${[doc.city, doc.state].filter(Boolean).join(', ')}</div>` : ''}
+              <div class="featured-doctor-meta">
+                ${doc.yearsExperience ? `<span class="featured-doctor-years">${doc.yearsExperience}+ yrs</span>` : ''}
+                ${bookingBadge}
               </div>
-              <a href="https://app.vyasaa.com/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" class="featured-doctor-link">
-                View Profile
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </a>
-            `;
-            carousel.appendChild(card);
-          });
-        } catch (err) {
-          console.error('Error loading featured doctors:', err);
+            </div>
+            <a href="https://app.vyasaa.com/dr/${doc.profileSlug}" target="_blank" rel="noopener noreferrer" class="featured-doctor-link">
+              View Profile
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          `;
+          carousel.appendChild(card);
+        });
+      }
+
+      async function loadFeaturedDoctors() {
+        /* Show cached data immediately — backend may be cold-starting */
+        const cached = getCachedDoctors();
+        if (cached && cached.length > 0) {
+          renderCarousel(cached);
+        }
+
+        /* Fetch fresh data in background; replace cache when ready */
+        for (let attempt = 0; attempt < 3; attempt++) {
+          try {
+            if (attempt > 0) await new Promise(r => setTimeout(r, 8000));
+            let res = await fetch(`${API_BASE}/public/doctors/featured`);
+            if (!res.ok) res = await fetch(`${API_BASE}/public/doctors?limit=5`);
+            if (!res.ok) throw new Error('not ok');
+            const data = await res.json();
+            const doctors = (data.doctors || data || []).slice(0, 5);
+            if (doctors.length > 0) {
+              saveCachedDoctors(doctors);
+              renderCarousel(doctors);
+              return;
+            }
+          } catch (e) {
+            console.warn('Carousel attempt', attempt + 1, 'failed:', e);
+          }
+        }
+
+        /* All retries exhausted — only show error if nothing cached */
+        if (!cached || cached.length === 0) {
           carousel.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #94a3b8;">Unable to load doctors. <a href="https://app.vyasaa.com/doctors" style="color: #0d9488; text-decoration: none; font-weight: 700;">Browse all →</a></div>';
         }
       }

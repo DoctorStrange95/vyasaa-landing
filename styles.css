@@ -1241,6 +1241,81 @@ body {
   font-weight: 700;
 }
 
+.compact-location-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.compact-select-wrap {
+  flex: 1;
+  min-width: 130px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.compact-select-wrap svg {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.compact-filter-select {
+  width: 100%;
+  padding: 10px 12px 10px 34px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card-alt);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+  cursor: pointer;
+}
+
+.compact-filter-select:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+.compact-filter-select option {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+.compact-gps-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(13, 148, 136, 0.08);
+  border: 1.5px solid rgba(13, 148, 136, 0.22);
+  color: #2dd4bf;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.compact-gps-btn:hover:not(:disabled) {
+  background: rgba(13, 148, 136, 0.18);
+  border-color: rgba(13, 148, 136, 0.45);
+}
+
+.compact-gps-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
 .specialty-quick-filters {
   display: flex;
   gap: 8px;
@@ -1400,6 +1475,18 @@ body {
   .specialty-chip {
     padding: 7px 12px;
     font-size: 12px;
+  }
+  .compact-location-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .compact-select-wrap {
+    min-width: unset;
+    width: 100%;
+  }
+  .compact-gps-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 

@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260616" />
+  <link rel="stylesheet" href="styles.css?v=20260617" />
 </head>
 <body>
 
@@ -178,6 +178,52 @@
     </div>
   </section>
 
+  <!-- SEE VYASA IN ACTION -->
+  <section class="action-section" aria-labelledby="action-heading">
+    <div class="container">
+      <p class="section-label">In action</p>
+      <h2 class="section-title" id="action-heading">See Vyasa in action</h2>
+      <p class="action-subtitle">A real look at the dashboard doctors use every day</p>
+      <div class="action-screenshots">
+
+        <div class="action-card">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+            </div>
+            <div class="browser-screen">
+              <img src="/assets/screenshots/analytics-preview.png"
+                   alt="Analytics dashboard showing OPD volume and visit trends"
+                   class="screenshot-img"
+                   loading="lazy" />
+            </div>
+          </div>
+          <p class="action-caption">Track OPD volume, visits, and referrals at a glance</p>
+        </div>
+
+        <div class="action-card">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+              <span class="browser-dot"></span>
+            </div>
+            <div class="browser-screen">
+              <img src="/assets/screenshots/bookings-preview.png"
+                   alt="Booking requests list with confirm and decline actions"
+                   class="screenshot-img"
+                   loading="lazy" />
+            </div>
+          </div>
+          <p class="action-caption">Confirm or decline patient requests from your booking link in one tap</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- DOCTOR DIRECTORY -->
   <section class="doctors-section" id="sec-doctors" aria-labelledby="doctors-heading">
     <div class="container">
@@ -199,17 +245,23 @@
       <!-- Featured Doctors Carousel -->
       <div class="featured-doctors-section">
         <div class="featured-header">
-          <h3 class="featured-title">Featured Doctors</h3>
-          <p class="featured-subtitle">Top-rated doctors accepting patients now</p>
+          <h3 class="featured-title">Active Doctors</h3>
+          <p class="featured-subtitle">Doctors with open booking slots, accepting patients now</p>
         </div>
         <div class="carousel-container">
-          <div id="featured-carousel" class="featured-carousel" role="list" aria-label="Featured doctors carousel"></div>
+          <div id="featured-carousel" class="featured-carousel" role="list" aria-label="Active doctors carousel"></div>
           <button class="carousel-nav carousel-prev" id="carousel-prev" aria-label="Previous doctors" type="button">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 19l-7-7 7-7"/></svg>
           </button>
           <button class="carousel-nav carousel-next" id="carousel-next" aria-label="Next doctors" type="button">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19l7-7-7-7"/></svg>
           </button>
+        </div>
+        <div class="featured-view-more">
+          <a href="https://app.vyasaa.com/doctors" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            View More Doctors
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
 
@@ -630,7 +682,7 @@
 
       async function loadFeaturedDoctors() {
         try {
-          const res = await fetch(`${API_BASE}/public/doctors?limit=5`);
+          const res = await fetch(`${API_BASE}/public/doctors/featured`);
           if (!res.ok) throw new Error('Failed to load doctors');
           const data = await res.json();
           const doctors = (data.doctors || []).slice(0, 5);
@@ -644,8 +696,12 @@
               ? `<img src="${doc.profilePhotoUrl}" alt="Dr. ${doc.name}" />`
               : `<div class="featured-doctor-initials">${doc.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}</div>`;
 
-            const bookingBadge = (doc.bookingOpen ?? doc.acceptingPatients)
+            const bookingBadge = doc.bookingOpen
               ? '<span class="featured-doctor-badge">● Booking open</span>'
+              : '';
+
+            const featuredPin = doc.isFeatured
+              ? '<span class="featured-doctor-pin">★ Featured</span>'
               : '';
 
             card.innerHTML = `
@@ -653,10 +709,13 @@
                 ${avatar}
               </div>
               <div class="featured-doctor-info">
-                <div class="featured-doctor-name">Dr. ${doc.name}</div>
+                <div class="featured-doctor-name-row">
+                  <div class="featured-doctor-name">Dr. ${doc.name}</div>
+                  ${featuredPin}
+                </div>
                 <div class="featured-doctor-specialty">${doc.specialty || 'Medical Professional'}</div>
+                ${doc.clinicName ? `<div class="featured-doctor-clinic">🏥 ${doc.clinicName}</div>` : ''}
                 ${doc.city ? `<div class="featured-doctor-location">📍 ${[doc.city, doc.state].filter(Boolean).join(', ')}</div>` : ''}
-                ${doc.clinicPhone ? `<div class="featured-doctor-contact">📱 ${doc.clinicPhone}</div>` : ''}
                 <div class="featured-doctor-meta">
                   ${doc.yearsExperience ? `<span class="featured-doctor-years">${doc.yearsExperience}+ yrs</span>` : ''}
                   ${bookingBadge}

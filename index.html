@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260617" />
+  <link rel="stylesheet" href="styles.css?v=20260617b" />
 </head>
 <body>
 
@@ -181,43 +181,92 @@
   <!-- SEE VYASA IN ACTION -->
   <section class="action-section" aria-labelledby="action-heading">
     <div class="container">
-      <p class="section-label">In action</p>
-      <h2 class="section-title" id="action-heading">See Vyasa in action</h2>
-      <p class="action-subtitle">A real look at the dashboard doctors use every day</p>
+      <div class="action-header">
+        <p class="section-label">In action</p>
+        <h2 class="action-heading" id="action-heading">See Vyasa in action</h2>
+        <p class="action-subtitle">A real look at the dashboard doctors use every day</p>
+      </div>
+
       <div class="action-screenshots">
 
         <div class="action-card">
           <div class="browser-frame">
             <div class="browser-bar">
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
+              <span class="browser-dot bd-red"></span>
+              <span class="browser-dot bd-yellow"></span>
+              <span class="browser-dot bd-green"></span>
+              <span class="browser-url-pill">app.vyasaa.com/app/analytics</span>
             </div>
             <div class="browser-screen">
               <img src="/assets/screenshots/analytics-preview.png"
-                   alt="Analytics dashboard showing OPD volume and visit trends"
+                   alt="Analytics dashboard"
                    class="screenshot-img"
+                   onerror="this.style.display='none'"
                    loading="lazy" />
+              <div class="screen-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(13,148,136,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+                <div class="ph-title">Analytics</div>
+                <div class="ph-bar-group" aria-hidden="true">
+                  <div class="ph-bar" style="height:60%"></div>
+                  <div class="ph-bar" style="height:80%"></div>
+                  <div class="ph-bar" style="height:45%"></div>
+                  <div class="ph-bar" style="height:90%"></div>
+                  <div class="ph-bar" style="height:65%"></div>
+                  <div class="ph-bar" style="height:75%"></div>
+                </div>
+                <div class="ph-stat-row" aria-hidden="true">
+                  <div class="ph-stat"><div class="ph-num">124</div><div class="ph-lbl">OPD visits</div></div>
+                  <div class="ph-stat"><div class="ph-num">38</div><div class="ph-lbl">Bookings</div></div>
+                  <div class="ph-stat"><div class="ph-num">12</div><div class="ph-lbl">Referrals</div></div>
+                </div>
+              </div>
             </div>
           </div>
-          <p class="action-caption">Track OPD volume, visits, and referrals at a glance</p>
+          <p class="action-caption">
+            <strong>Analytics dashboard</strong> — Track OPD volume, visits, and referrals at a glance
+          </p>
         </div>
 
         <div class="action-card">
           <div class="browser-frame">
             <div class="browser-bar">
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
-              <span class="browser-dot"></span>
+              <span class="browser-dot bd-red"></span>
+              <span class="browser-dot bd-yellow"></span>
+              <span class="browser-dot bd-green"></span>
+              <span class="browser-url-pill">app.vyasaa.com/app/bookings</span>
             </div>
             <div class="browser-screen">
               <img src="/assets/screenshots/bookings-preview.png"
-                   alt="Booking requests list with confirm and decline actions"
+                   alt="Booking requests"
                    class="screenshot-img"
+                   onerror="this.style.display='none'"
                    loading="lazy" />
+              <div class="screen-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(13,148,136,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <div class="ph-title">Booking Requests</div>
+                <div class="ph-booking-list" aria-hidden="true">
+                  <div class="ph-booking-row">
+                    <div class="ph-booking-dot ph-dot-green"></div>
+                    <div class="ph-booking-info"><div class="ph-booking-name"></div><div class="ph-booking-time"></div></div>
+                    <div class="ph-booking-confirm">Confirm</div>
+                  </div>
+                  <div class="ph-booking-row">
+                    <div class="ph-booking-dot ph-dot-yellow"></div>
+                    <div class="ph-booking-info"><div class="ph-booking-name" style="width:80px"></div><div class="ph-booking-time" style="width:50px"></div></div>
+                    <div class="ph-booking-confirm">Confirm</div>
+                  </div>
+                  <div class="ph-booking-row">
+                    <div class="ph-booking-dot ph-dot-green"></div>
+                    <div class="ph-booking-info"><div class="ph-booking-name" style="width:65px"></div><div class="ph-booking-time" style="width:70px"></div></div>
+                    <div class="ph-booking-confirm">Confirm</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <p class="action-caption">Confirm or decline patient requests from your booking link in one tap</p>
+          <p class="action-caption">
+            <strong>Booking Requests</strong> — Confirm or decline patient requests from your booking link in one tap
+          </p>
         </div>
 
       </div>
@@ -682,7 +731,9 @@
 
       async function loadFeaturedDoctors() {
         try {
-          const res = await fetch(`${API_BASE}/public/doctors/featured`);
+          // Try quality-ranked endpoint first; fall back to general list if not deployed yet
+          let res = await fetch(`${API_BASE}/public/doctors/featured`);
+          if (res.status === 404) res = await fetch(`${API_BASE}/public/doctors?limit=5`);
           if (!res.ok) throw new Error('Failed to load doctors');
           const data = await res.json();
           const doctors = (data.doctors || []).slice(0, 5);

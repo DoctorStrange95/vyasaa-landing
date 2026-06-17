@@ -56,7 +56,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260617b" />
+  <link rel="stylesheet" href="styles.css?v=20260617c" />
 </head>
 <body>
 
@@ -189,7 +189,7 @@
 
       <div class="action-screenshots">
 
-        <div class="action-card">
+        <div class="action-card reveal-left">
           <div class="browser-frame">
             <div class="browser-bar">
               <span class="browser-dot bd-red"></span>
@@ -215,9 +215,9 @@
                   <div class="ph-bar" style="height:75%"></div>
                 </div>
                 <div class="ph-stat-row" aria-hidden="true">
-                  <div class="ph-stat"><div class="ph-num">124</div><div class="ph-lbl">OPD visits</div></div>
-                  <div class="ph-stat"><div class="ph-num">38</div><div class="ph-lbl">Bookings</div></div>
-                  <div class="ph-stat"><div class="ph-num">12</div><div class="ph-lbl">Referrals</div></div>
+                  <div class="ph-stat"><div class="ph-num" data-count="124">0</div><div class="ph-lbl">OPD visits</div></div>
+                  <div class="ph-stat"><div class="ph-num" data-count="38">0</div><div class="ph-lbl">Bookings</div></div>
+                  <div class="ph-stat"><div class="ph-num" data-count="12">0</div><div class="ph-lbl">Referrals</div></div>
                 </div>
               </div>
             </div>
@@ -227,7 +227,7 @@
           </p>
         </div>
 
-        <div class="action-card">
+        <div class="action-card reveal-right">
           <div class="browser-frame">
             <div class="browser-bar">
               <span class="browser-dot bd-red"></span>
@@ -348,7 +348,7 @@
       <div class="product-grid">
 
         <!-- Vyasaa Health -->
-        <a href="https://health.vyasaa.com" class="product-card product-health" aria-label="Vyasaa Health platform">
+        <a href="https://health.vyasaa.com" class="product-card product-health reveal-left" aria-label="Vyasaa Health platform">
           <div class="product-card-header">
             <div class="product-icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
@@ -375,7 +375,7 @@
         </a>
 
         <!-- Vyasaa Research -->
-        <a href="https://research.vyasaa.com" class="product-card product-research" aria-label="Vyasaa Research platform">
+        <a href="https://research.vyasaa.com" class="product-card product-research reveal-right" aria-label="Vyasaa Research platform">
           <div class="product-card-header">
             <div class="product-icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -701,6 +701,26 @@
         load();
       });
 
+      /* ── Compact search: wire up Browse All button + Enter key ── */
+      (function() {
+        const compactInput = document.getElementById('dir-search-compact');
+        const browseBtn    = document.querySelector('.browse-btn');
+        if (!compactInput) return;
+        function updateHref() {
+          const q = compactInput.value.trim();
+          if (browseBtn) browseBtn.href = q
+            ? `https://app.vyasaa.com/doctors?search=${encodeURIComponent(q)}`
+            : 'https://app.vyasaa.com/doctors';
+        }
+        compactInput.addEventListener('input', updateHref);
+        compactInput.addEventListener('keydown', function(e) {
+          if (e.key !== 'Enter') return;
+          e.preventDefault();
+          const q = this.value.trim();
+          window.open(q ? `https://app.vyasaa.com/doctors?search=${encodeURIComponent(q)}` : 'https://app.vyasaa.com/doctors', '_blank');
+        });
+      })();
+
       /* Quick specialty chips */
       document.querySelectorAll('.dir-quick-chip').forEach(chip => {
         chip.addEventListener('click', function() {
@@ -810,6 +830,100 @@
       window.addEventListener('resize', updateNavButtons);
       updateNavButtons();
     })();
+  })();
+  </script>
+
+  <!-- ── Motion system ───────────────────────────────────────────────────── -->
+  <script>
+  (function() {
+    /* Counter ease-out animation */
+    function animateCounter(el, target, duration) {
+      const start = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * ease);
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    }
+
+    /* Extend reveal observer to also handle directional variants */
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObs.observe(el));
+
+    /* Action section: animate bars + counters when visible */
+    const actionObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('action-in-view');
+        /* Bar chart grow */
+        e.target.querySelectorAll('.ph-bar').forEach((bar, i) => {
+          bar.style.animationDelay = `${i * 70 + 200}ms`;
+          bar.classList.add('bar-play');
+        });
+        /* Number count-up */
+        e.target.querySelectorAll('[data-count]').forEach((el, i) => {
+          const target = parseInt(el.dataset.count, 10);
+          setTimeout(() => animateCounter(el, target, 1000), i * 120 + 400);
+        });
+        actionObs.unobserve(e.target);
+      });
+    }, { threshold: 0.25 });
+
+    document.querySelectorAll('.action-section').forEach(el => actionObs.observe(el));
+
+    /* Featured doctor cards: stagger fade-up after carousel loads */
+    const carouselObs = new MutationObserver(mutations => {
+      mutations.forEach(m => {
+        m.addedNodes.forEach((node, i) => {
+          if (node.nodeType !== 1) return;
+          node.style.opacity = '0';
+          node.style.transform = 'translateY(18px)';
+          setTimeout(() => {
+            node.style.transition = 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1)';
+            node.style.opacity = '1';
+            node.style.transform = 'none';
+          }, i * 90 + 80);
+        });
+      });
+    });
+    const carousel = document.getElementById('featured-carousel');
+    if (carousel) carouselObs.observe(carousel, { childList: true });
+
+    /* Stagger reveal for portal chips */
+    const chipObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.portal-chip').forEach((chip, i) => {
+          chip.style.opacity = '0';
+          chip.style.transform = 'translateY(12px)';
+          setTimeout(() => {
+            chip.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)';
+            chip.style.opacity = '1';
+            chip.style.transform = 'none';
+          }, i * 80 + 300);
+        });
+        chipObs.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.portal-chips').forEach(el => chipObs.observe(el));
+
+    /* Ambient teal scan-line on browser frames when visible */
+    const frameObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('frame-glow');
+        frameObs.unobserve(e.target);
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.browser-frame').forEach(el => frameObs.observe(el));
   })();
   </script>
 

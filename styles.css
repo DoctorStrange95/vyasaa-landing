@@ -1179,8 +1179,8 @@ body {
 
 /* Search Preview Section */
 .search-preview-section {
-  background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%);
-  border: 1px solid #dcfce7;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 28px;
   margin-top: 40px;
@@ -1190,7 +1190,7 @@ body {
   font-family: var(--font-head);
   font-size: 16px;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text);
   margin-bottom: 16px;
   text-align: center;
 }
@@ -1211,20 +1211,20 @@ body {
 
 .dir-search-compact {
   width: 100%;
-  border: 1.5px solid #dcfce7;
+  border: 1.5px solid var(--border);
   border-radius: 12px;
   padding: 12px 14px 12px 42px;
   font-size: 14px;
   font-family: inherit;
-  background: white;
-  color: var(--text-primary);
+  background: var(--bg-card-alt);
+  color: var(--text);
   outline: none;
   transition: all 0.2s;
 }
 
 .dir-search-compact:focus {
   border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
 }
 
 .dir-search-compact::placeholder {
@@ -1253,21 +1253,21 @@ body {
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
-  background: white;
-  border: 1.5px solid #d1fae5;
+  background: rgba(13, 148, 136, 0.08);
+  border: 1.5px solid rgba(13, 148, 136, 0.2);
   border-radius: 24px;
   font-size: 13px;
   font-weight: 600;
-  color: #059669;
+  color: #2dd4bf;
   cursor: pointer;
   transition: all 0.2s;
   font-family: inherit;
 }
 
 .specialty-chip:hover {
-  background: #ecfdf5;
-  border-color: #6ee7b7;
-  color: #047857;
+  background: rgba(13, 148, 136, 0.18);
+  border-color: rgba(13, 148, 136, 0.45);
+  color: #5eead4;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1643,4 +1643,102 @@ body {
   .action-screenshots { grid-template-columns: 1fr; gap: 20px; }
   .action-header { margin-bottom: 36px; }
   .action-subtitle { font-size: 15px; }
+}
+
+/* ── Motion system ───────────────────────────────────────── */
+
+/* Directional reveals */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-36px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(36px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible,
+.reveal-right.visible {
+  opacity: 1;
+  transform: none;
+}
+/* Stagger second child by 120ms */
+.action-card.reveal-right { transition-delay: 0.12s; }
+.product-card.reveal-right { transition-delay: 0.14s; }
+
+/* Bar chart grow */
+@keyframes bar-grow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+.ph-bar {
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+.ph-bar.bar-play {
+  animation: bar-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Number count-up pop */
+@keyframes num-pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.action-in-view .ph-num {
+  animation: num-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both 0.35s;
+}
+
+/* Browser frame glow on enter */
+@keyframes frame-glow-in {
+  0%   { box-shadow: 0 4px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(13,148,136,0.06); }
+  50%  { box-shadow: 0 8px 48px rgba(0,0,0,0.6), 0 0 0 2px rgba(13,148,136,0.35), 0 0 32px rgba(13,148,136,0.12); }
+  100% { box-shadow: 0 4px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(13,148,136,0.18); }
+}
+.browser-frame.frame-glow {
+  animation: frame-glow-in 1.4s ease forwards;
+}
+
+/* Ambient scan-line sweep across browser screen */
+@keyframes scan {
+  0%   { top: -4px; opacity: 0.6; }
+  80%  { opacity: 0.2; }
+  100% { top: 100%; opacity: 0; }
+}
+.browser-frame.frame-glow .browser-screen::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(13,148,136,0.6), transparent);
+  animation: scan 1.2s ease 0.3s forwards;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Floating portal glow */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+.portal-glow {
+  animation: float 7s ease-in-out infinite;
+}
+
+/* Subtle hover lift on product cards */
+.product-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Booking confirm button pulse */
+@keyframes confirm-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(13,148,136,0); }
+  50%       { box-shadow: 0 0 0 4px rgba(13,148,136,0.18); }
+}
+.action-in-view .ph-booking-confirm {
+  animation: confirm-pulse 2.2s ease-in-out infinite 1s;
 }

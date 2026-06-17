@@ -1412,8 +1412,8 @@ body {
   body { overflow-x: hidden; }
   .nav-hide-sm { display: none !important; }
   .nav-inner { padding: 0 14px; gap: 8px; }
-  .nav-actions { gap: 6px; }
-  .nav-actions .btn { padding: 8px 12px; font-size: 12.5px; white-space: nowrap; }
+  .nav-actions { gap: 8px; }
+  .nav-actions .btn { padding: 9px 14px; font-size: 13px; white-space: nowrap; }
   .logo-text { font-size: 16px; }
   .hero { padding: 110px 0 56px; }
   .hero-headline { font-size: clamp(30px, 8.5vw, 42px); line-height: 1.15; }
@@ -1472,6 +1472,10 @@ body {
   .dir-card { padding: 14px 16px; }
   .section-title { font-size: 25px; }
   .nav-actions .btn-ghost { padding: 8px 9px; }
+  /* On very small screens, hide the person icon in "For Doctors" and tighten buttons */
+  .nav-hide-xs { display: none !important; }
+  .nav-actions .btn { padding: 8px 12px; font-size: 12.5px; }
+  .nav-actions { gap: 6px; }
 
   /* Featured carousel on mobile */
   .featured-carousel {

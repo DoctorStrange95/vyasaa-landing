@@ -5,9 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Primary SEO -->
-  <title>Vyasa Integrated Healthcare | Book Doctors Online & India Health Platform</title>
-  <meta name="description" content="Find & book verified doctors anywhere in India — real-time slots, zero commission. Doctors get a free digital clinic: booking page, prescriptions & patient records. Plus open district-level health data." />
-  <meta name="keywords" content="India health data, public health India, district health statistics, infant mortality India, vaccination coverage India, IDSP disease surveillance, community health research, health workers India, vyasaa" />
+  <!-- Google headline: short, clear, both audiences — patients finding doctors + doctors looking for tools -->
+  <title>Vyasa Integrated Healthcare — Book Verified Doctors Pan India</title>
+
+  <!-- Google snippet (155 chars): two hooks — patient booking & doctor digital tools -->
+  <meta name="description" content="Find & book verified doctors pan India — all specialties, real-time slots, zero commission. Doctors: write prescriptions online, manage IPD & OPD patients, get your free booking page. MBBS, AYUSH, Dental & Allied Health." />
+
+  <!-- Keywords: patient-side + doctor-side search intent -->
+  <meta name="keywords" content="book verified doctor India, find doctor online India, write prescription online, manage IPD OPD patients, online bookings for doctors, digital clinic for doctors, AYUSH doctors India, Ayurveda appointment online, dental specialist India, OPD appointment India, Vyasa Integrated Healthcare, vyasaa.com" />
   <meta name="author" content="Vyasa" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://vyasaa.com/" />
@@ -17,11 +22,11 @@
   <meta name="geo.country" content="India" />
   <meta name="language" content="English" />
 
-  <!-- Open Graph -->
+  <!-- Open Graph: shown on WhatsApp / Facebook / LinkedIn shares — warm, story-driven, both audiences -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://vyasaa.com/" />
-  <meta property="og:title" content="Vyasa Integrated Healthcare — Find & Book Doctors Across India" />
-  <meta property="og:description" content="Verified doctors with real-time slot booking, zero commission. Doctors: get your free digital clinic — booking link, prescriptions, patient records." />
+  <meta property="og:title" content="Vyasa Integrated Healthcare — Doctors Pan India" />
+  <meta property="og:description" content="India’s integrated health platform for patients & clinics. Patients: find & book verified specialists pan India — real-time slots, zero commission. Doctors & clinics: write prescriptions online, manage IPD & OPD, get your own booking page — completely free." />
   <meta property="og:image" content="https://www.vyasaa.com/og-image.png" />
   <meta property="og:image:width" content="512" />
   <meta property="og:image:height" content="512" />
@@ -29,26 +34,58 @@
   <meta property="og:site_name" content="Vyasa Integrated Healthcare" />
   <meta property="og:locale" content="en_IN" />
 
-  <!-- Twitter / X -->
+  <!-- Twitter / X: punchy, short, action-driven — one line per audience -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Vyasa Integrated Healthcare — Find & Book Doctors Across India" />
-  <meta name="twitter:description" content="Book verified doctors with real-time slots, zero commission — and explore open health data for all of India." />
+  <meta name="twitter:title" content="Vyasa — Verified Doctors Pan India, Free Clinic for Doctors" />
+  <meta name="twitter:description" content="Patients: book verified doctors online, zero commission. Doctors: write prescriptions digitally, manage IPD & OPD, get free online bookings — one platform for all of India." />
   <meta name="twitter:image" content="https://www.vyasaa.com/og-image.png" />
 
   <!-- Theme -->
   <meta name="theme-color" content="#060d1a" />
 
   <!-- Structured Data -->
+  <!-- Schema: Organization (brand identity for Google Knowledge Graph) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Vyasa Integrated Healthcare",
     "url": "https://vyasaa.com",
-    "logo": "https://vyasaa.com/logo.svg",
-    "description": "India's public health intelligence platform — district-level health data, disease surveillance, and community research tools.",
+    "logo": "https://vyasaa.com/favicon.svg",
+    "description": "Vyasa Integrated Healthcare connects patients with verified doctors across all specialties pan India — MBBS, AYUSH, Dental and Allied Health — with real-time slot booking and zero commission. Doctors and clinics get a free digital workspace: online prescriptions, IPD & OPD management, patient records and a personal booking page.",
     "foundingDate": "2026",
     "areaServed": "IN"
+  }
+  </script>
+  <!-- Schema: WebSite — lets Google show brand name in breadcrumb instead of raw domain -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Vyasa Integrated Healthcare",
+    "alternateName": "Vyasa",
+    "url": "https://vyasaa.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://app.vyasaa.com/doctors?search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <!-- Schema: BreadcrumbList — overrides Google breadcrumb to show brand name, not raw URL -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Vyasa Integrated Healthcare",
+      "item": "https://vyasaa.com"
+    }]
   }
   </script>
 
@@ -56,10 +93,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/logo.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/logo.png" />
   <link rel="stylesheet" href="styles.css?v=20260617f" />
+
+  <!-- Google AdSense — site verification (ca-pub-1178392647946498) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1178392647946498" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -327,7 +367,7 @@
       <h2 class="section-title" id="products-heading">Choose your tool</h2>
       <div class="product-grid">
 
-        <!-- Vyasaa Health -->
+        <!-- Vyasa Health -->
         <a href="https://health.vyasaa.com" class="product-card product-health reveal-left" aria-label="Vyasaa Health platform">
           <div class="product-card-header">
             <div class="product-icon" aria-hidden="true">
@@ -336,7 +376,7 @@
             <span class="product-tag">Free · Public</span>
           </div>
           <div class="product-number" aria-hidden="true">01</div>
-          <h3 class="product-name">Vyasaa Health</h3>
+          <h3 class="product-name">Vyasa Health</h3>
           <p class="product-desc">
             India's public health transparency platform. District-level infant mortality,
             vaccination coverage, disease surveillance, hospital infrastructure,
@@ -354,7 +394,7 @@
           </div>
         </a>
 
-        <!-- Vyasaa Research -->
+        <!-- Vyasa Research -->
         <a href="https://research.vyasaa.com" class="product-card product-research reveal-right" aria-label="Vyasaa Research platform">
           <div class="product-card-header">
             <div class="product-icon" aria-hidden="true">
@@ -363,7 +403,7 @@
             <span class="product-tag research-tag">For health workers</span>
           </div>
           <div class="product-number" aria-hidden="true">02</div>
-          <h3 class="product-name">Vyasaa Research</h3>
+          <h3 class="product-name">Vyasa Research</h3>
           <p class="product-desc">
             Offline-first community health records and form builder for frontline
             health workers. Longitudinal patient tracking, custom analytics,
@@ -396,7 +436,7 @@
           </h2>
           <p class="mission-body">
             India generates enormous amounts of health data — but it's scattered across
-            government portals, PDFs, and disconnected systems. Vyasaa brings it together,
+            government portals, PDFs, and disconnected systems. Vyasa brings it together,
             makes it searchable, and puts it in the hands of people who can act on it.
           </p>
         </div>

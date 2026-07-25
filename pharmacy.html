@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pharmacy Partners — Vyasaa</title>
+  <meta name="description" content="Join the Vyasaa pharmacy partner network." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="service-page">
+  <nav class="nav"><div class="nav-inner">
+    <a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a>
+    <div class="nav-actions">
+      <a href="/doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a>
+      <a href="labs.html" class="btn btn-ghost nav-hide-sm">Laboratories</a>
+      <a href="#partner-form" class="btn btn-primary">Join as a pharmacy</a>
+    </div>
+  </div></nav>
+
+  <main>
+    <section class="service-hero service-hero-pharmacy">
+      <div class="container service-hero-grid">
+        <div>
+          <p class="service-eyebrow">Vyasaa care network · Pharmacies</p>
+          <h1>Make medication access feel <em>less fragmented.</em></h1>
+          <p>Connect pharmacy fulfilment with a more informed, coordinated care journey for people and clinicians.</p>
+          <div class="service-actions"><a href="#partner-form" class="btn btn-primary btn-lg">Register your interest <span aria-hidden="true">→</span></a><a href="/doctors" class="btn btn-outline btn-lg">Find a doctor first</a></div>
+        </div>
+        <aside class="service-summary" aria-label="Pharmacy partner benefits">
+          <span class="summary-label">A clearer partner journey</span>
+          <div><b>01</b><p>Share your service footprint</p></div>
+          <div><b>02</b><p>We review your interest</p></div>
+          <div><b>03</b><p>Plan connected fulfilment</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="service-steps"><div class="container">
+      <p class="section-label">Designed around continuity of care</p>
+      <h2 class="section-title">From prescription to follow-through.</h2>
+      <div class="service-step-grid">
+        <article><span>01</span><h3>Introduce your pharmacy</h3><p>Give us a clear picture of your team, locations, and service area.</p></article>
+        <article><span>02</span><h3>Review the opportunity</h3><p>Our network team reviews your interest and follows up on the right next step.</p></article>
+        <article><span>03</span><h3>Build with care</h3><p>Explore a more connected experience for people, prescriptions, and care teams.</p></article>
+      </div>
+    </div></section>
+
+    <section class="service-form-section" id="partner-form"><div class="container service-form-layout">
+      <div><p class="section-label">Pharmacy application</p><h2 class="section-title">Tell us about your pharmacy.</h2><p class="service-form-copy">This interest form will be connected to Super Admin for review before the site goes live.</p></div>
+      <form class="service-form" data-partner="pharmacy">
+        <label>Pharmacy or chain name<input name="organisation" required placeholder="Your pharmacy name" /></label>
+        <label>Contact name<input name="name" required placeholder="Your name" /></label>
+        <label>Work email<input name="email" required type="email" placeholder="you@pharmacy.com" /></label>
+        <label>Phone number<input name="phone" required type="tel" inputmode="tel" placeholder="Your contact number" /></label>
+        <label>City / service area<input name="location" required placeholder="e.g. Hyderabad, Telangana" /></label>
+        <label>Anything we should know?<textarea name="note" rows="3" placeholder="Services, coverage, or partnership goals"></textarea></label>
+        <button class="btn btn-primary btn-lg" type="submit">Submit interest <span aria-hidden="true">→</span></button>
+        <p class="form-status" aria-live="polite"></p>
+      </form>
+    </div></section>
+  </main>
+
+  <nav class="care-dock" aria-label="Quick care navigation"><a href="/"><span aria-hidden="true">⌂</span>Home</a><a href="/doctors"><span aria-hidden="true">✚</span>Doctors</a><a href="/labs"><span aria-hidden="true">🔬</span>Labs</a><a href="/pharmacy" aria-current="page"><span aria-hidden="true">💊</span>Pharmacy</a><a href="https://health.vyasaa.com"><span aria-hidden="true">◌</span>Resources</a></nav>
+  <footer class="footer service-footer"><div class="container footer-bottom"><span>© <script>document.write(new Date().getFullYear())</script> Vyasa Integrated Healthcare.</span><a href="/">Back to Vyasaa home</a></div></footer>
+  <script>
+    const form = document.querySelector('[data-partner]');
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const status = form.querySelector('.form-status');
+      const submit = form.querySelector('button[type="submit"]');
+      const data = new FormData(form);
+      submit.disabled = true;
+      status.textContent = 'Submitting your interest…';
+      try {
+        const response = await fetch('/vyasa-api/public/partner-applications', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ partnerType: 'pharmacy', organisation: data.get('organisation'), contactName: data.get('name'), email: data.get('email'), phone: data.get('phone'), location: data.get('location'), note: data.get('note') }),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || 'Unable to submit your interest.');
+        status.textContent = 'Thank you — your pharmacy interest has been sent to Vyasaa Super Admin for review.';
+        form.reset();
+      } catch (error) {
+        status.textContent = error.message || 'Unable to submit your interest. Please try again.';
+      } finally { submit.disabled = false; }
+    });
+  </script>
+</body>
+</html>

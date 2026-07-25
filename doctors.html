@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Verified Doctors | Vyasaa</title>
+  <meta name="description" content="Search verified doctors by name, specialty, or city. Check booking availability and book directly through each doctor’s public Vyasaa profile." />
+  <link rel="canonical" href="https://vyasaa.com/doctors" />
+  <meta property="og:title" content="Find Verified Doctors | Vyasaa" />
+  <meta property="og:description" content="Search doctors by specialty or city and book directly through public profiles." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="directory-page">
+  <nav class="nav"><div class="nav-inner">
+    <a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a>
+    <div class="nav-actions"><a href="/" class="btn btn-ghost nav-hide-sm">Home</a><a href="/labs" class="btn btn-ghost nav-hide-sm">For Partners</a><a href="https://app.vyasaa.com/login" class="btn btn-teal">For Doctors</a></div>
+  </div></nav>
+
+  <main>
+    <section class="directory-hero"><div class="container">
+      <p class="service-eyebrow">Vyasaa doctor directory</p>
+      <h1>Find a doctor who fits <em>your next step.</em></h1>
+      <p>Search public profiles by name, specialty, or location. When you are ready, book directly through the doctor’s profile.</p>
+      <form class="directory-filters" id="directory-form">
+        <label class="directory-search"><span aria-hidden="true">⌕</span><input id="doctor-search" type="search" placeholder="Search doctor, specialty, or city" autocomplete="off" /></label>
+        <select id="doctor-specialty" aria-label="Filter by specialty"><option value="">All specialties</option></select>
+        <select id="doctor-city" aria-label="Filter by city"><option value="">All cities</option></select>
+        <button type="submit" class="btn btn-primary">Search doctors</button>
+      </form>
+      <div class="directory-pills" aria-label="Popular specialties"><a href="/doctors?specialty=General%20Medicine">General medicine</a><a href="/doctors?specialty=Cardiologist">Cardiology</a><a href="/doctors?specialty=Pediatrician">Pediatrics</a><a href="/doctors?specialty=Dermatologist">Dermatology</a></div>
+    </div></section>
+
+    <section class="directory-results"><div class="container">
+      <div class="directory-results-head"><div><p class="section-label">Available profiles</p><h2 class="section-title">Browse doctors</h2></div><p id="doctor-count" aria-live="polite">Loading doctors…</p></div>
+      <div class="doctor-listing" id="doctor-listing" aria-live="polite"></div>
+      <div class="directory-empty" id="directory-empty" hidden><h2>No doctors found</h2><p>Try changing your search or clearing a filter.</p><button class="btn btn-outline" id="clear-directory" type="button">Clear filters</button></div>
+    </div></section>
+  </main>
+
+  <nav class="care-dock" aria-label="Quick care navigation"><a href="/"><span aria-hidden="true">⌂</span>Home</a><a href="/doctors" aria-current="page"><span aria-hidden="true">✚</span>Doctors</a><a href="/labs"><span aria-hidden="true">⌁</span>Labs</a><a href="/pharmacy"><span aria-hidden="true">✦</span>Pharmacy</a><a href="https://health.vyasaa.com"><span aria-hidden="true">◌</span>Resources</a></nav>
+  <footer class="footer service-footer"><div class="container footer-bottom"><span>© <script>document.write(new Date().getFullYear())</script> Vyasa Integrated Healthcare.</span><a href="/">Back to Vyasaa home</a></div></footer>
+
+  <script>
+  (() => {
+    const api = ['localhost','127.0.0.1'].includes(location.hostname) ? '/vyasa-api' : 'https://vyasa-os-backend.onrender.com';
+    const portal = 'https://app.vyasaa.com';
+    const search = document.querySelector('#doctor-search');
+    const specialty = document.querySelector('#doctor-specialty');
+    const city = document.querySelector('#doctor-city');
+    const list = document.querySelector('#doctor-listing');
+    const count = document.querySelector('#doctor-count');
+    const empty = document.querySelector('#directory-empty');
+    const esc = value => String(value ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const params = new URLSearchParams(location.search);
+    search.value = params.get('search') || '';
+    const initials = name => String(name || 'D').replace(/^dr\.?\s*/i, '').split(/\s+/).filter(Boolean).map(x => x[0]).join('').slice(0,2).toUpperCase();
+    const displayName = name => /^dr\.?\s/i.test(String(name || '')) ? String(name) : `Dr. ${name || 'Doctor'}`;
+    const card = d => {
+      const available = d.bookingOpen ?? d.acceptingPatients;
+      const image = d.profilePhotoUrl ? `<img src="${esc(d.profilePhotoUrl)}" alt="${esc(displayName(d.name))}" loading="lazy">` : `<span>${initials(d.name)}</span>`;
+      return `<article class="directory-card"><div class="directory-card-status">${d.yearsExperience ? `${esc(d.yearsExperience)}+ years experience` : 'Verified public profile'} <i>•</i> ${available ? 'Booking available' : 'View profile'}</div><div class="directory-card-body"><div class="directory-avatar">${image}</div><div class="directory-card-main"><h3>${esc(displayName(d.name))}</h3><p class="directory-specialty">${esc(d.specialty || 'Medical professional')}</p><p>${esc(d.qualification || '')}</p><p class="directory-location">⌖ ${esc([d.city,d.state].filter(Boolean).join(', ') || 'Location on profile')}</p>${d.timings ? `<p class="directory-availability">◷ ${esc(d.timings)}</p>` : ''}</div><div class="directory-card-action">${d.consultationFee ? `<strong>₹${esc(d.consultationFee)}</strong>` : ''}<a class="btn btn-primary" href="${portal}/dr/${encodeURIComponent(d.profileSlug)}">${available ? 'Book appointment' : 'View profile'} <span aria-hidden="true">→</span></a></div></div></article>`;
+    };
+    const setOptions = (el, values, label, selected) => { el.innerHTML = `<option value="">${label}</option>` + values.filter(Boolean).sort().map(v => `<option value="${esc(v)}"${v === selected ? ' selected' : ''}>${esc(v)}</option>`).join(''); };
+    async function load() {
+      list.innerHTML = '<div class="directory-loading">Finding doctors…</div>'.repeat(6); empty.hidden = true;
+      const query = new URLSearchParams({ limit: '24' });
+      if (search.value.trim()) query.set('search', search.value.trim());
+      if (specialty.value) query.set('specialty', specialty.value);
+      if (city.value) query.set('city', city.value);
+      try {
+        const response = await fetch(`${api}/public/doctors?${query}`);
+        if (!response.ok) throw new Error();
+        const data = await response.json(); const doctors = data.doctors || [];
+        setOptions(specialty, data.filters?.specialties || [], 'All specialties', params.get('specialty') || specialty.value);
+        setOptions(city, data.filters?.cities || [], 'All cities', params.get('city') || city.value);
+        count.textContent = `${data.total || doctors.length} doctor${(data.total || doctors.length) === 1 ? '' : 's'} found`;
+        list.innerHTML = doctors.map(card).join('');
+        empty.hidden = doctors.length > 0;
+      } catch { list.innerHTML = ''; count.textContent = 'Directory temporarily unavailable'; empty.hidden = false; }
+    }
+    document.querySelector('#directory-form').addEventListener('submit', e => { e.preventDefault(); load(); });
+    [specialty, city].forEach(el => el.addEventListener('change', load));
+    document.querySelector('#clear-directory').addEventListener('click', () => { search.value=''; specialty.value=''; city.value=''; load(); });
+    load();
+  })();
+  </script>
+</body>
+</html>

@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=20260725b" />
+  <link rel="stylesheet" href="styles.css?v=20260725c" />
 </head>
 <body class="directory-page light-preview">
   <nav class="nav"><div class="nav-inner">
@@ -32,7 +32,7 @@
         <button type="submit" class="btn btn-primary">Search doctors</button>
       </form>
       <div class="specialty-ribbon">
-        <p><span aria-hidden="true">✚</span> Connected care across specialties</p>
+        <p><span aria-hidden="true">✚</span> Connected care across specialties. Swipe or scroll to explore.</p>
         <div class="directory-pills" aria-label="Explore available specialties" id="specialty-ribbon">
           <div class="directory-pill-track">
             <div class="directory-pill-group">
@@ -44,16 +44,6 @@
               <a href="/doctors?specialty=ENT%20(Otorhinolaryngology)">ENT</a>
               <a href="/doctors?specialty=Internal%20Medicine">Internal medicine</a>
               <a href="/doctors?specialty=Emergency%20Medicine">Emergency medicine</a>
-            </div>
-            <div class="directory-pill-group" aria-hidden="true">
-              <span>General medicine</span>
-              <span>Dermatology</span>
-              <span>Women’s health</span>
-              <span>Orthopaedics</span>
-              <span>Eye care</span>
-              <span>ENT</span>
-              <span>Internal medicine</span>
-              <span>Emergency medicine</span>
             </div>
           </div>
         </div>
@@ -119,8 +109,7 @@
       });
       if (!unique.length) return;
       const links = unique.map(value => `<a href="/doctors?specialty=${encodeURIComponent(value)}">${esc(specialtyLabels[value] || value)}</a>`).join('');
-      const repeats = unique.map(value => `<span>${esc(specialtyLabels[value] || value)}</span>`).join('');
-      specialtyRibbon.innerHTML = `<div class="directory-pill-track"><div class="directory-pill-group">${links}</div><div class="directory-pill-group" aria-hidden="true">${repeats}</div></div>`;
+      specialtyRibbon.innerHTML = `<div class="directory-pill-track"><div class="directory-pill-group">${links}</div></div>`;
     };
     const card = d => {
       const available = d.bookingOpen ?? d.acceptingPatients;

@@ -51,5 +51,5 @@ createServer(async (req, res) => {
   res.writeHead(200, { 'content-type': mimeTypes[extname(filePath)] || 'application/octet-stream' });
   createReadStream(filePath).pipe(res);
 }).listen(port, '127.0.0.1', () => {
-  console.log(`Vyasaa local preview: http://127.0.0.1:${port}`);
+  console.log(`Vyasa local preview: http://127.0.0.1:${port}`);
 });

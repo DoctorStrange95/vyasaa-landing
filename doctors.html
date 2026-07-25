@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Find Verified Doctors | Vyasaa</title>
-  <meta name="description" content="Search verified doctors by name, specialty, or city. Check booking availability and book directly through each doctor’s public Vyasaa profile." />
+  <title>Find Verified Doctors | Vyasa</title>
+  <meta name="description" content="Search verified doctors by name, specialty, or city. Check booking availability and book directly through each doctor’s public Vyasa profile." />
   <link rel="canonical" href="https://vyasaa.com/doctors" />
-  <meta property="og:title" content="Find Verified Doctors | Vyasaa" />
+  <meta property="og:title" content="Find Verified Doctors | Vyasa" />
   <meta property="og:description" content="Search doctors by specialty or city and book directly through public profiles." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,27 +22,53 @@
 
   <main>
     <section class="directory-hero"><div class="container">
-      <p class="service-eyebrow">Vyasaa doctor directory</p>
+      <p class="service-eyebrow">Vyasa doctor directory</p>
       <h1>Find a doctor who fits <em>your next step.</em></h1>
-      <p>Search public profiles by name, specialty, or location. When you are ready, book directly through the doctor’s profile.</p>
+      <p>Find care across modern medicine, Ayurveda, physiotherapy, and more. Search public profiles by specialty or location, then connect directly with the doctor who fits your needs.</p>
       <form class="directory-filters" id="directory-form">
         <label class="directory-search"><span aria-hidden="true">⌕</span><input id="doctor-search" type="search" placeholder="Search doctor, specialty, or city" autocomplete="off" /></label>
         <select id="doctor-specialty" aria-label="Filter by specialty"><option value="">All specialties</option></select>
         <select id="doctor-city" aria-label="Filter by city"><option value="">All cities</option></select>
         <button type="submit" class="btn btn-primary">Search doctors</button>
       </form>
-      <div class="directory-pills" aria-label="Popular specialties"><a href="/doctors?specialty=General%20Medicine">General medicine</a><a href="/doctors?specialty=Cardiologist">Cardiology</a><a href="/doctors?specialty=Pediatrician">Pediatrics</a><a href="/doctors?specialty=Dermatologist">Dermatology</a></div>
+      <div class="specialty-ribbon">
+        <p><span aria-hidden="true">✚</span> Connected care across specialties</p>
+        <div class="directory-pills" aria-label="Explore available specialties" id="specialty-ribbon">
+          <div class="directory-pill-track">
+            <div class="directory-pill-group">
+              <a href="/doctors?specialty=General%20Medicine">General medicine</a>
+              <a href="/doctors?specialty=Dermatology">Dermatology</a>
+              <a href="/doctors?specialty=Obstetrics%20%26%20Gynaecology">Women’s health</a>
+              <a href="/doctors?specialty=Orthopaedics">Orthopaedics</a>
+              <a href="/doctors?specialty=Ophthalmology">Eye care</a>
+              <a href="/doctors?specialty=ENT%20(Otorhinolaryngology)">ENT</a>
+              <a href="/doctors?specialty=Internal%20Medicine">Internal medicine</a>
+              <a href="/doctors?specialty=Emergency%20Medicine">Emergency medicine</a>
+            </div>
+            <div class="directory-pill-group" aria-hidden="true">
+              <span>General medicine</span>
+              <span>Dermatology</span>
+              <span>Women’s health</span>
+              <span>Orthopaedics</span>
+              <span>Eye care</span>
+              <span>ENT</span>
+              <span>Internal medicine</span>
+              <span>Emergency medicine</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div></section>
 
     <section class="directory-results"><div class="container">
-      <div class="directory-results-head"><div><p class="section-label">Available profiles</p><h2 class="section-title">Browse doctors</h2></div><p id="doctor-count" aria-live="polite">Loading doctors…</p></div>
+      <div class="directory-results-head"><div><p class="section-label">Available profiles</p><h2 class="section-title">Browse doctors and healers</h2></div><p id="doctor-count" aria-live="polite">Loading doctors…</p></div>
       <div class="doctor-listing" id="doctor-listing" aria-live="polite"></div>
       <div class="directory-empty" id="directory-empty" hidden><h2>No doctors found</h2><p>Try changing your search or clearing a filter.</p><button class="btn btn-outline" id="clear-directory" type="button">Clear filters</button></div>
     </div></section>
   </main>
 
   <nav class="care-dock" aria-label="Quick care navigation"><a href="/"><span aria-hidden="true">⌂</span>Home</a><a href="/doctors" aria-current="page"><span aria-hidden="true">✚</span>Doctors</a><a href="/labs"><span aria-hidden="true">⌁</span>Labs</a><a href="/pharmacy"><span aria-hidden="true">✦</span>Pharmacy</a><a href="https://health.vyasaa.com"><span aria-hidden="true">◌</span>Resources</a></nav>
-  <footer class="footer service-footer"><div class="container footer-bottom"><span>© <script>document.write(new Date().getFullYear())</script> Vyasa Integrated Healthcare.</span><a href="/">Back to Vyasaa home</a></div></footer>
+  <footer class="footer service-footer"><div class="container footer-bottom"><span>© <script>document.write(new Date().getFullYear())</script> Vyasa Integrated Healthcare.</span><a href="/">Back to Vyasa home</a></div></footer>
 
   <script>
   (() => {
@@ -56,9 +82,35 @@
     const empty = document.querySelector('#directory-empty');
     const esc = value => String(value ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     const params = new URLSearchParams(location.search);
+    let requestedSpecialty = params.get('specialty') || '';
+    let requestedCity = params.get('city') || '';
     search.value = params.get('search') || '';
     const initials = name => String(name || 'D').replace(/^dr\.?\s*/i, '').split(/\s+/).filter(Boolean).map(x => x[0]).join('').slice(0,2).toUpperCase();
     const displayName = name => /^dr\.?\s/i.test(String(name || '')) ? String(name) : `Dr. ${name || 'Doctor'}`;
+    const specialtyRibbon = document.querySelector('#specialty-ribbon');
+    const specialtyLabels = {
+      'Obstetrics & Gynaecology': 'Women’s health',
+      'ENT (Otorhinolaryngology)': 'ENT',
+      'Ophthalmology': 'Eye care',
+      'Community Medicine / Public Health': 'Public health',
+      'Family Medicine / General Practice': 'Family medicine',
+      'Oral & Maxillofacial Surgery': 'Oral and facial surgery',
+      'Pharmacy / Clinical Pharmacology': 'Clinical pharmacology',
+    };
+    const specialtyPriority = ['General Medicine', 'Ayurveda', 'Physiotherapy', 'Dermatology', 'Obstetrics & Gynaecology', 'Orthopaedics', 'Ophthalmology', 'ENT (Otorhinolaryngology)', 'Internal Medicine', 'Emergency Medicine'];
+    const renderSpecialtyRibbon = values => {
+      const unique = [...new Set(values.map(value => String(value).trim()).filter(Boolean))];
+      unique.sort((a, b) => {
+        const aRank = specialtyPriority.indexOf(a);
+        const bRank = specialtyPriority.indexOf(b);
+        if (aRank !== -1 || bRank !== -1) return (aRank === -1 ? 999 : aRank) - (bRank === -1 ? 999 : bRank);
+        return a.localeCompare(b);
+      });
+      if (!unique.length) return;
+      const links = unique.map(value => `<a href="/doctors?specialty=${encodeURIComponent(value)}">${esc(specialtyLabels[value] || value)}</a>`).join('');
+      const repeats = unique.map(value => `<span>${esc(specialtyLabels[value] || value)}</span>`).join('');
+      specialtyRibbon.innerHTML = `<div class="directory-pill-track"><div class="directory-pill-group">${links}</div><div class="directory-pill-group" aria-hidden="true">${repeats}</div></div>`;
+    };
     const card = d => {
       const available = d.bookingOpen ?? d.acceptingPatients;
       const image = d.profilePhotoUrl ? `<img src="${esc(d.profilePhotoUrl)}" alt="${esc(displayName(d.name))}" loading="lazy">` : `<span>${initials(d.name)}</span>`;
@@ -69,15 +121,22 @@
       list.innerHTML = '<div class="directory-loading">Finding doctors…</div>'.repeat(6); empty.hidden = true;
       const query = new URLSearchParams({ limit: '24' });
       if (search.value.trim()) query.set('search', search.value.trim());
-      if (specialty.value) query.set('specialty', specialty.value);
-      if (city.value) query.set('city', city.value);
+      const activeSpecialty = specialty.value || requestedSpecialty;
+      const activeCity = city.value || requestedCity;
+      if (activeSpecialty) query.set('specialty', activeSpecialty);
+      if (activeCity) query.set('city', activeCity);
       try {
         const response = await fetch(`${api}/public/doctors?${query}`);
         if (!response.ok) throw new Error();
         const data = await response.json(); const doctors = data.doctors || [];
-        setOptions(specialty, data.filters?.specialties || [], 'All specialties', params.get('specialty') || specialty.value);
-        setOptions(city, data.filters?.cities || [], 'All cities', params.get('city') || city.value);
-        count.textContent = `${data.total || doctors.length} doctor${(data.total || doctors.length) === 1 ? '' : 's'} found`;
+        const availableSpecialties = data.filters?.specialties || [];
+        setOptions(specialty, availableSpecialties, 'All specialties', activeSpecialty);
+        renderSpecialtyRibbon(availableSpecialties);
+        setOptions(city, data.filters?.cities || [], 'All cities', activeCity);
+        requestedSpecialty = '';
+        requestedCity = '';
+        const visibleTotal = activeSpecialty || activeCity || search.value.trim() ? doctors.length : (data.total ?? doctors.length);
+        count.textContent = `${visibleTotal} doctor${visibleTotal === 1 ? '' : 's'} found`;
         list.innerHTML = doctors.map(card).join('');
         empty.hidden = doctors.length > 0;
       } catch { list.innerHTML = ''; count.textContent = 'Directory temporarily unavailable'; empty.hidden = false; }

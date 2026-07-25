@@ -50,7 +50,7 @@
     </div></section>
 
     <section class="service-form-section" id="partner-form"><div class="container service-form-layout">
-      <div><p class="section-label">Laboratory application</p><h2 class="section-title">Let’s learn about your laboratory.</h2><p class="service-form-copy">This is an interest form for the Vyasaa care network. It will be connected to Super Admin for review before the site goes live.</p></div>
+      <div><p class="section-label">Laboratory application</p><h2 class="section-title">Let’s learn about your laboratory.</h2><p class="service-form-copy">This is an interest form for the Vyasaa care network. Our Super Admin team reviews every submission.</p></div>
       <form class="service-form" data-partner="lab">
         <label>Laboratory or network name<input name="organisation" required placeholder="Your laboratory name" /></label>
         <label>Contact name<input name="name" required placeholder="Your name" /></label>
@@ -76,7 +76,10 @@
       submit.disabled = true;
       status.textContent = 'Submitting your interest…';
       try {
-        const response = await fetch('/vyasa-api/public/partner-applications', {
+        const apiBase = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+          ? '/vyasa-api'
+          : 'https://vyasa-os-backend.onrender.com';
+        const response = await fetch(`${apiBase}/public/partner-applications`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ partnerType: 'lab', organisation: data.get('organisation'), contactName: data.get('name'), email: data.get('email'), phone: data.get('phone'), location: data.get('location'), note: data.get('note') }),
         });

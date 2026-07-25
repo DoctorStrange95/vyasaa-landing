@@ -100,7 +100,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/logo.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="/logo.png" />
-  <link rel="stylesheet" href="styles.css?v=20260725d" />
+  <link rel="stylesheet" href="styles.css?v=20260725e" />
 
   <!-- Google AdSense — site verification (ca-pub-1178392647946498) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1178392647946498" crossorigin="anonymous"></script>
@@ -376,12 +376,6 @@
           <button class="carousel-nav carousel-next" id="carousel-next" aria-label="Next doctors" type="button">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19l7-7-7-7"/></svg>
           </button>
-        </div>
-        <div class="featured-view-more">
-          <a href="/doctors" class="btn btn-outline">
-            View More Doctors
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
         </div>
       </div>
 
@@ -952,9 +946,18 @@
         viewAllCard.setAttribute('role', 'listitem');
         viewAllCard.className = 'featured-doctor-card featured-doctor-view-all';
         viewAllCard.innerHTML = `
-          <span class="featured-view-all-icon" aria-hidden="true">→</span>
-          <strong>View all doctors</strong>
-          <small>Explore every available profile</small>
+          <div class="featured-doctor-avatar featured-view-all-avatar">
+            <span class="featured-view-all-icon" aria-hidden="true">→</span>
+          </div>
+          <div class="featured-doctor-info">
+            <div class="featured-doctor-name">View all doctors</div>
+            <div class="featured-doctor-specialty">Complete directory</div>
+            <div class="featured-doctor-location">All specialties and locations</div>
+          </div>
+          <div class="featured-doctor-link">
+            Browse profiles
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </div>
         `;
         carousel.appendChild(viewAllCard);
       }

@@ -12,9 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=20260725a" />
+  <link rel="stylesheet" href="styles.css?v=20260725b" />
 </head>
-<body class="directory-page">
+<body class="directory-page light-preview">
   <nav class="nav"><div class="nav-inner">
     <a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a>
     <div class="nav-actions"><a href="/" class="btn btn-ghost nav-hide-sm">Home</a><a href="/labs" class="btn btn-ghost nav-hide-sm">For Partners</a><a href="https://app.vyasaa.com/login" class="btn btn-teal">For Doctors</a></div>
@@ -65,9 +65,20 @@
       <div class="doctor-listing" id="doctor-listing" aria-live="polite"></div>
       <div class="directory-empty" id="directory-empty" hidden><h2>No doctors found</h2><p>Try changing your search or clearing a filter.</p><button class="btn btn-outline" id="clear-directory" type="button">Clear filters</button></div>
     </div></section>
+
+    <section class="partner-discovery" aria-labelledby="doctor-discovery-heading"><div class="container partner-discovery-grid">
+      <div>
+        <p class="section-label">Connected care, different paths</p>
+        <h2 id="doctor-discovery-heading">Good care starts with finding the right person.</h2>
+      </div>
+      <div class="partner-discovery-copy">
+        <p>Vyasa brings together doctors and healers across modern medicine, Ayurveda, physiotherapy, and other areas of care. Public profiles help you understand each practitioner’s specialty, qualifications, location, and booking availability before deciding whom to contact.</p>
+        <p>Your care journey may also involve diagnostic testing or access to medicines. Our growing network of <a href="/labs">laboratories</a> and <a href="/pharmacy">pharmacies</a> is designed to make those next steps easier while keeping your choice at the centre.</p>
+      </div>
+    </div></section>
   </main>
 
-  <nav class="care-dock" aria-label="Quick care navigation"><a href="/"><span aria-hidden="true">⌂</span>Home</a><a href="/doctors" aria-current="page"><span aria-hidden="true">✚</span>Doctors</a><a href="/labs"><span aria-hidden="true">⌁</span>Labs</a><a href="/pharmacy"><span aria-hidden="true">✦</span>Pharmacy</a><a href="https://health.vyasaa.com"><span aria-hidden="true">◌</span>Resources</a></nav>
+  <nav class="care-dock" aria-label="Quick care navigation"><a href="/"><span aria-hidden="true">⌂</span>Home</a><a href="/doctors" aria-current="page"><span aria-hidden="true">✚</span>Doctors</a><a href="/labs"><span aria-hidden="true">🔬</span>Labs</a><a href="/pharmacy"><span aria-hidden="true">💊</span>Pharmacy</a><a href="https://health.vyasaa.com"><span aria-hidden="true">◌</span>Resources</a></nav>
   <footer class="footer service-footer"><div class="container footer-bottom"><span>© <script>document.write(new Date().getFullYear())</script> Vyasa Integrated Healthcare.</span><a href="/">Back to Vyasa home</a></div></footer>
 
   <script>

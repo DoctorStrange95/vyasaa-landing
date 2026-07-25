@@ -2043,6 +2043,61 @@ body {
   .directory-card-action .btn { flex: 1; justify-content: center; }
 }
 
+/* ── Local light-theme concept ─────────────────────────── */
+.light-preview {
+  --bg: #f4f7fb;
+  --bg-card: #ffffff;
+  --bg-card-alt: #eef3f8;
+  --bg-card-hover: #e8f4f3;
+  --border: rgba(15, 47, 65, .11);
+  --border-hover: rgba(13, 148, 136, .38);
+  --text: #102a3a;
+  --text-muted: #708394;
+  --text-dim: #516878;
+  --cyan: #087f8c;
+  --cyan-dim: rgba(8, 127, 140, .10);
+  --teal: #0b8278;
+  --teal-dim: rgba(11, 130, 120, .11);
+  --green: #087a58;
+  --green-dim: rgba(8, 122, 88, .10);
+  background: #f4f7fb;
+}
+.light-preview .nav { border-bottom-color: rgba(15,47,65,.1); background: rgba(250,252,254,.9); box-shadow: 0 8px 28px rgba(38,72,92,.06); }
+.light-preview .hero { background: linear-gradient(180deg, #f8fbfd 0%, #f1f7f8 100%); }
+.light-preview .hero-glow { background: radial-gradient(ellipse at center, rgba(13,148,136,.13) 0%, rgba(6,182,212,.07) 40%, transparent 70%); }
+.light-preview .quick-care-card,
+.light-preview .dir-search-hero,
+.light-preview .portal-card,
+.light-preview .partner-choice,
+.light-preview .resource-card { box-shadow: 0 16px 42px rgba(37,72,93,.08); }
+.light-preview .quick-care-card:not(.quick-care-primary):hover,
+.light-preview .partner-choice:hover { background: #edf8f6; }
+.light-preview .portal-card { border-color: rgba(13,148,136,.18); background: linear-gradient(145deg, #ffffff, #f3faf9); }
+.light-preview .portal-chip { color: #08796f; }
+.light-preview .portal-chip-green { color: #08734f; }
+.light-preview .citizen-section { border-color: var(--border); background: #eaf2f6; }
+.light-preview .resource-card { background: rgba(255,255,255,.82); }
+.light-preview .resource-card:first-child { background: linear-gradient(145deg, rgba(13,148,136,.15), rgba(255,255,255,.8)); }
+.light-preview .resource-icon { color: #087f75; }
+.light-preview .doctor-discovery-bar { border-color: rgba(13,148,136,.2); background: linear-gradient(135deg, rgba(13,148,136,.11), rgba(255,255,255,.85)); }
+.light-preview .discovery-chip { border-color: rgba(15,47,65,.13); background: #fff; color: #405b6d; }
+.light-preview .discovery-chip:hover { color: #075f58; background: #e7f5f2; }
+.light-preview .partner-section::before { background: radial-gradient(circle, rgba(6,182,212,.12), transparent 68%); }
+.light-preview .faq-section { border-color: var(--border); background: #e7f0f4; }
+.light-preview .faq-list details { border-color: rgba(15,47,65,.12); background: #fff; box-shadow: 0 10px 30px rgba(37,72,93,.06); }
+.light-preview .faq-list details[open] { border-color: rgba(13,148,136,.32); }
+.light-preview .faq-list summary { color: #163447; }
+.light-preview .faq-list details p { color: #536c7d; }
+.light-preview .faq-layout .btn-outline { border-color: rgba(15,47,65,.2); color: #0b7069; background: rgba(255,255,255,.7); }
+.light-preview .faq-layout .btn-outline:hover { border-color: rgba(13,148,136,.45); background: #fff; }
+.light-preview .mission { background: #edf4f7; }
+.light-preview .footer { background: #f8fafc; }
+.light-preview .footer-col a:hover { color: #087f75; }
+.light-preview .care-dock { border-color: rgba(15,47,65,.13); background: rgba(255,255,255,.94); box-shadow: 0 20px 48px rgba(37,72,93,.18); }
+.light-preview .care-dock a { color: #607687; }
+.light-preview .care-dock a:hover { color: #075f58; background: rgba(13,148,136,.11); }
+.light-preview .care-dock a[aria-current="page"] { color: #064f4b; background: linear-gradient(145deg, rgba(13,148,136,.2), rgba(6,182,212,.1)); }
+
 /* ── Motion system ───────────────────────────────────────── */
 
 /* Directional reveals */

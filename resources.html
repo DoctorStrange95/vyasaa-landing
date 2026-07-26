@@ -16,7 +16,7 @@
   <meta name="twitter:image" content="https://www.vyasaa.com/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726m" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726n" />
 </head>
 <body class="service-page resource-page light-preview">
   <nav class="nav"><div class="nav-inner"><a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a><div class="nav-actions"><a href="/doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a><a href="/" class="btn btn-primary">Home</a></div></div></nav>
@@ -115,23 +115,27 @@
               <details class="tool-about"><summary>About Cockcroft–Gault creatinine clearance</summary><div><p>Estimate adult creatinine clearance for clinical contexts that still specify Cockcroft–Gault, while recognising limitations related to body weight, muscle mass, unstable kidney function and current race-free eGFR guidance.</p><a href="https://www.kidney.org/professionals/kdoqi/cockcroft-gault-equation-estimating-creatinine-clearance" target="_blank" rel="noopener noreferrer">Kidney-function guidance ↗</a></div></details>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="insulin" hidden>
-              <div class="tool-form-heading"><div><span>Adults · rapid-acting insulin only</span><h3>Insulin correction-dose calculator</h3></div><p>Requires a patient-specific sensitivity factor and target prescribed by the treating diabetes team. Not for initiating insulin.</p></div>
+              <div class="tool-form-heading"><div><span>Adults · rapid-acting insulin only</span><h3>Insulin correction-dose calculator</h3></div><p>Use a prescribed sensitivity factor or estimate it from an established total daily insulin dose. Not for initiating insulin.</p></div>
               <div class="insulin-safety-note"><strong>Before calculating:</strong> do not use for hypoglycaemia, DKA/positive ketones, pregnancy, children, critical illness, IV insulin, pumps/closed-loop systems or when the patient does not have an established correction plan.</div>
+              <p class="insulin-isf-help"><strong>What is ISF?</strong> It is the expected fall in glucose from 1 unit of rapid-acting insulin. If it is not already prescribed, select “Estimate from total daily dose” and enter the average daily basal + bolus insulin.</p>
               <form class="public-tool-form insulin-form" id="insulin-form">
+                <label>Diabetes context<select id="insulin-context"><option value="type1">Type 1 · established insulin plan</option><option value="type2">Type 2 · insulin-treated</option></select></label>
                 <label>Glucose unit<select id="insulin-unit"><option value="mg">mg/dL</option><option value="mmol">mmol/L</option></select></label>
+                <label>ISF method<select id="insulin-isf-method"><option value="prescribed">Use prescribed ISF</option><option value="tdd">Estimate from total daily dose</option></select></label>
                 <label><span id="insulin-current-label">Current glucose (mg/dL)</span><input id="insulin-current" type="number" min="40" max="800" step="1" inputmode="decimal" required /></label>
                 <label><span id="insulin-target-label">Prescribed target (mg/dL)</span><input id="insulin-target" type="number" min="70" max="250" step="1" value="120" inputmode="decimal" required /></label>
-                <label><span id="insulin-isf-label">Prescribed ISF (mg/dL per unit)</span><input id="insulin-isf" type="number" min="1" max="300" step="0.1" inputmode="decimal" required /></label>
-                <label>Active insulin / IOB (units)<input id="insulin-iob" type="number" min="0" max="50" step="0.1" value="0" inputmode="decimal" required /></label>
+                <label id="insulin-isf-wrap"><span id="insulin-isf-label">Prescribed ISF (mg/dL per unit)</span><input id="insulin-isf" type="number" min="1" max="300" step="0.1" inputmode="decimal" required /></label>
+                <label id="insulin-tdd-wrap" hidden>Average total daily dose (units/day)<input id="insulin-tdd" type="number" min="5" max="300" step="1" inputmode="decimal" /></label>
+                <label>Active insulin / IOB (units)<input id="insulin-iob" type="number" min="0" max="50" step="0.1" value="0" placeholder="0" inputmode="decimal" required /></label>
                 <label>Hours since last rapid dose<input id="insulin-hours" type="number" min="0" max="24" step="0.25" inputmode="decimal" required /></label>
                 <label>Blood ketones<select id="insulin-ketones"><option value="not-checked">Not checked</option><option value="negative">Negative</option><option value="positive">Positive</option></select></label>
                 <label>Dose increment<select id="insulin-increment"><option value="0.5">0.5 unit</option><option value="1">1 unit</option></select></label>
                 <label>Protocol maximum (units)<input id="insulin-maximum" type="number" min="0.5" max="50" step="0.5" inputmode="decimal" required /></label>
-                <label>Prescribed ISF confirmed<select id="insulin-confirmed" required><option value="">Select</option><option value="yes">Yes</option></select></label>
+                <label><span id="insulin-confirmed-label">Prescribed ISF confirmed</span><select id="insulin-confirmed" required><option value="">Select</option><option value="yes">Yes</option></select></label>
                 <button class="btn btn-primary" type="submit">Calculate correction</button>
               </form>
               <div class="tool-result" id="insulin-result" aria-live="polite"><p>Enter the patient’s prescribed correction parameters. This tool never determines an initial insulin regimen.</p></div>
-              <details class="tool-about"><summary>About rapid-acting insulin correction</summary><div><p>Calculate an adult correction dose from current glucose, prescribed target and patient-specific insulin sensitivity factor, with active-insulin subtraction, conservative rounding, a protocol maximum and ketone safeguards.</p><a href="https://www.uclh.nhs.uk/patients-and-visitors/patient-information-pages/dealing-high-glucose-levels-abc-multiple-daily-injections" target="_blank" rel="noopener noreferrer">Insulin correction-factor guidance ↗</a></div></details>
+              <details class="tool-about"><summary>About rapid-acting insulin correction</summary><div><p>ISF is the expected glucose reduction from one unit of rapid-acting insulin. Use the patient’s prescribed ISF when available. For an established insulin regimen, the 1800 rule (mg/dL) or equivalent 100 rule (mmol/L) can provide an initial estimate from average total daily basal + bolus insulin. The estimate must be clinically reviewed.</p><p>Correction insulin can supplement an established type 1 or type 2 regimen; it should not replace basal insulin in type 1 diabetes or be used as repetitive sliding-scale-only treatment.</p><a href="https://www.uclh.nhs.uk/patients-and-visitors/patient-information-pages/dealing-high-glucose-levels-abc-multiple-daily-injections" target="_blank" rel="noopener noreferrer">Insulin correction-factor guidance ↗</a></div></details>
             </section>
           </div>
           <div class="clinical-library-summary"><strong>Six free clinical calculators for doctors</strong><span>No login · Calculations run in your browser · Values are not transmitted or stored</span></div>
@@ -382,6 +386,17 @@
         document.querySelector('#renal-result').innerHTML = `<div class="result-number">${crcl.toFixed(1)} mL/min</div><strong>Estimated Cockcroft–Gault creatinine clearance</strong><p>Uses the entered body weight and the historical 0.85 female coefficient. Do not use in children, rapidly changing renal function or without reviewing weight choice, muscle mass and the medicine-specific dosing guidance. This is not a CKD diagnosis or a race-free CKD-EPI eGFR.</p>`;
       });
       const insulinUnit = document.querySelector('#insulin-unit');
+      const insulinIsfMethod = document.querySelector('#insulin-isf-method');
+      const configureInsulinIsfMethod = () => {
+        const estimated = insulinIsfMethod.value === 'tdd';
+        document.querySelector('#insulin-isf-wrap').hidden = estimated;
+        document.querySelector('#insulin-tdd-wrap').hidden = !estimated;
+        document.querySelector('#insulin-isf').required = !estimated;
+        document.querySelector('#insulin-tdd').required = estimated;
+        document.querySelector('#insulin-confirmed-label').textContent = estimated ? 'Estimated ISF reviewed' : 'Prescribed ISF confirmed';
+        document.querySelector('#insulin-confirmed').value = '';
+        document.querySelector('#insulin-result').innerHTML = '<p>Enter the patient’s correction parameters. This tool never determines an initial insulin regimen.</p>';
+      };
       const configureInsulinUnit = () => {
         const mmol = insulinUnit.value === 'mmol';
         document.querySelector('#insulin-current-label').textContent = `Current glucose (${mmol ? 'mmol/L' : 'mg/dL'})`;
@@ -396,12 +411,17 @@
         document.querySelector('#insulin-result').innerHTML = '<p>Enter the patient’s prescribed correction parameters. This tool never determines an initial insulin regimen.</p>';
       };
       insulinUnit?.addEventListener('change', configureInsulinUnit);
+      insulinIsfMethod?.addEventListener('change', configureInsulinIsfMethod);
+      configureInsulinIsfMethod();
       document.querySelector('#insulin-form')?.addEventListener('submit', (event) => {
         event.preventDefault();
         const mmol = insulinUnit.value === 'mmol';
+        const context = document.querySelector('#insulin-context').value;
+        const estimatedIsf = insulinIsfMethod.value === 'tdd';
         const current = Number(document.querySelector('#insulin-current').value);
         const target = Number(document.querySelector('#insulin-target').value);
-        const isf = Number(document.querySelector('#insulin-isf').value);
+        const tdd = estimatedIsf ? Number(document.querySelector('#insulin-tdd').value) : null;
+        const isf = estimatedIsf ? (mmol ? 100 : 1800) / tdd : Number(document.querySelector('#insulin-isf').value);
         const iob = Number(document.querySelector('#insulin-iob').value);
         const hours = Number(document.querySelector('#insulin-hours').value);
         const ketones = document.querySelector('#insulin-ketones').value;
@@ -435,7 +455,9 @@
         const capped = roundedDown > maximum;
         const timingWarning = hours < 4 ? '<p class="insulin-caution">Rapid-acting insulin may still be active at 2–4 hours. Confirm the entered IOB and local correction interval.</p>' : '';
         const belowTarget = current <= target ? '<p>No correction is indicated by this formula because current glucose is at or below the prescribed target.</p>' : '';
-        result.innerHTML = `<div class="result-number">${protocolDose.toFixed(decimals)} units</div><strong>${capped ? 'Protocol-limited rapid-acting correction' : 'Calculated rapid-acting correction'}</strong><p>(${current.toFixed(mmol ? 1 : 0)} − ${target.toFixed(mmol ? 1 : 0)}) ${unit} ÷ ${isf.toFixed(1)} ${unit}/unit − ${iob.toFixed(1)} units IOB = ${afterIob.toFixed(2)} units; rounded down to ${increment}-unit increments.${capped ? ` The rounded result exceeded the entered ${maximum}-unit protocol maximum and was capped.` : ''}</p>${timingWarning}${belowTarget}<p>Verify the glucose reading, prescribed ISF, target, IOB and maximum dose before administration. Do not add carbohydrate coverage unless separately prescribed and calculated.</p>`;
+        const isfExplanation = estimatedIsf ? `<p class="insulin-isf-result"><strong>Estimated ISF:</strong> ${mmol ? '100' : '1800'} ÷ ${tdd.toFixed(1)} total units/day = ${isf.toFixed(1)} ${unit} per unit.</p>` : '';
+        const typeOneWarning = context === 'type1' ? '<p class="insulin-caution">For type 1 diabetes, correction insulin must never replace the patient’s basal insulin. Follow the complete prescribed basal–bolus plan.</p>' : '<p class="insulin-caution">For type 2 diabetes, repeated correction-only treatment is not a substitute for reviewing the scheduled glucose-lowering regimen.</p>';
+        result.innerHTML = `<div class="result-number">${protocolDose.toFixed(decimals)} units</div><strong>${capped ? 'Protocol-limited rapid-acting correction' : 'Calculated rapid-acting correction'}</strong>${isfExplanation}<p>(${current.toFixed(mmol ? 1 : 0)} − ${target.toFixed(mmol ? 1 : 0)}) ${unit} ÷ ${isf.toFixed(1)} ${unit}/unit − ${iob.toFixed(1)} units IOB = ${afterIob.toFixed(2)} units; rounded down to ${increment}-unit increments.${capped ? ` The rounded result exceeded the entered ${maximum}-unit protocol maximum and was capped.` : ''}</p>${timingWarning}${belowTarget}${typeOneWarning}<p>Verify the glucose reading, ISF estimate or prescription, target, IOB and maximum dose before administration. Do not add carbohydrate coverage unless separately prescribed and calculated.</p>`;
       });
     })();
   </script>

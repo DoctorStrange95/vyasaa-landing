@@ -39,25 +39,30 @@
             <span class="resource-panel-link">No login · Runs on this page</span>
           </div>
           <div class="resource-card-grid resource-card-grid-three public-tool-picker">
-            <button class="resource-tool-card featured-tool public-tool-card is-selected" type="button" data-public-tool="growth"><span class="resource-card-icon">↗</span><span class="resource-card-tag">Paediatrics</span><h3>Growth Screening</h3><p>Plot weight- or height-for-age against quick WHO reference bands for children 0–60 months.</p><b>Open growth tool ↓</b></button>
+            <button class="resource-tool-card featured-tool public-tool-card is-selected" type="button" data-public-tool="growth"><span class="resource-card-icon">↗</span><span class="resource-card-tag">Paediatrics</span><h3>Growth Screening</h3><p>Review weight, height/length, MUAC and bilateral oedema for children 0–60 months.</p><b>Open growth tool ↓</b></button>
             <button class="resource-tool-card public-tool-card" type="button" data-public-tool="bmi"><span class="resource-card-icon">⚖</span><span class="resource-card-tag">Quick calculator</span><h3>BMI Calculator</h3><p>Calculate adult BMI with Asian and WHO cut-offs directly in your browser.</p><b>Calculate BMI ↓</b></button>
-            <button class="resource-tool-card public-tool-card" type="button" data-public-tool="sample"><span class="resource-card-icon">n=</span><span class="resource-card-tag">Research utility</span><h3>Sample Size</h3><p>Estimate a sample size for a single proportion with optional non-response adjustment.</p><b>Calculate sample size ↓</b></button>
+            <button class="resource-tool-card public-tool-card" type="button" data-public-tool="sample"><span class="resource-card-icon">n=</span><span class="resource-card-tag">Research utility</span><h3>Sample Size</h3><p>Estimate samples for cross-sectional, cohort, case-control and two-arm RCT designs.</p><b>Calculate sample size ↓</b></button>
           </div>
           <div class="public-tool-workspace">
             <section class="public-tool-pane is-active" data-public-tool-pane="growth">
-              <div class="tool-form-heading"><div><span>WHO quick reference</span><h3>Child growth screening</h3></div><p>Approximate visual screening bands—not a full LMS z-score calculation.</p></div>
+              <div class="tool-form-heading"><div><span>WHO-aligned quick screening</span><h3>Child growth and nutrition screening</h3></div><p>For children 0–60 months. Approximate age bands are not a substitute for official LMS z-scores or clinical assessment.</p></div>
               <form class="public-tool-form" id="growth-form">
-                <label>Measure<select id="growth-measure"><option value="weight">Weight-for-age</option><option value="height">Height/length-for-age</option></select></label>
                 <label>Sex<select id="growth-sex"><option value="boys">Boy</option><option value="girls">Girl</option></select></label>
                 <label>Age in months<input id="growth-age" type="number" min="0" max="60" step="1" inputmode="numeric" required /></label>
-                <label><span id="growth-value-label">Weight (kg)</span><input id="growth-value" type="number" min="0.1" step="0.1" inputmode="decimal" required /></label>
-                <button class="btn btn-primary" type="submit">Plot measurement</button>
+                <label>Weight (kg)<input id="growth-weight" type="number" min="0.5" max="50" step="0.1" inputmode="decimal" required /></label>
+                <label>Length/height (cm)<input id="growth-height" type="number" min="30" max="130" step="0.1" inputmode="decimal" required /></label>
+                <label>MUAC (cm)<input id="growth-muac" type="number" min="5" max="30" step="0.1" inputmode="decimal" aria-describedby="growth-muac-help" /></label>
+                <label>Bilateral pitting oedema<select id="growth-oedema"><option value="no">No</option><option value="yes">Yes</option></select></label>
+                <button class="btn btn-primary" type="submit">Screen measurements</button>
               </form>
-              <div class="tool-result" id="growth-result" aria-live="polite"><p>Enter the child’s measurement to view it against the reference band.</p></div>
+              <p class="tool-field-note" id="growth-muac-help">MUAC classification is shown only for ages 6–59 months. Measure the left mid-upper arm using an appropriate tape.</p>
+              <div class="tool-result" id="growth-result" aria-live="polite"><p>Enter the child’s measurements to review age-reference bands, BMI, MUAC and oedema.</p></div>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="bmi" hidden>
               <div class="tool-form-heading"><div><span>Adults · 18 years and above</span><h3>BMI calculator</h3></div><p>Displays both Asian and WHO adult categories.</p></div>
               <form class="public-tool-form" id="bmi-form">
+                <label>Sex<select id="bmi-sex"><option value="female">Female</option><option value="male">Male</option><option value="other">Other / prefer not to say</option></select></label>
+                <label>Age (years)<input id="bmi-age" type="number" min="18" max="120" step="1" inputmode="numeric" required /></label>
                 <label>Weight (kg)<input id="bmi-weight" type="number" min="1" max="500" step="0.1" inputmode="decimal" required /></label>
                 <label>Height (cm)<input id="bmi-height" type="number" min="50" max="250" step="0.1" inputmode="decimal" required /></label>
                 <button class="btn btn-primary" type="submit">Calculate BMI</button>
@@ -65,11 +70,14 @@
               <div class="tool-result" id="bmi-result" aria-live="polite"><p>Enter weight and height to calculate BMI.</p></div>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="sample" hidden>
-              <div class="tool-form-heading"><div><span>Single proportion</span><h3>Sample-size calculator</h3></div><p>Uses n = Z² × p(1−p) ÷ d².</p></div>
+              <div class="tool-form-heading"><div><span>Design-aware estimate</span><h3>Sample-size calculator</h3></div><p>Uses common two-sided normal approximations. Confirm assumptions with a statistician before protocol submission.</p></div>
               <form class="public-tool-form" id="sample-form">
+                <label>Study design<select id="sample-design"><option value="cross">Observational · cross-sectional</option><option value="cohort">Observational · cohort</option><option value="case-control">Case-control</option><option value="rct">Randomised controlled trial</option></select></label>
                 <label>Confidence level<select id="sample-confidence"><option value="1.645">90%</option><option value="1.96" selected>95%</option><option value="2.576">99%</option></select></label>
-                <label>Expected proportion (%)<input id="sample-proportion" type="number" min="1" max="99" step="0.1" value="50" inputmode="decimal" required /></label>
-                <label>Margin of error (%)<input id="sample-margin" type="number" min="0.1" max="50" step="0.1" value="5" inputmode="decimal" required /></label>
+                <label id="sample-power-wrap" hidden>Power<select id="sample-power"><option value="0.84" selected>80%</option><option value="1.036">85%</option><option value="1.282">90%</option><option value="1.645">95%</option></select></label>
+                <label><span id="sample-primary-label">Expected proportion (%)</span><input id="sample-primary" type="number" min="0.1" max="99.9" step="0.1" value="50" inputmode="decimal" required /></label>
+                <label id="sample-secondary-wrap" hidden><span id="sample-secondary-label">Second-group outcome (%)</span><input id="sample-secondary" type="number" min="0.1" max="99.9" step="0.1" value="35" inputmode="decimal" /></label>
+                <label id="sample-margin-wrap">Margin of error (%)<input id="sample-margin" type="number" min="0.1" max="50" step="0.1" value="5" inputmode="decimal" /></label>
                 <label>Expected response rate (%)<input id="sample-response" type="number" min="1" max="100" step="1" value="100" inputmode="numeric" required /></label>
                 <button class="btn btn-primary" type="submit">Calculate sample size</button>
               </form>
@@ -184,39 +192,100 @@
         }
       };
 
-      document.querySelector('#growth-measure')?.addEventListener('change', (event) => {
-        document.querySelector('#growth-value-label').textContent = event.target.value === 'weight' ? 'Weight (kg)' : 'Height/length (cm)';
-      });
       document.querySelector('#growth-form')?.addEventListener('submit', (event) => {
         event.preventDefault();
-        const measure = document.querySelector('#growth-measure').value;
         const sex = document.querySelector('#growth-sex').value;
         const age = Number(document.querySelector('#growth-age').value);
-        const value = Number(document.querySelector('#growth-value').value);
-        const [low, median, high] = interpolate(growthRefs[measure][sex], age);
-        const position = Math.max(0, Math.min(100, ((value - low) / (high - low)) * 100));
-        const category = value < low ? 'Below −2 SD reference' : value > high ? 'Above +2 SD reference' : 'Within the quick reference band';
-        const unit = measure === 'weight' ? 'kg' : 'cm';
-        document.querySelector('#growth-result').innerHTML = `<div class="result-number">${value.toFixed(1)} ${unit}</div><strong>${category}</strong><div class="growth-band"><span style="left:${position}%"></span></div><div class="growth-scale"><small>−2 SD ${low.toFixed(1)}</small><small>Median ${median.toFixed(1)}</small><small>+2 SD ${high.toFixed(1)}</small></div><p>Approximate interpolated WHO visual reference. Confirm with official LMS-based charts when clinical classification is required.</p>`;
+        const weight = Number(document.querySelector('#growth-weight').value);
+        const height = Number(document.querySelector('#growth-height').value);
+        const muacInput = document.querySelector('#growth-muac').value;
+        const muac = muacInput === '' ? null : Number(muacInput);
+        const oedema = document.querySelector('#growth-oedema').value === 'yes';
+        const classifyBand = (value, refs) => value < refs[0] ? 'Below −2 SD reference' : value > refs[2] ? 'Above +2 SD reference' : 'Within −2 to +2 SD';
+        const weightRefs = interpolate(growthRefs.weight[sex], age);
+        const heightRefs = interpolate(growthRefs.height[sex], age);
+        const bmi = weight / ((height / 100) ** 2);
+        let muacCategory = 'Not entered';
+        if (muac !== null) {
+          if (age < 6 || age > 59) muacCategory = 'Not classified outside 6–59 months';
+          else if (muac < 11.5) muacCategory = 'Severe acute malnutrition range';
+          else if (muac < 12.5) muacCategory = 'Moderate acute malnutrition range';
+          else muacCategory = 'Not in the acute-malnutrition MUAC range';
+        }
+        const alert = oedema ? '<p class="tool-alert"><strong>Urgent clinical assessment:</strong> bilateral pitting oedema is a criterion for severe acute malnutrition, irrespective of MUAC.</p>' : '';
+        document.querySelector('#growth-result').innerHTML = `${alert}<div class="result-split result-split-growth"><span><small>Weight-for-age</small><strong>${weight.toFixed(1)} kg · ${classifyBand(weight, weightRefs)}</strong><em>−2 SD ${weightRefs[0].toFixed(1)} · Median ${weightRefs[1].toFixed(1)} · +2 SD ${weightRefs[2].toFixed(1)}</em></span><span><small>Height/length-for-age</small><strong>${height.toFixed(1)} cm · ${classifyBand(height, heightRefs)}</strong><em>−2 SD ${heightRefs[0].toFixed(1)} · Median ${heightRefs[1].toFixed(1)} · +2 SD ${heightRefs[2].toFixed(1)}</em></span><span><small>Body mass index</small><strong>${bmi.toFixed(1)} kg/m²</strong><em>Informational only; BMI-for-age needs official sex-specific LMS data.</em></span><span><small>MUAC</small><strong>${muac === null ? 'Not entered' : `${muac.toFixed(1)} cm · ${muacCategory}`}</strong><em>${age >= 6 && age <= 59 ? 'WHO 6–59 month screening thresholds.' : 'No MUAC category applied for this age.'}</em></span></div><p>Age references are approximate interpolated visual bands. Confirm suspected growth faltering, wasting or stunting using official WHO charts/software and a complete clinical assessment.</p>`;
       });
       document.querySelector('#bmi-form')?.addEventListener('submit', (event) => {
         event.preventDefault();
+        const sex = document.querySelector('#bmi-sex').value;
+        const age = Number(document.querySelector('#bmi-age').value);
         const weight = Number(document.querySelector('#bmi-weight').value);
         const heightM = Number(document.querySelector('#bmi-height').value) / 100;
         const bmi = weight / (heightM * heightM);
-        const asian = bmi < 18.5 ? 'Underweight' : bmi < 23 ? 'Normal range' : bmi < 25 ? 'Increased risk' : bmi < 30 ? 'Obese I' : 'Obese II';
-        const who = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal range' : bmi < 30 ? 'Overweight' : 'Obesity';
-        document.querySelector('#bmi-result').innerHTML = `<div class="result-number">${bmi.toFixed(1)} kg/m²</div><div class="result-split"><span><small>Asian cut-offs</small><strong>${asian}</strong></span><span><small>WHO cut-offs</small><strong>${who}</strong></span></div>`;
+        const asian = bmi < 18.5 ? 'Underweight' : bmi < 23 ? 'Normal range' : bmi < 25 ? 'Overweight / increased risk' : bmi < 30 ? 'Obesity class I' : 'Obesity class II';
+        const who = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal range' : bmi < 30 ? 'Overweight' : bmi < 35 ? 'Obesity class I' : bmi < 40 ? 'Obesity class II' : 'Obesity class III';
+        const sexLabel = sex === 'female' ? 'Female' : sex === 'male' ? 'Male' : 'Sex not specified';
+        document.querySelector('#bmi-result').innerHTML = `<div class="result-number">${bmi.toFixed(1)} kg/m²</div><p>${sexLabel} · ${age} years. Adult BMI formula and category thresholds do not change by sex.</p><div class="result-split"><span><small>Asian adult cut-offs</small><strong>${asian}</strong></span><span><small>WHO adult cut-offs</small><strong>${who}</strong></span></div><p>BMI is a screening measure and does not directly measure body fat or account for pregnancy, oedema, muscle mass or body composition.</p>`;
       });
+
+      const sampleDesign = document.querySelector('#sample-design');
+      const updateSampleFields = () => {
+        const design = sampleDesign.value;
+        const comparative = design !== 'cross';
+        document.querySelector('#sample-power-wrap').hidden = !comparative;
+        document.querySelector('#sample-secondary-wrap').hidden = !comparative;
+        document.querySelector('#sample-margin-wrap').hidden = comparative;
+        const labels = {
+          cross: ['Expected prevalence (%)', ''],
+          cohort: ['Outcome in unexposed (%)', 'Outcome in exposed (%)'],
+          'case-control': ['Exposure in controls (%)', 'Expected odds ratio'],
+          rct: ['Outcome in control arm (%)', 'Outcome in intervention arm (%)']
+        };
+        document.querySelector('#sample-primary-label').textContent = labels[design][0];
+        document.querySelector('#sample-secondary-label').textContent = labels[design][1];
+        const secondary = document.querySelector('#sample-secondary');
+        secondary.required = comparative;
+        secondary.max = design === 'case-control' ? '20' : '99.9';
+        secondary.min = design === 'case-control' ? '1.01' : '0.1';
+        secondary.step = design === 'case-control' ? '0.01' : '0.1';
+        secondary.value = design === 'case-control' ? '2' : design === 'rct' ? '20' : '35';
+      };
+      sampleDesign?.addEventListener('change', updateSampleFields);
+      updateSampleFields();
       document.querySelector('#sample-form')?.addEventListener('submit', (event) => {
         event.preventDefault();
+        const design = sampleDesign.value;
         const z = Number(document.querySelector('#sample-confidence').value);
-        const p = Number(document.querySelector('#sample-proportion').value) / 100;
-        const d = Number(document.querySelector('#sample-margin').value) / 100;
+        const primary = Number(document.querySelector('#sample-primary').value) / 100;
         const response = Number(document.querySelector('#sample-response').value) / 100;
-        const base = Math.ceil((z * z * p * (1 - p)) / (d * d));
+        let base, label, explanation;
+        if (design === 'cross') {
+          const d = Number(document.querySelector('#sample-margin').value) / 100;
+          base = Math.ceil((z * z * primary * (1 - primary)) / (d * d));
+          label = 'Required participants';
+          explanation = `Single-proportion estimate at ±${(d * 100).toFixed(1)}% precision.`;
+        } else {
+          const zPower = Number(document.querySelector('#sample-power').value);
+          const secondaryValue = Number(document.querySelector('#sample-secondary').value);
+          let p1 = primary;
+          let p2 = secondaryValue / 100;
+          if (design === 'case-control') {
+            const oddsRatio = secondaryValue;
+            p2 = (oddsRatio * p1) / (1 + p1 * (oddsRatio - 1));
+          }
+          if (Math.abs(p1 - p2) < 0.0001) {
+            document.querySelector('#sample-result').innerHTML = '<p class="tool-alert"><strong>No detectable difference entered.</strong> The two expected groups must have different outcome proportions (or an odds ratio different from 1).</p>';
+            return;
+          }
+          const pooled = (p1 + p2) / 2;
+          const numerator = ((z * Math.sqrt(2 * pooled * (1 - pooled))) + (zPower * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2)))) ** 2;
+          const perGroup = Math.ceil(numerator / ((p1 - p2) ** 2));
+          base = perGroup * 2;
+          label = `${perGroup} per group · ${base} total`;
+          explanation = `${design === 'case-control' ? 'Equal cases and controls' : 'Equal two-group allocation'}; two-sided test using a normal approximation.`;
+        }
         const adjusted = Math.ceil(base / response);
-        document.querySelector('#sample-result').innerHTML = `<div class="result-number">${adjusted}</div><strong>Required participants</strong><p>Base estimate: ${base}${response < 1 ? ` · Adjusted for ${Math.round(response * 100)}% response rate` : ''}.</p>`;
+        document.querySelector('#sample-result').innerHTML = `<div class="result-number">${adjusted}</div><strong>${response < 1 ? 'Adjusted total sample' : label}</strong><p>${explanation} Base total: ${base}${response < 1 ? ` · adjusted for ${Math.round(response * 100)}% response/retention` : ''}. This estimate does not include clustering, matching, unequal allocation, continuity correction or repeated measures.</p>`;
       });
     })();
   </script>

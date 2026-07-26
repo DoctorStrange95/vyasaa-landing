@@ -1,6 +1,17 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        { "type": "host", "value": "vyasaa.com" }
+      ],
+      "destination": "https://www.vyasaa.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/dr/:slug*", "destination": "https://vyasa-health-os.pages.dev/dr/:slug*" },
     { "source": "/assets/:path*", "destination": "https://vyasa-health-os.pages.dev/assets/:path*" }

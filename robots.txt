@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vyasaa.com/sitemap.xml
+Sitemap: https://www.vyasaa.com/sitemap.xml

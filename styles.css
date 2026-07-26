@@ -2236,9 +2236,22 @@ body {
 .growth-band { position: relative; height: 15px; margin-top: 16px; border-radius: 999px; background: linear-gradient(90deg, #fca5a5 0 5%, #86efac 5% 95%, #fca5a5 95%); }
 .growth-band span { position: absolute; top: -5px; width: 4px; height: 25px; margin-left: -2px; border-radius: 2px; background: #163447; }
 .growth-scale { display: flex; justify-content: space-between; margin-top: 7px; }
+.clinical-tools-guide { margin-top: 26px; padding-top: 30px; border-top: 1px solid rgba(15,47,65,.1); }
+.clinical-tools-guide-heading { max-width: 820px; }
+.clinical-tools-guide-heading h2 { margin: 5px 0 10px; color: #163447; font-size: clamp(1.5rem, 3vw, 2.2rem); letter-spacing: -.035em; }
+.clinical-tools-guide-heading > p:last-child { margin: 0; color: #617684; line-height: 1.7; }
+.clinical-guide-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+.clinical-guide-grid article { padding: 20px; border: 1px solid rgba(15,47,65,.09); border-radius: 15px; background: #f8fbfc; }
+.clinical-guide-number { color: #0d9488; font-size: .68rem; font-weight: 900; letter-spacing: .1em; }
+.clinical-guide-grid h3, .clinical-library-roadmap h3 { margin: 8px 0; color: #163447; font-size: 1.03rem; }
+.clinical-guide-grid p, .clinical-library-roadmap p { margin: 0; color: #667b87; font-size: .79rem; line-height: 1.65; }
+.clinical-library-roadmap { display: grid; grid-template-columns: 1.3fr .7fr; gap: 22px; margin-top: 12px; padding: 20px; border-radius: 15px; background: linear-gradient(135deg, rgba(13,148,136,.09), rgba(56,189,248,.07)); }
+.clinical-method-links { display: grid; align-content: center; gap: 8px; }
+.clinical-method-links a { padding: 10px 12px; border-radius: 9px; background: rgba(255,255,255,.8); color: #08796f; font-size: .76rem; font-weight: 800; text-decoration: none; }
+.clinical-method-links a:hover { color: #075f8b; background: #fff; }
 
 @media (max-width: 800px) {
-  .resource-card-grid, .resource-card-grid-three, .nfhs-highlight { grid-template-columns: 1fr; }
+  .resource-card-grid, .resource-card-grid-three, .nfhs-highlight, .clinical-guide-grid, .clinical-library-roadmap { grid-template-columns: 1fr; }
   .resource-panel-heading { align-items: start; flex-direction: column; gap: 10px; }
   .resource-tool-card { min-height: 0; }
   .resource-tabs { width: 100%; }
@@ -2276,6 +2289,15 @@ body {
   .result-split .growth-mobile-summary { display: block; padding: 0; border: 0; background: transparent !important; color: inherit; font-size: .75rem; font-weight: 800; line-height: 1.35; }
   .growth-mobile-summary strong { color: inherit !important; }
   #growth-result > p { display: none; }
+  .clinical-tools-guide { margin-top: 18px; padding-top: 20px; }
+  .clinical-tools-guide-heading h2 { font-size: 1.3rem; }
+  .clinical-tools-guide-heading > p:last-child { font-size: .78rem; line-height: 1.55; }
+  .clinical-guide-grid { gap: 7px; margin-top: 12px; }
+  .clinical-guide-grid article { padding: 13px; }
+  .clinical-guide-grid p { display: none; }
+  .clinical-guide-grid h3 { margin-bottom: 0; font-size: .9rem; }
+  .clinical-library-roadmap { gap: 12px; padding: 14px; }
+  .clinical-library-roadmap p { font-size: .72rem; line-height: 1.5; }
 }
 
 /* ── Motion system ───────────────────────────────────────── */

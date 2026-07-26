@@ -2209,6 +2209,8 @@ body {
 .public-tool-form input, .public-tool-form select { width: 100%; height: 44px; padding: 0 11px; border: 1px solid rgba(15,47,65,.16); border-radius: 9px; background: #fff; color: #163447; font: 700 .9rem Figtree, sans-serif; }
 .public-tool-form .btn { min-height: 44px; border: 0; }
 .tool-field-note { margin: 10px 0 0; color: #647985; font-size: .75rem; line-height: 1.5; }
+.growth-legend { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.growth-legend span { padding: 6px 9px; border-radius: 999px; font-size: .68rem; font-weight: 850; }
 .tool-alert { padding: 12px 14px; border: 1px solid #f59e0b; border-radius: 10px; background: #fffbeb; color: #854d0e; }
 .result-split-growth { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .result-split em { display: block; margin-top: 5px; color: #6b7f8b; font-size: .72rem; font-style: normal; font-weight: 600; line-height: 1.45; }
@@ -2218,6 +2220,17 @@ body {
 .result-number { color: #0d9488; font-size: 2rem; font-weight: 900; letter-spacing: -.04em; }
 .result-split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
 .result-split span { display: grid; gap: 4px; padding: 12px; border-radius: 10px; background: #f1f7f7; }
+.result-split .growth-status-card { gap: 6px; border: 1px solid transparent; border-left-width: 5px; }
+.growth-status-card b { font-size: .8rem; }
+.growth-status-card i { margin-top: 3px; color: #667b87; font-size: .68rem; font-style: normal; font-weight: 700; }
+.status-green { border-color: #22c55e !important; background: #ecfdf3 !important; color: #166534; }
+.status-yellow { border-color: #eab308 !important; background: #fefce8 !important; color: #854d0e; }
+.status-red { border-color: #ef4444 !important; background: #fef2f2 !important; color: #991b1b; }
+.status-blue { border-color: #38bdf8 !important; background: #f0f9ff !important; color: #075985; }
+.growth-status-card.status-green strong, .growth-status-card.status-green b { color: #166534; }
+.growth-status-card.status-yellow strong, .growth-status-card.status-yellow b { color: #854d0e; }
+.growth-status-card.status-red strong, .growth-status-card.status-red b { color: #991b1b; }
+.growth-status-card.status-blue strong, .growth-status-card.status-blue b { color: #075985; }
 .result-split small, .growth-scale small { color: #718590; font-size: .68rem; font-weight: 700; }
 .growth-band { position: relative; height: 15px; margin-top: 16px; border-radius: 999px; background: linear-gradient(90deg, #fca5a5 0 5%, #86efac 5% 95%, #fca5a5 95%); }
 .growth-band span { position: absolute; top: -5px; width: 4px; height: 25px; margin-left: -2px; border-radius: 2px; background: #163447; }

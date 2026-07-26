@@ -16,7 +16,7 @@
   <meta name="twitter:image" content="https://www.vyasaa.com/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726f" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726g" />
 </head>
 <body class="service-page resource-page light-preview">
   <nav class="nav"><div class="nav-inner"><a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a><div class="nav-actions"><a href="/doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a><a href="/" class="btn btn-primary">Home</a></div></div></nav>
@@ -56,6 +56,7 @@
                 <button class="btn btn-primary" type="submit">Screen measurements</button>
               </form>
               <p class="tool-field-note" id="growth-muac-help">MUAC classification is shown only for ages 6–59 months. Measure the left mid-upper arm using an appropriate tape.</p>
+              <div class="growth-legend" aria-label="Growth screening colour guide"><span class="status-green">Green · within screening range</span><span class="status-yellow">Yellow · needs review</span><span class="status-red">Red · abnormal / assess promptly</span><span class="status-blue">Blue · informational only</span></div>
               <div class="tool-result" id="growth-result" aria-live="polite"><p>Enter the child’s measurements to review age-reference bands, BMI, MUAC and oedema.</p></div>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="bmi" hidden>
@@ -201,19 +202,33 @@
         const muacInput = document.querySelector('#growth-muac').value;
         const muac = muacInput === '' ? null : Number(muacInput);
         const oedema = document.querySelector('#growth-oedema').value === 'yes';
-        const classifyBand = (value, refs) => value < refs[0] ? 'Below −2 SD reference' : value > refs[2] ? 'Above +2 SD reference' : 'Within −2 to +2 SD';
+        const classifyWeight = (value, refs) => value < refs[0]
+          ? { tone: 'red', label: 'Below −2 SD · possible underweight', note: 'Weight-for-age is low. This is non-specific and may reflect wasting, stunting or both; assess with official weight-for-length/height.' }
+          : value > refs[2]
+            ? { tone: 'yellow', label: 'Above +2 SD · review growth pattern', note: 'Weight-for-age is above the quick reference band; assess weight-for-length/height or BMI-for-age with official charts.' }
+            : { tone: 'green', label: 'Within −2 to +2 SD', note: 'Within this approximate weight-for-age screening band.' };
+        const classifyHeight = (value, refs) => value < refs[0]
+          ? { tone: 'red', label: 'Below −2 SD · possible stunting', note: 'Low height-for-age suggests stunting, a marker of chronic or recurrent undernutrition. Confirm with an official WHO z-score.' }
+          : value > refs[2]
+            ? { tone: 'yellow', label: 'Above +2 SD · tall-for-age', note: 'Above the quick height-for-age band; review measurement accuracy and growth trajectory.' }
+            : { tone: 'green', label: 'Within −2 to +2 SD', note: 'Within this approximate height-for-age screening band.' };
         const weightRefs = interpolate(growthRefs.weight[sex], age);
         const heightRefs = interpolate(growthRefs.height[sex], age);
         const bmi = weight / ((height / 100) ** 2);
-        let muacCategory = 'Not entered';
+        let muacStatus = { tone: 'blue', label: 'Not entered', note: 'Enter MUAC for acute-malnutrition screening.' };
         if (muac !== null) {
-          if (age < 6 || age > 59) muacCategory = 'Not classified outside 6–59 months';
-          else if (muac < 11.5) muacCategory = 'Severe acute malnutrition range';
-          else if (muac < 12.5) muacCategory = 'Moderate acute malnutrition range';
-          else muacCategory = 'Not in the acute-malnutrition MUAC range';
+          if (age < 6 || age > 59) muacStatus = { tone: 'blue', label: 'Not classified for this age', note: 'IMNCI MUAC colour thresholds apply to children aged 6–59 months.' };
+          else if (muac < 11.5) muacStatus = { tone: 'red', label: 'Severe acute malnutrition (SAM) range', note: 'IMNCI red zone. Assess promptly and follow the applicable referral/treatment protocol.' };
+          else if (muac < 12.5) muacStatus = { tone: 'yellow', label: 'Moderate acute malnutrition (MAM) range', note: 'IMNCI yellow zone. Assess feeding and other clinical findings and arrange follow-up.' };
+          else muacStatus = { tone: 'green', label: 'No acute malnutrition by MUAC', note: 'IMNCI green zone, provided bilateral pitting oedema and other SAM criteria are absent.' };
         }
-        const alert = oedema ? '<p class="tool-alert"><strong>Urgent clinical assessment:</strong> bilateral pitting oedema is a criterion for severe acute malnutrition, irrespective of MUAC.</p>' : '';
-        document.querySelector('#growth-result').innerHTML = `${alert}<div class="result-split result-split-growth"><span><small>Weight-for-age</small><strong>${weight.toFixed(1)} kg · ${classifyBand(weight, weightRefs)}</strong><em>−2 SD ${weightRefs[0].toFixed(1)} · Median ${weightRefs[1].toFixed(1)} · +2 SD ${weightRefs[2].toFixed(1)}</em></span><span><small>Height/length-for-age</small><strong>${height.toFixed(1)} cm · ${classifyBand(height, heightRefs)}</strong><em>−2 SD ${heightRefs[0].toFixed(1)} · Median ${heightRefs[1].toFixed(1)} · +2 SD ${heightRefs[2].toFixed(1)}</em></span><span><small>Body mass index</small><strong>${bmi.toFixed(1)} kg/m²</strong><em>Informational only; BMI-for-age needs official sex-specific LMS data.</em></span><span><small>MUAC</small><strong>${muac === null ? 'Not entered' : `${muac.toFixed(1)} cm · ${muacCategory}`}</strong><em>${age >= 6 && age <= 59 ? 'WHO 6–59 month screening thresholds.' : 'No MUAC category applied for this age.'}</em></span></div><p>Age references are approximate interpolated visual bands. Confirm suspected growth faltering, wasting or stunting using official WHO charts/software and a complete clinical assessment.</p>`;
+        const weightStatus = classifyWeight(weight, weightRefs);
+        const heightStatus = classifyHeight(height, heightRefs);
+        const oedemaStatus = oedema
+          ? { tone: 'red', label: 'Bilateral oedema present · SAM criterion', note: 'Urgent clinical assessment is required irrespective of MUAC.' }
+          : { tone: 'green', label: 'Bilateral oedema not reported', note: 'Continue interpreting alongside examination and anthropometry.' };
+        const card = (title, value, status, reference = '') => `<span class="growth-status-card status-${status.tone}"><small>${title}</small><strong>${value}</strong><b>${status.label}</b><em>${status.note}</em>${reference ? `<i>${reference}</i>` : ''}</span>`;
+        document.querySelector('#growth-result').innerHTML = `<div class="result-split result-split-growth">${card('Weight-for-age', `${weight.toFixed(1)} kg`, weightStatus, `−2 SD ${weightRefs[0].toFixed(1)} · Median ${weightRefs[1].toFixed(1)} · +2 SD ${weightRefs[2].toFixed(1)}`)}${card('Height/length-for-age', `${height.toFixed(1)} cm`, heightStatus, `−2 SD ${heightRefs[0].toFixed(1)} · Median ${heightRefs[1].toFixed(1)} · +2 SD ${heightRefs[2].toFixed(1)}`)}${card('Body mass index', `${bmi.toFixed(1)} kg/m²`, { tone: 'blue', label: 'Informational value only', note: 'BMI-for-age classification requires official sex-specific WHO LMS data.' })}${card('MUAC', muac === null ? 'Not entered' : `${muac.toFixed(1)} cm`, muacStatus)}${card('Bilateral pitting oedema', oedema ? 'Present' : 'Not reported', oedemaStatus)}</div><p><strong>Interpret the red parameter, not just the colour:</strong> low height-for-age suggests chronic undernutrition; low weight-for-age is non-specific; low MUAC or bilateral oedema identifies acute-malnutrition risk. Confirm results with official WHO charts/software and a complete clinical assessment.</p>`;
       });
       document.querySelector('#bmi-form')?.addEventListener('submit', (event) => {
         event.preventDefault();

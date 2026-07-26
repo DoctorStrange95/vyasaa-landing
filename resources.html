@@ -16,7 +16,7 @@
   <meta name="twitter:image" content="https://www.vyasaa.com/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726g" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726h" />
 </head>
 <body class="service-page resource-page light-preview">
   <nav class="nav"><div class="nav-inner"><a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a><div class="nav-actions"><a href="/doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a><a href="/" class="btn btn-primary">Home</a></div></div></nav>
@@ -227,7 +227,7 @@
         const oedemaStatus = oedema
           ? { tone: 'red', label: 'Bilateral oedema present · SAM criterion', note: 'Urgent clinical assessment is required irrespective of MUAC.' }
           : { tone: 'green', label: 'Bilateral oedema not reported', note: 'Continue interpreting alongside examination and anthropometry.' };
-        const card = (title, value, status, reference = '') => `<span class="growth-status-card status-${status.tone}"><small>${title}</small><strong>${value}</strong><b>${status.label}</b><em>${status.note}</em>${reference ? `<i>${reference}</i>` : ''}</span>`;
+        const card = (title, value, status, reference = '') => `<span class="growth-status-card status-${status.tone}"><small>${title}</small><strong>${value}</strong><b>${status.label}</b><em>${status.note}</em>${reference ? `<i>${reference}</i>` : ''}<span class="growth-mobile-summary">${title}: <strong>${value}</strong> · ${status.label}</span></span>`;
         document.querySelector('#growth-result').innerHTML = `<div class="result-split result-split-growth">${card('Weight-for-age', `${weight.toFixed(1)} kg`, weightStatus, `−2 SD ${weightRefs[0].toFixed(1)} · Median ${weightRefs[1].toFixed(1)} · +2 SD ${weightRefs[2].toFixed(1)}`)}${card('Height/length-for-age', `${height.toFixed(1)} cm`, heightStatus, `−2 SD ${heightRefs[0].toFixed(1)} · Median ${heightRefs[1].toFixed(1)} · +2 SD ${heightRefs[2].toFixed(1)}`)}${card('Body mass index', `${bmi.toFixed(1)} kg/m²`, { tone: 'blue', label: 'Informational value only', note: 'BMI-for-age classification requires official sex-specific WHO LMS data.' })}${card('MUAC', muac === null ? 'Not entered' : `${muac.toFixed(1)} cm`, muacStatus)}${card('Bilateral pitting oedema', oedema ? 'Present' : 'Not reported', oedemaStatus)}</div><p><strong>Interpret the red parameter, not just the colour:</strong> low height-for-age suggests chronic undernutrition; low weight-for-age is non-specific; low MUAC or bilateral oedema identifies acute-malnutrition risk. Confirm results with official WHO charts/software and a complete clinical assessment.</p>`;
       });
       document.querySelector('#bmi-form')?.addEventListener('submit', (event) => {

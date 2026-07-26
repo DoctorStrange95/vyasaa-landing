@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clinical Calculators for Doctors: BMI, Growth &amp; CrCl | Vyasa</title><meta name="description" content="Free clinical calculators for doctors: adult BMI, child growth and MUAC, iron deficit, creatinine clearance and medical research sample size. No login required." />
+  <title>Clinical Calculators: Insulin, BMI, Growth &amp; CrCl | Vyasa</title><meta name="description" content="Free clinical calculators for doctors: insulin correction, adult BMI, child growth and MUAC, iron deficit, creatinine clearance and research sample size." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.vyasaa.com/resources" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.vyasaa.com/resources" />
   <meta property="og:title" content="Clinical Calculators for Doctors | Vyasa" />
-  <meta property="og:description" content="Use free BMI, child growth, MUAC, iron-deficit, creatinine-clearance and medical research calculators without login." />
+  <meta property="og:description" content="Use free insulin correction, BMI, child growth, MUAC, iron-deficit, creatinine-clearance and research calculators without login." />
   <meta property="og:image" content="https://www.vyasaa.com/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Clinical Calculators for Doctors | Vyasa" />
-  <meta name="twitter:description" content="Use free BMI, child growth, MUAC, iron-deficit, creatinine-clearance and medical research calculators without login." />
+  <meta name="twitter:description" content="Use free insulin correction, BMI, child growth, MUAC, iron-deficit, creatinine-clearance and research calculators without login." />
   <meta name="twitter:image" content="https://www.vyasaa.com/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726k" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726l" />
 </head>
 <body class="service-page resource-page light-preview">
   <nav class="nav"><div class="nav-inner"><a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a><div class="nav-actions"><a href="/doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a><a href="/" class="btn btn-primary">Home</a></div></div></nav>
@@ -44,6 +44,7 @@
             <button class="resource-tool-card public-tool-card" type="button" data-public-tool="sample"><span class="resource-card-tag">Research utility</span><h3>Sample Size</h3><p>Estimate samples for cross-sectional, cohort, case-control and two-arm RCT designs.</p><b>Calculate sample size ↓</b></button>
             <button class="resource-tool-card public-tool-card" type="button" data-public-tool="iron"><span class="resource-card-tag">Nutrition</span><h3>Iron Deficit</h3><p>Estimate total body iron deficit using the Ganzoni formula.</p><b>Calculate iron need ↓</b></button>
             <button class="resource-tool-card public-tool-card" type="button" data-public-tool="renal"><span class="resource-card-tag">Renal</span><h3>Creatinine Clearance</h3><p>Estimate adult creatinine clearance using Cockcroft–Gault.</p><b>Estimate CrCl ↓</b></button>
+            <button class="resource-tool-card public-tool-card" type="button" data-public-tool="insulin"><span class="resource-card-tag">Diabetes · adults</span><h3>Insulin Correction</h3><p>Calculate a rapid-acting correction dose using a prescribed sensitivity factor.</p><b>Open correction tool ↓</b></button>
           </div>
           <div class="public-tool-workspace">
             <section class="public-tool-pane is-active" data-public-tool-pane="growth">
@@ -108,6 +109,24 @@
               </form>
               <div class="tool-result" id="renal-result" aria-live="polite"><p>Enter stable adult measurements to estimate creatinine clearance.</p></div>
             </section>
+            <section class="public-tool-pane" data-public-tool-pane="insulin" hidden>
+              <div class="tool-form-heading"><div><span>Adults · rapid-acting insulin only</span><h3>Insulin correction-dose calculator</h3></div><p>Requires a patient-specific sensitivity factor and target prescribed by the treating diabetes team. Not for initiating insulin.</p></div>
+              <div class="insulin-safety-note"><strong>Before calculating:</strong> do not use for hypoglycaemia, DKA/positive ketones, pregnancy, children, critical illness, IV insulin, pumps/closed-loop systems or when the patient does not have an established correction plan.</div>
+              <form class="public-tool-form insulin-form" id="insulin-form">
+                <label>Glucose unit<select id="insulin-unit"><option value="mg">mg/dL</option><option value="mmol">mmol/L</option></select></label>
+                <label><span id="insulin-current-label">Current glucose (mg/dL)</span><input id="insulin-current" type="number" min="40" max="800" step="1" inputmode="decimal" required /></label>
+                <label><span id="insulin-target-label">Prescribed target (mg/dL)</span><input id="insulin-target" type="number" min="70" max="250" step="1" value="120" inputmode="decimal" required /></label>
+                <label><span id="insulin-isf-label">Prescribed ISF (mg/dL per unit)</span><input id="insulin-isf" type="number" min="1" max="300" step="0.1" inputmode="decimal" required /></label>
+                <label>Active insulin / IOB (units)<input id="insulin-iob" type="number" min="0" max="50" step="0.1" value="0" inputmode="decimal" required /></label>
+                <label>Hours since last rapid dose<input id="insulin-hours" type="number" min="0" max="24" step="0.25" inputmode="decimal" required /></label>
+                <label>Blood ketones<select id="insulin-ketones"><option value="not-checked">Not checked</option><option value="negative">Negative</option><option value="positive">Positive</option></select></label>
+                <label>Dose increment<select id="insulin-increment"><option value="0.5">0.5 unit</option><option value="1">1 unit</option></select></label>
+                <label>Protocol maximum (units)<input id="insulin-maximum" type="number" min="0.5" max="50" step="0.5" inputmode="decimal" required /></label>
+                <label>Prescribed ISF confirmed<select id="insulin-confirmed" required><option value="">Select</option><option value="yes">Yes</option></select></label>
+                <button class="btn btn-primary" type="submit">Calculate correction</button>
+              </form>
+              <div class="tool-result" id="insulin-result" aria-live="polite"><p>Enter the patient’s prescribed correction parameters. This tool never determines an initial insulin regimen.</p></div>
+            </section>
           </div>
           <section class="clinical-tools-guide" aria-labelledby="clinical-tools-guide-title">
             <div class="clinical-tools-guide-heading">
@@ -141,6 +160,11 @@
                 <h3>Cockcroft–Gault creatinine clearance</h3>
                 <p>Estimate adult creatinine clearance for clinical contexts that still specify Cockcroft–Gault, while recognising limitations related to body weight, muscle mass, unstable kidney function and current race-free eGFR guidance.</p>
               </article>
+              <article>
+                <span class="clinical-guide-number">06</span>
+                <h3>Rapid-acting insulin correction calculator</h3>
+                <p>Calculate an adult correction dose from current glucose, prescribed target and patient-specific insulin sensitivity factor, with active-insulin subtraction, conservative rounding, a protocol maximum and ketone safeguards.</p>
+              </article>
             </div>
             <div class="clinical-library-roadmap">
               <div>
@@ -152,6 +176,7 @@
                 <a href="https://nhm.gov.in/index4.php?lang=1&amp;level=0&amp;lid=830&amp;linkid=526" target="_blank" rel="noopener noreferrer">India IMNCI guidance ↗</a>
                 <a href="https://www.ncbi.nlm.nih.gov/books/NBK564172/table/pe.app5.tab4/" target="_blank" rel="noopener noreferrer">Ganzoni iron-deficit formula ↗</a>
                 <a href="https://www.kidney.org/professionals/kdoqi/cockcroft-gault-equation-estimating-creatinine-clearance" target="_blank" rel="noopener noreferrer">Kidney-function guidance ↗</a>
+                <a href="https://www.uclh.nhs.uk/patients-and-visitors/patient-information-pages/dealing-high-glucose-levels-abc-multiple-daily-injections" target="_blank" rel="noopener noreferrer">Insulin correction-factor guidance ↗</a>
               </div>
             </div>
           </section>
@@ -400,6 +425,62 @@
         const base = ((140 - age) * weight) / (72 * creatinine);
         const crcl = base * (sex === 'female' ? 0.85 : 1);
         document.querySelector('#renal-result').innerHTML = `<div class="result-number">${crcl.toFixed(1)} mL/min</div><strong>Estimated Cockcroft–Gault creatinine clearance</strong><p>Uses the entered body weight and the historical 0.85 female coefficient. Do not use in children, rapidly changing renal function or without reviewing weight choice, muscle mass and the medicine-specific dosing guidance. This is not a CKD diagnosis or a race-free CKD-EPI eGFR.</p>`;
+      });
+      const insulinUnit = document.querySelector('#insulin-unit');
+      const configureInsulinUnit = () => {
+        const mmol = insulinUnit.value === 'mmol';
+        document.querySelector('#insulin-current-label').textContent = `Current glucose (${mmol ? 'mmol/L' : 'mg/dL'})`;
+        document.querySelector('#insulin-target-label').textContent = `Prescribed target (${mmol ? 'mmol/L' : 'mg/dL'})`;
+        document.querySelector('#insulin-isf-label').textContent = `Prescribed ISF (${mmol ? 'mmol/L' : 'mg/dL'} per unit)`;
+        const current = document.querySelector('#insulin-current');
+        const target = document.querySelector('#insulin-target');
+        const isf = document.querySelector('#insulin-isf');
+        current.min = mmol ? '2.2' : '40'; current.max = mmol ? '44.4' : '800'; current.step = mmol ? '0.1' : '1'; current.value = '';
+        target.min = mmol ? '3.9' : '70'; target.max = mmol ? '13.9' : '250'; target.step = mmol ? '0.1' : '1'; target.value = mmol ? '6.7' : '120';
+        isf.min = mmol ? '0.1' : '1'; isf.max = mmol ? '16.7' : '300'; isf.step = '0.1'; isf.value = '';
+        document.querySelector('#insulin-result').innerHTML = '<p>Enter the patient’s prescribed correction parameters. This tool never determines an initial insulin regimen.</p>';
+      };
+      insulinUnit?.addEventListener('change', configureInsulinUnit);
+      document.querySelector('#insulin-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const mmol = insulinUnit.value === 'mmol';
+        const current = Number(document.querySelector('#insulin-current').value);
+        const target = Number(document.querySelector('#insulin-target').value);
+        const isf = Number(document.querySelector('#insulin-isf').value);
+        const iob = Number(document.querySelector('#insulin-iob').value);
+        const hours = Number(document.querySelector('#insulin-hours').value);
+        const ketones = document.querySelector('#insulin-ketones').value;
+        const increment = Number(document.querySelector('#insulin-increment').value);
+        const maximum = Number(document.querySelector('#insulin-maximum').value);
+        const result = document.querySelector('#insulin-result');
+        const hypoThreshold = mmol ? 3.9 : 70;
+        const ketoneCheckThreshold = mmol ? 14 : 250;
+        const unit = mmol ? 'mmol/L' : 'mg/dL';
+        if (current < hypoThreshold) {
+          result.innerHTML = '<p class="tool-alert"><strong>No correction dose calculated:</strong> glucose is in the hypoglycaemia range. Follow the patient’s hypoglycaemia protocol and reassess.</p>';
+          return;
+        }
+        if (ketones === 'positive') {
+          result.innerHTML = '<p class="tool-alert"><strong>No routine correction dose calculated:</strong> positive ketones require the patient’s sick-day/DKA protocol and urgent clinical assessment.</p>';
+          return;
+        }
+        if (current >= ketoneCheckThreshold && ketones === 'not-checked') {
+          result.innerHTML = `<p class="tool-alert"><strong>Check ketones before calculating:</strong> current glucose is ${current.toFixed(mmol ? 1 : 0)} ${unit}. Use the patient’s sick-day/DKA protocol if ketones are present.</p>`;
+          return;
+        }
+        if (hours < 2) {
+          result.innerHTML = '<p class="tool-alert"><strong>No additional correction calculated:</strong> the last rapid-acting dose was less than two hours ago. Reassess active insulin and follow the prescribed plan to avoid insulin stacking.</p>';
+          return;
+        }
+        const formulaDose = (current - target) / isf;
+        const afterIob = Math.max(0, formulaDose - iob);
+        const roundedDown = Math.floor((afterIob + 1e-9) / increment) * increment;
+        const protocolDose = Math.min(roundedDown, maximum);
+        const decimals = increment < 1 ? 1 : 0;
+        const capped = roundedDown > maximum;
+        const timingWarning = hours < 4 ? '<p class="insulin-caution">Rapid-acting insulin may still be active at 2–4 hours. Confirm the entered IOB and local correction interval.</p>' : '';
+        const belowTarget = current <= target ? '<p>No correction is indicated by this formula because current glucose is at or below the prescribed target.</p>' : '';
+        result.innerHTML = `<div class="result-number">${protocolDose.toFixed(decimals)} units</div><strong>${capped ? 'Protocol-limited rapid-acting correction' : 'Calculated rapid-acting correction'}</strong><p>(${current.toFixed(mmol ? 1 : 0)} − ${target.toFixed(mmol ? 1 : 0)}) ${unit} ÷ ${isf.toFixed(1)} ${unit}/unit − ${iob.toFixed(1)} units IOB = ${afterIob.toFixed(2)} units; rounded down to ${increment}-unit increments.${capped ? ` The rounded result exceeded the entered ${maximum}-unit protocol maximum and was capped.` : ''}</p>${timingWarning}${belowTarget}<p>Verify the glucose reading, prescribed ISF, target, IOB and maximum dose before administration. Do not add carbohydrate coverage unless separately prescribed and calculated.</p>`;
       });
     })();
   </script>

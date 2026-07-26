@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clinical Tools, Research and NFHS-6 Data | Vyasa</title><meta name="description" content="Use practical clinical calculators for doctors, research workflows, and India’s NFHS-6 and NFHS-5 public-health data from one Vyasa resource hub." />
+  <title>Clinical Calculators for Doctors: BMI, Growth &amp; CrCl | Vyasa</title><meta name="description" content="Free clinical calculators for doctors: adult BMI, child growth and MUAC, iron deficit, creatinine clearance and medical research sample size. No login required." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.vyasaa.com/resources" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.vyasaa.com/resources" />
-  <meta property="og:title" content="Clinical Tools, Research and NFHS-6 Data | Vyasa" />
-  <meta property="og:description" content="Practical clinical calculators, research workflows, and India’s NFHS-6 public-health data in one resource hub." />
+  <meta property="og:title" content="Clinical Calculators for Doctors | Vyasa" />
+  <meta property="og:description" content="Use free BMI, child growth, MUAC, iron-deficit, creatinine-clearance and medical research calculators without login." />
   <meta property="og:image" content="https://www.vyasaa.com/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Clinical Tools, Research and NFHS-6 Data | Vyasa" />
-  <meta name="twitter:description" content="Practical clinical calculators, research workflows, and India’s NFHS-6 public-health data in one resource hub." />
+  <meta name="twitter:title" content="Clinical Calculators for Doctors | Vyasa" />
+  <meta name="twitter:description" content="Use free BMI, child growth, MUAC, iron-deficit, creatinine-clearance and medical research calculators without login." />
   <meta name="twitter:image" content="https://www.vyasaa.com/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726i" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726j" />
 </head>
 <body class="service-page resource-page light-preview">
   <nav class="nav"><div class="nav-inner"><a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a><div class="nav-actions"><a href="/doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a><a href="/" class="btn btn-primary">Home</a></div></div></nav>
@@ -38,11 +38,14 @@
             <div><p class="resource-kicker">For everyday practice</p><h2>Clinical tools for faster decisions</h2></div>
             <span class="resource-panel-link">No login · Runs on this page</span>
           </div>
-          <div class="resource-card-grid resource-card-grid-three public-tool-picker">
+          <div class="resource-card-grid public-tool-picker tool-library-picker">
             <button class="resource-tool-card featured-tool public-tool-card is-selected" type="button" data-public-tool="growth"><span class="resource-card-icon">↗</span><span class="resource-card-tag">Paediatrics</span><h3>Growth Screening</h3><p>Review weight, height/length, MUAC and bilateral oedema for children 0–60 months.</p><b>Open growth tool ↓</b></button>
             <button class="resource-tool-card public-tool-card" type="button" data-public-tool="bmi"><span class="resource-card-icon">⚖</span><span class="resource-card-tag">Quick calculator</span><h3>BMI Calculator</h3><p>Calculate adult BMI with Asian and WHO cut-offs directly in your browser.</p><b>Calculate BMI ↓</b></button>
             <button class="resource-tool-card public-tool-card" type="button" data-public-tool="sample"><span class="resource-card-icon">n=</span><span class="resource-card-tag">Research utility</span><h3>Sample Size</h3><p>Estimate samples for cross-sectional, cohort, case-control and two-arm RCT designs.</p><b>Calculate sample size ↓</b></button>
+            <button class="resource-tool-card public-tool-card" type="button" data-public-tool="iron"><span class="resource-card-icon">Fe</span><span class="resource-card-tag">Nutrition</span><h3>Iron Deficit</h3><p>Estimate total body iron deficit using the Ganzoni formula.</p><b>Calculate iron need ↓</b></button>
+            <button class="resource-tool-card public-tool-card" type="button" data-public-tool="renal"><span class="resource-card-icon">Cr</span><span class="resource-card-tag">Renal</span><h3>Creatinine Clearance</h3><p>Estimate adult creatinine clearance using Cockcroft–Gault.</p><b>Estimate CrCl ↓</b></button>
           </div>
+          <div class="tool-protocol-note"><span>Planned · protocol required</span><strong>Insulin dose support</strong><p>Not enabled: weight and random blood glucose alone are insufficient for safe insulin dosing.</p></div>
           <div class="public-tool-workspace">
             <section class="public-tool-pane is-active" data-public-tool-pane="growth">
               <div class="tool-form-heading"><div><span>WHO-aligned quick screening</span><h3>Child growth and nutrition screening</h3></div><p>For children 0–60 months. Approximate age bands are not a substitute for official LMS z-scores or clinical assessment.</p></div>
@@ -84,6 +87,28 @@
               </form>
               <div class="tool-result" id="sample-result" aria-live="polite"><p>Adjust the assumptions to estimate the required sample.</p></div>
             </section>
+            <section class="public-tool-pane" data-public-tool-pane="iron" hidden>
+              <div class="tool-form-heading"><div><span>Ganzoni formula</span><h3>Total iron-deficit calculator</h3></div><p>Estimates total body iron deficit; it does not select an iron product, route, infusion schedule or maximum single dose.</p></div>
+              <form class="public-tool-form" id="iron-form">
+                <label>Body weight (kg)<input id="iron-weight" type="number" min="1" max="300" step="0.1" inputmode="decimal" required /></label>
+                <label>Current haemoglobin (g/dL)<input id="iron-current-hb" type="number" min="1" max="20" step="0.1" inputmode="decimal" required /></label>
+                <label>Target haemoglobin (g/dL)<input id="iron-target-hb" type="number" min="5" max="20" step="0.1" value="13" inputmode="decimal" required /></label>
+                <label>Iron stores (mg)<input id="iron-stores" type="number" min="0" max="1000" step="50" value="500" inputmode="numeric" required /></label>
+                <button class="btn btn-primary" type="submit">Estimate iron deficit</button>
+              </form>
+              <div class="tool-result" id="iron-result" aria-live="polite"><p>Enter weight and haemoglobin values to estimate total iron deficit.</p></div>
+            </section>
+            <section class="public-tool-pane" data-public-tool-pane="renal" hidden>
+              <div class="tool-form-heading"><div><span>Adults · Cockcroft–Gault</span><h3>Creatinine-clearance calculator</h3></div><p>Provides an estimated CrCl in mL/min. Confirm which renal-function estimate and body weight are appropriate for the specific medicine.</p></div>
+              <form class="public-tool-form" id="renal-form">
+                <label>Age (years)<input id="renal-age" type="number" min="18" max="120" step="1" inputmode="numeric" required /></label>
+                <label>Sex<select id="renal-sex"><option value="male">Male</option><option value="female">Female</option></select></label>
+                <label>Body weight (kg)<input id="renal-weight" type="number" min="20" max="300" step="0.1" inputmode="decimal" required /></label>
+                <label>Serum creatinine (mg/dL)<input id="renal-creatinine" type="number" min="0.1" max="20" step="0.01" inputmode="decimal" required /></label>
+                <button class="btn btn-primary" type="submit">Estimate CrCl</button>
+              </form>
+              <div class="tool-result" id="renal-result" aria-live="polite"><p>Enter stable adult measurements to estimate creatinine clearance.</p></div>
+            </section>
           </div>
           <section class="clinical-tools-guide" aria-labelledby="clinical-tools-guide-title">
             <div class="clinical-tools-guide-heading">
@@ -107,6 +132,16 @@
                 <h3>Medical research sample-size calculator</h3>
                 <p>Estimate participant numbers for cross-sectional, cohort, case-control and two-arm randomised controlled studies using design-specific assumptions, confidence, power and response-rate adjustment.</p>
               </article>
+              <article>
+                <span class="clinical-guide-number">04</span>
+                <h3>Ganzoni iron-deficit calculator</h3>
+                <p>Estimate total body iron deficit from weight, current haemoglobin, target haemoglobin and planned iron stores. The estimate does not replace diagnosis, product-specific dosing limits or an administration plan.</p>
+              </article>
+              <article>
+                <span class="clinical-guide-number">05</span>
+                <h3>Cockcroft–Gault creatinine clearance</h3>
+                <p>Estimate adult creatinine clearance for clinical contexts that still specify Cockcroft–Gault, while recognising limitations related to body weight, muscle mass, unstable kidney function and current race-free eGFR guidance.</p>
+              </article>
             </div>
             <div class="clinical-library-roadmap">
               <div>
@@ -116,6 +151,8 @@
               <div class="clinical-method-links" aria-label="Clinical calculator references">
                 <a href="https://www.who.int/tools/child-growth-standards" target="_blank" rel="noopener noreferrer">WHO Child Growth Standards ↗</a>
                 <a href="https://nhm.gov.in/index4.php?lang=1&amp;level=0&amp;lid=830&amp;linkid=526" target="_blank" rel="noopener noreferrer">India IMNCI guidance ↗</a>
+                <a href="https://www.ncbi.nlm.nih.gov/books/NBK564172/table/pe.app5.tab4/" target="_blank" rel="noopener noreferrer">Ganzoni iron-deficit formula ↗</a>
+                <a href="https://www.kidney.org/professionals/kdoqi/cockcroft-gault-equation-estimating-creatinine-clearance" target="_blank" rel="noopener noreferrer">Kidney-function guidance ↗</a>
               </div>
             </div>
           </section>
@@ -262,7 +299,14 @@
           ? { tone: 'red', label: 'Bilateral oedema present · SAM criterion', note: 'Urgent clinical assessment is required irrespective of MUAC.' }
           : { tone: 'green', label: 'Bilateral oedema not reported', note: 'Continue interpreting alongside examination and anthropometry.' };
         const card = (title, value, status, reference = '') => `<span class="growth-status-card status-${status.tone}"><small>${title}</small><strong>${value}</strong><b>${status.label}</b><em>${status.note}</em>${reference ? `<i>${reference}</i>` : ''}<span class="growth-mobile-summary">${title}: <strong>${value}</strong> · ${status.label}</span></span>`;
-        document.querySelector('#growth-result').innerHTML = `<div class="result-split result-split-growth">${card('Weight-for-age', `${weight.toFixed(1)} kg`, weightStatus, `−2 SD ${weightRefs[0].toFixed(1)} · Median ${weightRefs[1].toFixed(1)} · +2 SD ${weightRefs[2].toFixed(1)}`)}${card('Height/length-for-age', `${height.toFixed(1)} cm`, heightStatus, `−2 SD ${heightRefs[0].toFixed(1)} · Median ${heightRefs[1].toFixed(1)} · +2 SD ${heightRefs[2].toFixed(1)}`)}${card('Body mass index', `${bmi.toFixed(1)} kg/m²`, { tone: 'blue', label: 'Informational value only', note: 'BMI-for-age classification requires official sex-specific WHO LMS data.' })}${card('MUAC', muac === null ? 'Not entered' : `${muac.toFixed(1)} cm`, muacStatus)}${card('Bilateral pitting oedema', oedema ? 'Present' : 'Not reported', oedemaStatus)}</div><p><strong>Interpret the red parameter, not just the colour:</strong> low height-for-age suggests chronic undernutrition; low weight-for-age is non-specific; low MUAC or bilateral oedema identifies acute-malnutrition risk. Confirm results with official WHO charts/software and a complete clinical assessment.</p>`;
+        const mobileRow = (title, value, tone, summary) => `<span class="growth-mobile-row"><i class="growth-mobile-dot status-${tone}" aria-hidden="true"></i><b>${title}</b><strong>${value}</strong><em>${summary}</em></span>`;
+        const acuteRed = oedema || muacStatus.tone === 'red';
+        const anyRed = acuteRed || weightStatus.tone === 'red' || heightStatus.tone === 'red';
+        const anyYellow = muacStatus.tone === 'yellow' || weightStatus.tone === 'yellow' || heightStatus.tone === 'yellow';
+        const overallTone = acuteRed || anyRed ? 'red' : anyYellow ? 'yellow' : 'green';
+        const overallText = acuteRed ? 'Prompt assessment: acute-malnutrition criterion present' : anyRed ? 'Review abnormal growth measurements' : anyYellow ? 'Review highlighted measurement' : 'Measurements within quick screening ranges';
+        const muacShort = muacStatus.tone === 'red' ? 'SAM range' : muacStatus.tone === 'yellow' ? 'MAM range' : muacStatus.tone === 'green' ? 'No AM by MUAC' : 'Not classified';
+        document.querySelector('#growth-result').innerHTML = `<div class="growth-mobile-results"><strong class="growth-mobile-overall status-${overallTone}">${overallText}</strong>${mobileRow('Weight', `${weight.toFixed(1)} kg`, weightStatus.tone, weightStatus.tone === 'red' ? 'Possible underweight' : weightStatus.tone === 'yellow' ? 'Review high value' : 'In range')}${mobileRow('Height', `${height.toFixed(1)} cm`, heightStatus.tone, heightStatus.tone === 'red' ? 'Possible stunting' : heightStatus.tone === 'yellow' ? 'Tall-for-age' : 'In range')}${mobileRow('BMI', bmi.toFixed(1), 'blue', 'Information only')}${mobileRow('MUAC', muac === null ? '—' : `${muac.toFixed(1)} cm`, muacStatus.tone, muacShort)}${mobileRow('Oedema', oedema ? 'Present' : 'No', oedemaStatus.tone, oedema ? 'SAM criterion' : 'Not reported')}</div><div class="result-split result-split-growth">${card('Weight-for-age', `${weight.toFixed(1)} kg`, weightStatus, `−2 SD ${weightRefs[0].toFixed(1)} · Median ${weightRefs[1].toFixed(1)} · +2 SD ${weightRefs[2].toFixed(1)}`)}${card('Height/length-for-age', `${height.toFixed(1)} cm`, heightStatus, `−2 SD ${heightRefs[0].toFixed(1)} · Median ${heightRefs[1].toFixed(1)} · +2 SD ${heightRefs[2].toFixed(1)}`)}${card('Body mass index', `${bmi.toFixed(1)} kg/m²`, { tone: 'blue', label: 'Informational value only', note: 'BMI-for-age classification requires official sex-specific WHO LMS data.' })}${card('MUAC', muac === null ? 'Not entered' : `${muac.toFixed(1)} cm`, muacStatus)}${card('Bilateral pitting oedema', oedema ? 'Present' : 'Not reported', oedemaStatus)}</div><p><strong>Interpret the red parameter, not just the colour:</strong> low height-for-age suggests chronic undernutrition; low weight-for-age is non-specific; low MUAC or bilateral oedema identifies acute-malnutrition risk. Confirm results with official WHO charts/software and a complete clinical assessment.</p>`;
       });
       document.querySelector('#bmi-form')?.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -335,6 +379,28 @@
         }
         const adjusted = Math.ceil(base / response);
         document.querySelector('#sample-result').innerHTML = `<div class="result-number">${adjusted}</div><strong>${response < 1 ? 'Adjusted total sample' : label}</strong><p>${explanation} Base total: ${base}${response < 1 ? ` · adjusted for ${Math.round(response * 100)}% response/retention` : ''}. This estimate does not include clustering, matching, unequal allocation, continuity correction or repeated measures.</p>`;
+      });
+      document.querySelector('#iron-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const weight = Number(document.querySelector('#iron-weight').value);
+        const currentHb = Number(document.querySelector('#iron-current-hb').value);
+        const targetHb = Number(document.querySelector('#iron-target-hb').value);
+        const stores = Number(document.querySelector('#iron-stores').value);
+        const hbDeficit = Math.max(0, targetHb - currentHb);
+        const haemoglobinIron = weight * hbDeficit * 2.4;
+        const total = Math.round(haemoglobinIron + stores);
+        const noDeficit = targetHb <= currentHb ? '<p class="tool-alert"><strong>Target haemoglobin is not above the current value.</strong> The displayed total therefore reflects entered iron stores only; confirm whether replacement is indicated.</p>' : '';
+        document.querySelector('#iron-result').innerHTML = `${noDeficit}<div class="result-number">${total} mg</div><strong>Estimated total iron deficit</strong><p>${weight.toFixed(1)} kg × ${hbDeficit.toFixed(1)} g/dL × 2.4 + ${stores} mg stores. Confirm diagnosis, target haemoglobin, product labelling, maximum single dose and administration schedule before treatment.</p>`;
+      });
+      document.querySelector('#renal-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const age = Number(document.querySelector('#renal-age').value);
+        const sex = document.querySelector('#renal-sex').value;
+        const weight = Number(document.querySelector('#renal-weight').value);
+        const creatinine = Number(document.querySelector('#renal-creatinine').value);
+        const base = ((140 - age) * weight) / (72 * creatinine);
+        const crcl = base * (sex === 'female' ? 0.85 : 1);
+        document.querySelector('#renal-result').innerHTML = `<div class="result-number">${crcl.toFixed(1)} mL/min</div><strong>Estimated Cockcroft–Gault creatinine clearance</strong><p>Uses the entered body weight and the historical 0.85 female coefficient. Do not use in children, rapidly changing renal function or without reviewing weight choice, muscle mass and the medicine-specific dosing guidance. This is not a CKD diagnosis or a race-free CKD-EPI eGFR.</p>`;
       });
     })();
   </script>

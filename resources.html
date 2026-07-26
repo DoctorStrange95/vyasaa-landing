@@ -36,15 +36,45 @@
         <section class="resource-panel is-active" id="panel-tools" role="tabpanel" aria-labelledby="tab-tools" data-resource-panel="tools">
           <div class="resource-panel-heading">
             <div><p class="resource-kicker">For everyday practice</p><h2>Clinical tools for faster decisions</h2></div>
-            <a class="resource-panel-link" href="https://research.vyasaa.com/tools" target="_blank" rel="noopener noreferrer">View all tools →</a>
+            <span class="resource-panel-link">No login · Runs on this page</span>
           </div>
-          <div class="resource-card-grid">
-            <a class="resource-tool-card featured-tool" href="https://research.vyasaa.com/tools/growth" target="_blank" rel="noopener noreferrer"><span class="resource-card-icon">↗</span><span class="resource-card-tag">Paediatrics</span><h3>Growth Charts</h3><p>Track weight, height, BMI-for-age, MUAC, head circumference and WHO growth trends.</p><b>Open growth charts →</b></a>
-            <a class="resource-tool-card" href="https://research.vyasaa.com/tools/bmi" target="_blank" rel="noopener noreferrer"><span class="resource-card-icon">⚖</span><span class="resource-card-tag">Quick calculator</span><h3>BMI Calculator</h3><p>Calculate adult BMI with Asian and WHO cut-offs, plus age-aware classification.</p><b>Calculate BMI →</b></a>
-            <a class="resource-tool-card" href="https://research.vyasaa.com/tools/drug-reference" target="_blank" rel="noopener noreferrer"><span class="resource-card-icon">Rx</span><span class="resource-card-tag">Reference</span><h3>Drug Reference</h3><p>Search the available clinical drug reference while working through a consultation.</p><b>Open reference →</b></a>
-            <a class="resource-tool-card" href="https://research.vyasaa.com/tools/nutrition" target="_blank" rel="noopener noreferrer"><span class="resource-card-icon">◒</span><span class="resource-card-tag">Nutrition</span><h3>Nutrition Assessment</h3><p>Access the existing nutrition assessment workflow for field and clinical use.</p><b>Open tool →</b></a>
-            <a class="resource-tool-card" href="https://research.vyasaa.com/tools/imnci" target="_blank" rel="noopener noreferrer"><span class="resource-card-icon">✚</span><span class="resource-card-tag">Child health</span><h3>IMNCI Assessment</h3><p>Use the existing integrated child-health assessment support tool.</p><b>Open assessment →</b></a>
-            <a class="resource-tool-card" href="https://research.vyasaa.com/tools/sample-size" target="_blank" rel="noopener noreferrer"><span class="resource-card-icon">n=</span><span class="resource-card-tag">Research utility</span><h3>Sample Size</h3><p>Estimate sample size for common study-planning workflows.</p><b>Open calculator →</b></a>
+          <div class="resource-card-grid resource-card-grid-three public-tool-picker">
+            <button class="resource-tool-card featured-tool public-tool-card is-selected" type="button" data-public-tool="growth"><span class="resource-card-icon">↗</span><span class="resource-card-tag">Paediatrics</span><h3>Growth Screening</h3><p>Plot weight- or height-for-age against quick WHO reference bands for children 0–60 months.</p><b>Open growth tool ↓</b></button>
+            <button class="resource-tool-card public-tool-card" type="button" data-public-tool="bmi"><span class="resource-card-icon">⚖</span><span class="resource-card-tag">Quick calculator</span><h3>BMI Calculator</h3><p>Calculate adult BMI with Asian and WHO cut-offs directly in your browser.</p><b>Calculate BMI ↓</b></button>
+            <button class="resource-tool-card public-tool-card" type="button" data-public-tool="sample"><span class="resource-card-icon">n=</span><span class="resource-card-tag">Research utility</span><h3>Sample Size</h3><p>Estimate a sample size for a single proportion with optional non-response adjustment.</p><b>Calculate sample size ↓</b></button>
+          </div>
+          <div class="public-tool-workspace">
+            <section class="public-tool-pane is-active" data-public-tool-pane="growth">
+              <div class="tool-form-heading"><div><span>WHO quick reference</span><h3>Child growth screening</h3></div><p>Approximate visual screening bands—not a full LMS z-score calculation.</p></div>
+              <form class="public-tool-form" id="growth-form">
+                <label>Measure<select id="growth-measure"><option value="weight">Weight-for-age</option><option value="height">Height/length-for-age</option></select></label>
+                <label>Sex<select id="growth-sex"><option value="boys">Boy</option><option value="girls">Girl</option></select></label>
+                <label>Age in months<input id="growth-age" type="number" min="0" max="60" step="1" inputmode="numeric" required /></label>
+                <label><span id="growth-value-label">Weight (kg)</span><input id="growth-value" type="number" min="0.1" step="0.1" inputmode="decimal" required /></label>
+                <button class="btn btn-primary" type="submit">Plot measurement</button>
+              </form>
+              <div class="tool-result" id="growth-result" aria-live="polite"><p>Enter the child’s measurement to view it against the reference band.</p></div>
+            </section>
+            <section class="public-tool-pane" data-public-tool-pane="bmi" hidden>
+              <div class="tool-form-heading"><div><span>Adults · 18 years and above</span><h3>BMI calculator</h3></div><p>Displays both Asian and WHO adult categories.</p></div>
+              <form class="public-tool-form" id="bmi-form">
+                <label>Weight (kg)<input id="bmi-weight" type="number" min="1" max="500" step="0.1" inputmode="decimal" required /></label>
+                <label>Height (cm)<input id="bmi-height" type="number" min="50" max="250" step="0.1" inputmode="decimal" required /></label>
+                <button class="btn btn-primary" type="submit">Calculate BMI</button>
+              </form>
+              <div class="tool-result" id="bmi-result" aria-live="polite"><p>Enter weight and height to calculate BMI.</p></div>
+            </section>
+            <section class="public-tool-pane" data-public-tool-pane="sample" hidden>
+              <div class="tool-form-heading"><div><span>Single proportion</span><h3>Sample-size calculator</h3></div><p>Uses n = Z² × p(1−p) ÷ d².</p></div>
+              <form class="public-tool-form" id="sample-form">
+                <label>Confidence level<select id="sample-confidence"><option value="1.645">90%</option><option value="1.96" selected>95%</option><option value="2.576">99%</option></select></label>
+                <label>Expected proportion (%)<input id="sample-proportion" type="number" min="1" max="99" step="0.1" value="50" inputmode="decimal" required /></label>
+                <label>Margin of error (%)<input id="sample-margin" type="number" min="0.1" max="50" step="0.1" value="5" inputmode="decimal" required /></label>
+                <label>Expected response rate (%)<input id="sample-response" type="number" min="1" max="100" step="1" value="100" inputmode="numeric" required /></label>
+                <button class="btn btn-primary" type="submit">Calculate sample size</button>
+              </form>
+              <div class="tool-result" id="sample-result" aria-live="polite"><p>Adjust the assumptions to estimate the required sample.</p></div>
+            </section>
           </div>
           <p class="resource-note">Clinical tools support—not replace—professional judgement. Verify results before clinical use.</p>
         </section>
@@ -121,6 +151,73 @@
       });
 
       activate(location.hash.slice(1), false);
+
+      const toolCards = [...document.querySelectorAll('[data-public-tool]')];
+      const toolPanes = [...document.querySelectorAll('[data-public-tool-pane]')];
+      toolCards.forEach((card) => card.addEventListener('click', () => {
+        const tool = card.dataset.publicTool;
+        toolCards.forEach((item) => item.classList.toggle('is-selected', item === card));
+        toolPanes.forEach((pane) => {
+          const active = pane.dataset.publicToolPane === tool;
+          pane.classList.toggle('is-active', active);
+          pane.hidden = !active;
+        });
+        document.querySelector(`[data-public-tool-pane="${tool}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }));
+
+      const interpolate = (rows, age) => {
+        const upperIndex = rows.findIndex((row) => row[0] >= age);
+        if (upperIndex <= 0) return rows[0].slice(1);
+        if (upperIndex === -1) return rows[rows.length - 1].slice(1);
+        const lower = rows[upperIndex - 1], upper = rows[upperIndex];
+        const ratio = (age - lower[0]) / (upper[0] - lower[0]);
+        return [1, 2, 3].map((i) => lower[i] + (upper[i] - lower[i]) * ratio);
+      };
+      const growthRefs = {
+        weight: {
+          boys: [[0,2.5,3.3,4.4],[6,6.4,7.9,9.7],[12,7.7,9.6,12],[18,8.8,10.9,13.7],[24,9.7,12.2,15.3],[30,10.5,13.3,16.9],[36,11.3,14.3,18.3],[42,12,15.3,19.7],[48,12.7,16.3,21.2],[54,13.4,17.3,22.7],[60,14.1,18.3,24.2]],
+          girls: [[0,2.4,3.2,4.2],[6,5.7,7.3,9.2],[12,7,8.9,11.5],[18,8.1,10.2,13.2],[24,9,11.5,14.8],[30,9.8,12.7,16.4],[36,10.6,13.9,18],[42,11.3,14.9,19.5],[48,12,15.9,21],[54,12.7,17,22.5],[60,13.4,18,24]]
+        },
+        height: {
+          boys: [[0,46.1,49.9,53.7],[6,63.3,67.6,71.9],[12,71,75.7,80.5],[18,76.9,82.3,87.7],[24,81.7,87.8,93.9],[30,85.5,91.9,98.3],[36,88.7,95.7,102.7],[42,91.9,99,106.2],[48,94.9,102.3,109.8],[54,97.4,105.3,113.2],[60,99.9,110,120]],
+          girls: [[0,45.4,49.1,52.9],[6,61.2,65.7,70.3],[12,68.9,74,79.2],[18,74.9,80.7,86.5],[24,80,86.4,92.9],[30,83.6,90.7,97.7],[36,87.4,95.1,102.7],[42,90.9,98.9,106.9],[48,94.1,102.7,111.3],[54,97.1,106.2,115.2],[60,99.9,109.4,118.9]]
+        }
+      };
+
+      document.querySelector('#growth-measure')?.addEventListener('change', (event) => {
+        document.querySelector('#growth-value-label').textContent = event.target.value === 'weight' ? 'Weight (kg)' : 'Height/length (cm)';
+      });
+      document.querySelector('#growth-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const measure = document.querySelector('#growth-measure').value;
+        const sex = document.querySelector('#growth-sex').value;
+        const age = Number(document.querySelector('#growth-age').value);
+        const value = Number(document.querySelector('#growth-value').value);
+        const [low, median, high] = interpolate(growthRefs[measure][sex], age);
+        const position = Math.max(0, Math.min(100, ((value - low) / (high - low)) * 100));
+        const category = value < low ? 'Below −2 SD reference' : value > high ? 'Above +2 SD reference' : 'Within the quick reference band';
+        const unit = measure === 'weight' ? 'kg' : 'cm';
+        document.querySelector('#growth-result').innerHTML = `<div class="result-number">${value.toFixed(1)} ${unit}</div><strong>${category}</strong><div class="growth-band"><span style="left:${position}%"></span></div><div class="growth-scale"><small>−2 SD ${low.toFixed(1)}</small><small>Median ${median.toFixed(1)}</small><small>+2 SD ${high.toFixed(1)}</small></div><p>Approximate interpolated WHO visual reference. Confirm with official LMS-based charts when clinical classification is required.</p>`;
+      });
+      document.querySelector('#bmi-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const weight = Number(document.querySelector('#bmi-weight').value);
+        const heightM = Number(document.querySelector('#bmi-height').value) / 100;
+        const bmi = weight / (heightM * heightM);
+        const asian = bmi < 18.5 ? 'Underweight' : bmi < 23 ? 'Normal range' : bmi < 25 ? 'Increased risk' : bmi < 30 ? 'Obese I' : 'Obese II';
+        const who = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal range' : bmi < 30 ? 'Overweight' : 'Obesity';
+        document.querySelector('#bmi-result').innerHTML = `<div class="result-number">${bmi.toFixed(1)} kg/m²</div><div class="result-split"><span><small>Asian cut-offs</small><strong>${asian}</strong></span><span><small>WHO cut-offs</small><strong>${who}</strong></span></div>`;
+      });
+      document.querySelector('#sample-form')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const z = Number(document.querySelector('#sample-confidence').value);
+        const p = Number(document.querySelector('#sample-proportion').value) / 100;
+        const d = Number(document.querySelector('#sample-margin').value) / 100;
+        const response = Number(document.querySelector('#sample-response').value) / 100;
+        const base = Math.ceil((z * z * p * (1 - p)) / (d * d));
+        const adjusted = Math.ceil(base / response);
+        document.querySelector('#sample-result').innerHTML = `<div class="result-number">${adjusted}</div><strong>Required participants</strong><p>Base estimate: ${base}${response < 1 ? ` · Adjusted for ${Math.round(response * 100)}% response rate` : ''}.</p>`;
+      });
     })();
   </script>
 </body></html>

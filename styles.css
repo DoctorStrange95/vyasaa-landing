@@ -2192,6 +2192,28 @@ body {
 .nfhs-metric-list span { padding: 10px 13px; border: 1px solid rgba(255,255,255,.13); border-radius: 10px; background: rgba(255,255,255,.08); color: #e4f2f3; font-size: .82rem; font-weight: 700; }
 .nfhs-support-grid { margin-top: 16px; }
 .nfhs-accent { min-height: 205px; background: linear-gradient(145deg, rgba(234,179,8,.08), #f8fbfc 65%); }
+.public-tool-card { width: 100%; text-align: left; cursor: pointer; font: inherit; }
+.public-tool-card.is-selected { border-color: #0d9488; box-shadow: 0 0 0 3px rgba(13,148,136,.12), 0 16px 34px rgba(37,72,93,.1); }
+.public-tool-workspace { margin-top: 18px; padding: clamp(20px, 4vw, 34px); border: 1px solid rgba(13,148,136,.24); border-radius: 20px; background: linear-gradient(145deg, rgba(13,148,136,.07), #fff 54%); }
+.public-tool-pane[hidden] { display: none; }
+.tool-form-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 22px; }
+.tool-form-heading span { color: #0d9488; font-size: .68rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.tool-form-heading h3 { margin: 5px 0 0; color: #163447; font-size: 1.55rem; }
+.tool-form-heading p { max-width: 390px; margin: 0; color: #70838e; font-size: .78rem; line-height: 1.5; text-align: right; }
+.public-tool-form { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; align-items: end; gap: 12px; }
+.public-tool-form label { display: grid; gap: 7px; color: #4d6472; font-size: .72rem; font-weight: 800; }
+.public-tool-form input, .public-tool-form select { width: 100%; height: 44px; padding: 0 11px; border: 1px solid rgba(15,47,65,.16); border-radius: 9px; background: #fff; color: #163447; font: 700 .9rem Figtree, sans-serif; }
+.public-tool-form .btn { min-height: 44px; border: 0; }
+.tool-result { margin-top: 18px; padding: 18px; border: 1px solid rgba(15,47,65,.09); border-radius: 14px; background: rgba(255,255,255,.85); color: #5d7381; }
+.tool-result p { margin: 6px 0 0; font-size: .8rem; line-height: 1.5; }
+.tool-result strong { color: #163447; }
+.result-number { color: #0d9488; font-size: 2rem; font-weight: 900; letter-spacing: -.04em; }
+.result-split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.result-split span { display: grid; gap: 4px; padding: 12px; border-radius: 10px; background: #f1f7f7; }
+.result-split small, .growth-scale small { color: #718590; font-size: .68rem; font-weight: 700; }
+.growth-band { position: relative; height: 15px; margin-top: 16px; border-radius: 999px; background: linear-gradient(90deg, #fca5a5 0 5%, #86efac 5% 95%, #fca5a5 95%); }
+.growth-band span { position: absolute; top: -5px; width: 4px; height: 25px; margin-left: -2px; border-radius: 2px; background: #163447; }
+.growth-scale { display: flex; justify-content: space-between; margin-top: 7px; }
 
 @media (max-width: 800px) {
   .resource-card-grid, .resource-card-grid-three, .nfhs-highlight { grid-template-columns: 1fr; }
@@ -2199,6 +2221,9 @@ body {
   .resource-tool-card { min-height: 0; }
   .resource-tabs { width: 100%; }
   .resource-tab { flex: 1 0 auto; justify-content: center; }
+  .public-tool-form { grid-template-columns: 1fr 1fr; }
+  .tool-form-heading { align-items: start; flex-direction: column; }
+  .tool-form-heading p { text-align: left; }
 }
 
 @media (max-width: 520px) {
@@ -2207,6 +2232,7 @@ body {
   .resource-tab { padding: 0 14px; }
   .resource-card-tag { position: static; display: block; margin-top: 14px; }
   .resource-tool-card h3 { margin-top: 12px; }
+  .public-tool-form, .result-split { grid-template-columns: 1fr; }
 }
 
 /* ── Motion system ───────────────────────────────────────── */

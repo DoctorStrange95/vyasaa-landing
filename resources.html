@@ -16,7 +16,7 @@
   <meta name="twitter:image" content="https://www.vyasaa.com/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726l" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" /><link rel="stylesheet" href="/styles.css?v=20260726m" />
 </head>
 <body class="service-page resource-page light-preview">
   <nav class="nav"><div class="nav-inner"><a href="/" class="logo" aria-label="Vyasa home"><img src="logo.svg" alt="Vyasa" class="logo-img" width="36" height="36" /><span class="logo-text">VYASA</span></a><div class="nav-actions"><a href="/doctors" class="btn btn-ghost nav-hide-sm">Find a Doctor</a><a href="/" class="btn btn-primary">Home</a></div></div></nav>
@@ -61,6 +61,7 @@
               <p class="tool-field-note" id="growth-muac-help">MUAC classification is shown only for ages 6–59 months. Measure the left mid-upper arm using an appropriate tape.</p>
               <div class="growth-legend" aria-label="Growth screening colour guide"><span class="status-green">Green · within screening range</span><span class="status-yellow">Yellow · needs review</span><span class="status-red">Red · abnormal / assess promptly</span><span class="status-blue">Blue · informational only</span></div>
               <div class="tool-result" id="growth-result" aria-live="polite"><p>Enter the child’s measurements to review age-reference bands, BMI, MUAC and oedema.</p></div>
+              <details class="tool-about"><summary>About growth screening and clinical sources</summary><div><p>Review weight-for-age, height-for-age, BMI, MUAC and bilateral pitting oedema for children up to five years. Colour-coded results explain possible underweight, chronic stunting and acute-malnutrition risk without replacing official WHO z-score assessment.</p><a href="https://www.who.int/tools/child-growth-standards" target="_blank" rel="noopener noreferrer">WHO Child Growth Standards ↗</a><a href="https://nhm.gov.in/index4.php?lang=1&amp;level=0&amp;lid=830&amp;linkid=526" target="_blank" rel="noopener noreferrer">India IMNCI guidance ↗</a></div></details>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="bmi" hidden>
               <div class="tool-form-heading"><div><span>Adults · 18 years and above</span><h3>BMI calculator</h3></div><p>Displays both Asian and WHO adult categories.</p></div>
@@ -72,6 +73,7 @@
                 <button class="btn btn-primary" type="submit">Calculate BMI</button>
               </form>
               <div class="tool-result" id="bmi-result" aria-live="polite"><p>Enter weight and height to calculate BMI.</p></div>
+              <details class="tool-about"><summary>About the adult BMI calculator</summary><div><p>Calculate body mass index from height and weight, then review WHO adult categories and Asian adult cut-offs. BMI is a screening measure and should be interpreted with age, body composition, pregnancy and clinical context.</p></div></details>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="sample" hidden>
               <div class="tool-form-heading"><div><span>Design-aware estimate</span><h3>Sample-size calculator</h3></div><p>Uses common two-sided normal approximations. Confirm assumptions with a statistician before protocol submission.</p></div>
@@ -86,6 +88,7 @@
                 <button class="btn btn-primary" type="submit">Calculate sample size</button>
               </form>
               <div class="tool-result" id="sample-result" aria-live="polite"><p>Adjust the assumptions to estimate the required sample.</p></div>
+              <details class="tool-about"><summary>About the medical research sample-size calculator</summary><div><p>Estimate participant numbers for cross-sectional, cohort, case-control and two-arm randomised controlled studies using design-specific assumptions, confidence, power and response-rate adjustment. Confirm the final design with a statistician before protocol submission.</p></div></details>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="iron" hidden>
               <div class="tool-form-heading"><div><span>Ganzoni formula</span><h3>Total iron-deficit calculator</h3></div><p>Estimates total body iron deficit; it does not select an iron product, route, infusion schedule or maximum single dose.</p></div>
@@ -97,6 +100,7 @@
                 <button class="btn btn-primary" type="submit">Estimate iron deficit</button>
               </form>
               <div class="tool-result" id="iron-result" aria-live="polite"><p>Enter weight and haemoglobin values to estimate total iron deficit.</p></div>
+              <details class="tool-about"><summary>About the Ganzoni iron-deficit calculator</summary><div><p>Estimate total body iron deficit from weight, current haemoglobin, target haemoglobin and planned iron stores. The estimate does not replace diagnosis, product-specific dosing limits or an administration plan.</p><a href="https://www.ncbi.nlm.nih.gov/books/NBK564172/table/pe.app5.tab4/" target="_blank" rel="noopener noreferrer">Ganzoni iron-deficit formula ↗</a></div></details>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="renal" hidden>
               <div class="tool-form-heading"><div><span>Adults · Cockcroft–Gault</span><h3>Creatinine-clearance calculator</h3></div><p>Provides an estimated CrCl in mL/min. Confirm which renal-function estimate and body weight are appropriate for the specific medicine.</p></div>
@@ -108,6 +112,7 @@
                 <button class="btn btn-primary" type="submit">Estimate CrCl</button>
               </form>
               <div class="tool-result" id="renal-result" aria-live="polite"><p>Enter stable adult measurements to estimate creatinine clearance.</p></div>
+              <details class="tool-about"><summary>About Cockcroft–Gault creatinine clearance</summary><div><p>Estimate adult creatinine clearance for clinical contexts that still specify Cockcroft–Gault, while recognising limitations related to body weight, muscle mass, unstable kidney function and current race-free eGFR guidance.</p><a href="https://www.kidney.org/professionals/kdoqi/cockcroft-gault-equation-estimating-creatinine-clearance" target="_blank" rel="noopener noreferrer">Kidney-function guidance ↗</a></div></details>
             </section>
             <section class="public-tool-pane" data-public-tool-pane="insulin" hidden>
               <div class="tool-form-heading"><div><span>Adults · rapid-acting insulin only</span><h3>Insulin correction-dose calculator</h3></div><p>Requires a patient-specific sensitivity factor and target prescribed by the treating diabetes team. Not for initiating insulin.</p></div>
@@ -126,60 +131,10 @@
                 <button class="btn btn-primary" type="submit">Calculate correction</button>
               </form>
               <div class="tool-result" id="insulin-result" aria-live="polite"><p>Enter the patient’s prescribed correction parameters. This tool never determines an initial insulin regimen.</p></div>
+              <details class="tool-about"><summary>About rapid-acting insulin correction</summary><div><p>Calculate an adult correction dose from current glucose, prescribed target and patient-specific insulin sensitivity factor, with active-insulin subtraction, conservative rounding, a protocol maximum and ketone safeguards.</p><a href="https://www.uclh.nhs.uk/patients-and-visitors/patient-information-pages/dealing-high-glucose-levels-abc-multiple-daily-injections" target="_blank" rel="noopener noreferrer">Insulin correction-factor guidance ↗</a></div></details>
             </section>
           </div>
-          <section class="clinical-tools-guide" aria-labelledby="clinical-tools-guide-title">
-            <div class="clinical-tools-guide-heading">
-              <p class="resource-kicker">A practical calculator library</p>
-              <h2 id="clinical-tools-guide-title">Everyday clinical tools for doctors</h2>
-              <p>Use these free, browser-based calculators during routine clinical, community-health and research work. No login is required, and values entered into the calculators are not transmitted or stored.</p>
-            </div>
-            <div class="clinical-guide-grid">
-              <article>
-                <span class="clinical-guide-number">01</span>
-                <h3>Adult BMI calculator</h3>
-                <p>Calculate body mass index from height and weight, then review both WHO adult categories and Asian adult cut-offs. BMI is a screening measure and should be interpreted with age, body composition, pregnancy and clinical context.</p>
-              </article>
-              <article>
-                <span class="clinical-guide-number">02</span>
-                <h3>Child growth and nutrition screening</h3>
-                <p>Review weight-for-age, height-for-age, BMI, MUAC and bilateral pitting oedema for children up to five years. Colour-coded results explain possible underweight, chronic stunting and acute-malnutrition risk without replacing official WHO z-score assessment.</p>
-              </article>
-              <article>
-                <span class="clinical-guide-number">03</span>
-                <h3>Medical research sample-size calculator</h3>
-                <p>Estimate participant numbers for cross-sectional, cohort, case-control and two-arm randomised controlled studies using design-specific assumptions, confidence, power and response-rate adjustment.</p>
-              </article>
-              <article>
-                <span class="clinical-guide-number">04</span>
-                <h3>Ganzoni iron-deficit calculator</h3>
-                <p>Estimate total body iron deficit from weight, current haemoglobin, target haemoglobin and planned iron stores. The estimate does not replace diagnosis, product-specific dosing limits or an administration plan.</p>
-              </article>
-              <article>
-                <span class="clinical-guide-number">05</span>
-                <h3>Cockcroft–Gault creatinine clearance</h3>
-                <p>Estimate adult creatinine clearance for clinical contexts that still specify Cockcroft–Gault, while recognising limitations related to body weight, muscle mass, unstable kidney function and current race-free eGFR guidance.</p>
-              </article>
-              <article>
-                <span class="clinical-guide-number">06</span>
-                <h3>Rapid-acting insulin correction calculator</h3>
-                <p>Calculate an adult correction dose from current glucose, prescribed target and patient-specific insulin sensitivity factor, with active-insulin subtraction, conservative rounding, a protocol maximum and ketone safeguards.</p>
-              </article>
-            </div>
-            <div class="clinical-library-roadmap">
-              <div>
-                <h3>A growing, organised clinical-tool library</h3>
-                <p>Future validated calculators will be grouped by clinical purpose—anthropometry and growth, nutrition, renal function, metabolic care and medical research—so doctors can find the right tool quickly. High-risk calculators will only be published with clear inputs, formula sources, limitations and appropriate safety checks.</p>
-              </div>
-              <div class="clinical-method-links" aria-label="Clinical calculator references">
-                <a href="https://www.who.int/tools/child-growth-standards" target="_blank" rel="noopener noreferrer">WHO Child Growth Standards ↗</a>
-                <a href="https://nhm.gov.in/index4.php?lang=1&amp;level=0&amp;lid=830&amp;linkid=526" target="_blank" rel="noopener noreferrer">India IMNCI guidance ↗</a>
-                <a href="https://www.ncbi.nlm.nih.gov/books/NBK564172/table/pe.app5.tab4/" target="_blank" rel="noopener noreferrer">Ganzoni iron-deficit formula ↗</a>
-                <a href="https://www.kidney.org/professionals/kdoqi/cockcroft-gault-equation-estimating-creatinine-clearance" target="_blank" rel="noopener noreferrer">Kidney-function guidance ↗</a>
-                <a href="https://www.uclh.nhs.uk/patients-and-visitors/patient-information-pages/dealing-high-glucose-levels-abc-multiple-daily-injections" target="_blank" rel="noopener noreferrer">Insulin correction-factor guidance ↗</a>
-              </div>
-            </div>
-          </section>
+          <div class="clinical-library-summary"><strong>Six free clinical calculators for doctors</strong><span>No login · Calculations run in your browser · Values are not transmitted or stored</span></div>
           <p class="resource-note">Clinical tools support—not replace—professional judgement. Verify results before clinical use.</p>
         </section>
 
